@@ -115,6 +115,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
+import net.byteseek.matcher.MatchResult;
 import org.apache.commons.lang.ArrayUtils;
 
 import net.byteseek.compiler.CompileException;
@@ -122,8 +123,7 @@ import net.byteseek.compiler.matcher.SequenceMatcherCompiler;
 import net.byteseek.io.reader.WindowReader;
 import net.byteseek.searcher.bytes.ByteMatcherSearcher;
 import net.byteseek.searcher.Searcher;
-import net.byteseek.searcher.SearchResult;
-import net.byteseek.searcher.sequence.horspool.HorspoolFinalFlagSearcher;
+import net.byteseek.searcher.sequence.SignedHorspoolSearcher;
 import net.byteseek.matcher.sequence.SequenceMatcher;
 
 import uk.gov.nationalarchives.droid.core.signature.ByteReader;
@@ -652,7 +652,7 @@ public class SubSequence extends SimpleElement {
             if (matcher.length() == 1) {
                 searcher = new ByteMatcherSearcher(matcher.getMatcherForPosition(0)); // use simplest byte matcher searcher if the matcher is length 1.
             } else {
-                searcher = new HorspoolFinalFlagSearcher(matcher); // use shifting searcher if shifts can be bigger than one.
+                searcher = new SignedHorspoolSearcher(matcher); // use shifting searcher if shifts can be bigger than one.
             }
             // CHECKSTYLE:ON
         } catch (CompileException ex) {
@@ -893,7 +893,7 @@ public class SubSequence extends SimpleElement {
                         matchPosition = matcher.matches(windowReader, matchPosition)?
                                 matchPosition : -1;
                     } else {
-                        final List<SearchResult<SequenceMatcher>> matches =
+                        final List<MatchResult> matches =
                                 searcher.searchBackwards(windowReader, matchPosition, endSearchWindow);
                         matchPosition = matches.size() > 0?
                                 matches.get(0).getMatchPosition() : -1;
@@ -1013,7 +1013,7 @@ public class SubSequence extends SimpleElement {
                         matchPosition = matcher.matches(windowReader, matchStarterPosition)?
                                 matchStarterPosition + matchLength - 1 : -1;
                     } else {
-                        final List<SearchResult<SequenceMatcher>> matches =
+                        final List<MatchResult> matches =
                                 searcher.searchForwards(windowReader, matchStarterPosition, matchEndingPosition);
                         matchPosition = matches.size() > 0?
                                 matches.get(0).getMatchPosition() + matchLength - 1 : -1;

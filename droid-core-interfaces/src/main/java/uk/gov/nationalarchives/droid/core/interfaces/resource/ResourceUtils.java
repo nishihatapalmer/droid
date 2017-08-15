@@ -41,7 +41,7 @@ import java.io.RandomAccessFile;
 
 import org.apache.commons.io.FilenameUtils;
 
-import net.byteseek.io.reader.cache.DoubleCache;
+import net.byteseek.io.reader.cache.WriteThroughCache;
 import net.byteseek.io.reader.cache.LeastRecentlyUsedCache;
 import net.byteseek.io.reader.cache.TempFileCache;
 import net.byteseek.io.reader.cache.TopAndTailStreamCache;
@@ -122,7 +122,7 @@ public final class ResourceUtils {
         } else {
             final WindowCache memoryCache = new LeastRecentlyUsedCache(1024);
             final TempFileCache persistentCache = new TempFileCache(tempDir);
-            cache = DoubleCache.create(memoryCache, persistentCache);
+            cache = new WriteThroughCache(memoryCache, persistentCache);
             reader = new InputStreamReader(in, cache);
             reader.setSoftWindowRecovery(persistentCache);
         }
@@ -155,7 +155,7 @@ public final class ResourceUtils {
         } else {
             final WindowCache memoryCache = new LeastRecentlyUsedCache(1024);
             final TempFileCache persistentCache = new TempFileCache(tempDir);
-            cache = DoubleCache.create(memoryCache, persistentCache);
+            cache = new WriteThroughCache(memoryCache, persistentCache);
             reader = new InputStreamReader(in, cache, closeStream);
             reader.setSoftWindowRecovery(persistentCache);
         }
