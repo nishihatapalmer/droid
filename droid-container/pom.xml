@@ -64,12 +64,6 @@
                 <artifactId>droid-core</artifactId>
                 <version>${project.version}</version>
         </dependency>
-        <!--
-            <dependency>
-                <groupId>com.google.code.byteseek</groupId>
-                <artifactId>byteseek</artifactId>
-            </dependency>
-            -->
             <dependency>
                 <groupId>commons-configuration</groupId>
                 <artifactId>commons-configuration</artifactId>

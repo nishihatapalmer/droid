@@ -134,12 +134,6 @@
             <groupId>com.github.beothorn</groupId>
             <artifactId>junrar</artifactId>
         </dependency>
-        <!--
-        <dependency>
-            <groupId>com.google.code.byteseek</groupId>
-            <artifactId>byteseek</artifactId>
-        </dependency>
-        -->
         <dependency>
             <groupId>net.byteseek</groupId>
             <artifactId>byteseek</artifactId>
