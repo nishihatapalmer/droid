@@ -134,8 +134,8 @@ import uk.gov.nationalarchives.droid.core.signature.xml.SimpleElement;
  *
  * It must include at least one unambiguous sequence of
  * bytes or sets of bytes, which can be searched for using
- * the BoyerMooreHorpsool (BMH) algorithm.  This is known as the
- * "anchor" sequence.  
+ * an online sequence search algorithm, such as BoyerMooreHorspool, or ShiftOR.
+ * This is known as the "anchor" sequence.
  *
  * <p/>If necessary, it can include Left and 
  * Right Fragments, which are parts of the extended string of
@@ -808,15 +808,10 @@ public class SubSequence extends SimpleElement {
         return getClass().getSimpleName() + '[' + toRegularExpression(true) + ']';
     }
 
-    /** Uses the Boyer-Moore-Horspool search algorithm to find a sequence within a window
-     * on a file.
+    /** Uses a fast search algorithm to find a sequence within a window on a file.
      *
      * The search proceeds by trying to find an "anchor" sequence of bytes
-     * in the file, using the Boyer-Moore-Horspool algorithm, which permits it
-     * to skip over bytes if they can't possibly match the anchor sequence.
-     * It scans from the opposite end of the sequence to the search direction.
-     * This means it doesn't have to check every single byte in the search window.
-     * In general, the longer the anchor sequence, the more bytes we can skip.
+     * in the file, using a fast online search algorithm.
      * When it finds an anchor sequence, it checks any left or right
      * fragments that may surround it, to verify the match.
      *

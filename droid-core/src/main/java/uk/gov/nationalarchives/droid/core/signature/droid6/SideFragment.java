@@ -101,7 +101,7 @@ import uk.gov.nationalarchives.droid.core.signature.xml.SimpleElement;
 
 /**
  * A SideFragment is any fragment of a subsequence which
- * cannot be searched for using the BoyerHooreHorspool 
+ * cannot be searched for using the search
  * algorithm.  Typically, this means parts of the subsequence
  * with gaps {n-m}, and alternatives (A|B|C).
  * 

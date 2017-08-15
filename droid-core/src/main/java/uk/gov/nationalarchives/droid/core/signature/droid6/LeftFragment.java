@@ -61,7 +61,7 @@ package uk.gov.nationalarchives.droid.core.signature.droid6;
 /**
  * A left fragment is all the parts of a byte sequence to
  * the left of an anchoring subsequence.  These parts cannot
- * be searched for using the fast BoyerMooreHorspool algorithm
+ * be searched for using the fast search algorithm
  * so their existence is checked for once an anchoring sequence 
  * has been found.
  * 
