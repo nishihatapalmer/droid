@@ -878,13 +878,10 @@ public class SubSequence extends SimpleElement {
                         matchPosition = matcher.matches(windowReader, matchPosition)?
                                 matchPosition : -1;
                     } else {
-                        final List<MatchResult> matches =
-                                searcher.searchBackwards(windowReader, matchPosition, endSearchWindow);
-                        matchPosition = matches.size() > 0?
-                                matches.get(0).getMatchPosition() : -1;
+                        matchPosition = searcher.searchSequenceBackwards(windowReader, matchPosition, endSearchWindow);
                     }
 
-                    if (matchPosition != -1) {
+                    if (matchPosition >= 0) {
                         boolean matchFound = true;
                         // Check that any right fragments, behind our sequence, match.
                         if (hasRightFragments) {
@@ -998,13 +995,10 @@ public class SubSequence extends SimpleElement {
                         matchPosition = matcher.matches(windowReader, matchStarterPosition)?
                                 matchStarterPosition + matchLength - 1 : -1;
                     } else {
-                        final List<MatchResult> matches =
-                                searcher.searchForwards(windowReader, matchStarterPosition, matchEndingPosition);
-                        matchPosition = matches.size() > 0?
-                                matches.get(0).getMatchPosition() + matchLength - 1 : -1;
+                        matchPosition = searcher.searchSequenceForwards(windowReader, matchStarterPosition, matchEndingPosition);
                     }
 
-                    if (matchPosition != -1) {
+                    if (matchPosition >= 0) {
                         boolean matchFound = true;
                         if (hasLeftFragments) { // Check that any left fragments, behind our sequence match:
 
