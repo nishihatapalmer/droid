@@ -116,14 +116,12 @@ import java.util.List;
 import java.util.Stack;
 
 import net.byteseek.matcher.MatchResult;
+import net.byteseek.searcher.sequence.*;
 import org.apache.commons.lang.ArrayUtils;
 
 import net.byteseek.compiler.CompileException;
 import net.byteseek.compiler.matcher.SequenceMatcherCompiler;
 import net.byteseek.io.reader.WindowReader;
-import net.byteseek.searcher.bytes.ByteMatcherSearcher;
-import net.byteseek.searcher.Searcher;
-import net.byteseek.searcher.sequence.SignedHorspoolSearcher;
 import net.byteseek.matcher.sequence.SequenceMatcher;
 
 import uk.gov.nationalarchives.droid.core.signature.ByteReader;
@@ -173,7 +171,7 @@ public class SubSequence extends SimpleElement {
     private List<LeftFragment> leftFragments = new ArrayList<LeftFragment>();
     private List<RightFragment> rightFragments = new ArrayList<RightFragment>();
     private SequenceMatcher matcher;
-    private Searcher searcher;
+    private SequenceSearcher searcher;
     private final List<List<SideFragment>> orderedLeftFragments = new ArrayList<List<SideFragment>>();
     private final List<List<SideFragment>> orderedRightFragments = new ArrayList<List<SideFragment>>();
     private boolean backwardsSearch;
@@ -647,14 +645,8 @@ public class SubSequence extends SimpleElement {
 
     private void buildMatcherAndSearcher() {
         try {
-            // CHECKSTYLE:OFF     Quite legitimate to have more than 120 chars per line just now...
             matcher = SEQUENCE_COMPILER.compile(subsequenceText);
-            if (matcher.length() == 1) {
-                searcher = new ByteMatcherSearcher(matcher.getMatcherForPosition(0)); // use simplest byte matcher searcher if the matcher is length 1.
-            } else {
-                searcher = new SignedHorspoolSearcher(matcher); // use shifting searcher if shifts can be bigger than one.
-            }
-            // CHECKSTYLE:ON
+            searcher = SequenceSearcherFactory.DEFAULT_FACTORY.create(matcher);
         } catch (CompileException ex) {
             final String warning = String.format(SEQUENCE_PARSE_ERROR, subsequenceText, ex.getMessage());
             getLog().warn(warning);
