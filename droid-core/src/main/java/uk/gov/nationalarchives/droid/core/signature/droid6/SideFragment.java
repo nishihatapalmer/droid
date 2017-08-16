@@ -121,8 +121,6 @@ public class SideFragment extends SimpleElement implements Cloneable {
     private static final String FRAGMENT_PARSE_ERROR = "The signature fragment [%s] could not be parsed. "
         + "The error returned was [%s]";
 
-    private static final SequenceMatcherCompiler EXPRESSION_COMPILER = new SequenceMatcherCompiler();
-
     private int myPosition;
     private int myMinOffset;
     private int myMaxOffset;
@@ -181,7 +179,7 @@ public class SideFragment extends SimpleElement implements Cloneable {
     public final void setFragment(final String expression) {
         try {
             final String transformed = FragmentRewriter.rewriteFragment(expression);
-            matcher = EXPRESSION_COMPILER.compile(transformed);
+            matcher = SequenceMatcherCompiler.compileFrom(transformed);
             searcher = SequenceSearcherFactory.DEFAULT_FACTORY.create(matcher);
             /*
             if (matcher.length() == 1) {

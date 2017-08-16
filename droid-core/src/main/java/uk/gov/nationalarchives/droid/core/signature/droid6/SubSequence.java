@@ -154,8 +154,6 @@ public class SubSequence extends SimpleElement {
     private static final String SEQUENCE_PARSE_ERROR = "The signature sub-sequence [%s] could not be parsed. "
             + "The error returned was [%s]";
 
-    private static final SequenceMatcherCompiler SEQUENCE_COMPILER = new SequenceMatcherCompiler();
-
     private static final boolean EXPRESSION_BEFORE_GAPS = true;
     private static final boolean GAPS_BEFORE_EXPRESSION = false;
 
@@ -645,7 +643,7 @@ public class SubSequence extends SimpleElement {
 
     private void buildMatcherAndSearcher() {
         try {
-            matcher = SEQUENCE_COMPILER.compile(subsequenceText);
+            matcher  = SequenceMatcherCompiler.compileFrom(subsequenceText);
             searcher = SequenceSearcherFactory.DEFAULT_FACTORY.create(matcher);
         } catch (CompileException ex) {
             final String warning = String.format(SEQUENCE_PARSE_ERROR, subsequenceText, ex.getMessage());
