@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import net.byteseek.io.reader.InputStreamReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -61,7 +62,7 @@ public class TarEntryIdentificationRequest implements IdentificationRequest<Inpu
 
     private File tempDir;
     private Long size;
-    private WindowReader reader;
+    private InputStreamReader reader;
 
     private Log log = LogFactory.getLog(this.getClass());
     
@@ -89,7 +90,7 @@ public class TarEntryIdentificationRequest implements IdentificationRequest<Inpu
     public final void open(InputStream in) throws IOException {
         reader = ResourceUtils.getStreamReader(in, tempDir, TOP_TAIL_CAPACITY, false);
         // Force read of entire input stream to build reader and remove dependence on source input stream.
-        final long readSize = reader.length(); // getting the size of a reader backed by a stream forces a stream read.
+        final long readSize = reader.readEntireStream(); // getting the size of a reader backed by a stream forces a stream read.
         if (readSize != size) {
             String resourceIdentifier = "";
             if (getIdentifier() != null && getIdentifier().getUri() != null) {

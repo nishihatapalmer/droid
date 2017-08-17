@@ -37,6 +37,7 @@ import java.io.InputStream;
 
 //BNO-BS2 - replace this import with AbstractReader or WindowReader
 //in package net.byteseek.io.reader
+import net.byteseek.io.reader.InputStreamReader;
 import net.byteseek.io.reader.ReaderInputStream;
 import net.byteseek.io.reader.WindowReader;
 
@@ -63,7 +64,7 @@ public class BZipIdentificationRequest implements IdentificationRequest<InputStr
     private File tempDir;
     private RequestMetaData requestMetaData;
     private final RequestIdentifier identifier;
-    private WindowReader reader;
+    private InputStreamReader reader;
 
     private Log log = LogFactory.getLog(this.getClass());
 
@@ -91,7 +92,7 @@ public class BZipIdentificationRequest implements IdentificationRequest<InputStr
     public final void open(InputStream in) throws IOException {
         reader = ResourceUtils.getStreamReader(in, tempDir, TOP_TAIL_CAPACITY);
         // Force read of entire input stream to build reader and remove dependence on source input stream.
-        size = reader.length(); // getting the size of a reader backed by a stream forces a stream read.
+        size = reader.readEntireStream();
     }
 
     /**

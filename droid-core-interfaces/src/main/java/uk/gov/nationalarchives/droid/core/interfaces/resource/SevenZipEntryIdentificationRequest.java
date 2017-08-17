@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import net.byteseek.io.reader.InputStreamReader;
 import net.byteseek.io.reader.ReaderInputStream;
 import net.byteseek.io.reader.WindowReader;
 
@@ -59,7 +60,7 @@ public class SevenZipEntryIdentificationRequest implements IdentificationRequest
     private long size;
     private Log log = LogFactory.getLog(this.getClass());
 
-    private WindowReader reader;
+    private InputStreamReader reader;
     private final RequestIdentifier identifier;
     private RequestMetaData requestMetaData;
     private final String extension;
@@ -129,7 +130,7 @@ public class SevenZipEntryIdentificationRequest implements IdentificationRequest
      */
     public final void open(final InputStream in) throws IOException {
         reader = ResourceUtils.getStreamReader(in, tempDir, TOP_TAIL_CAPACITY, true);
-        reader.length();
+        reader.readEntireStream();
     }
 
     @Override

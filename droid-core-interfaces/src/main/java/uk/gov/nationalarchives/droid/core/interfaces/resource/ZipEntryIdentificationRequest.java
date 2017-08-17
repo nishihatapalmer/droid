@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import net.byteseek.io.reader.InputStreamReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -60,7 +61,7 @@ public class ZipEntryIdentificationRequest implements IdentificationRequest<Inpu
 
     private File tempDir;
     private Long size;
-    private WindowReader reader;
+    private InputStreamReader reader;
 
     private boolean closeStream = true;
 
@@ -104,7 +105,7 @@ public class ZipEntryIdentificationRequest implements IdentificationRequest<Inpu
     public final void open(final InputStream in) throws IOException {
         reader = ResourceUtils.getStreamReader(in, tempDir, TOP_TAIL_CAPACITY, closeStream);
         // Force read of entire input stream to build reader and remove dependence on source input stream.
-        final long readSize = reader.length(); // getting the size of a reader backed by a stream forces a stream read.
+        final long readSize = reader.readEntireStream();
         if (readSize != size) {
             //Sometimes ZipEntry don't contain information about length,crc, ....
             //For more details : "ZipArchiveInputStream vs ZipFile" apache commons-compress documentation.

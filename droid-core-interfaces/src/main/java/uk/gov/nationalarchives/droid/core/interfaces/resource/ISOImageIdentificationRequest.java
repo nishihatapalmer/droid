@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import net.byteseek.io.reader.InputStreamReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -60,7 +61,7 @@ public class ISOImageIdentificationRequest implements IdentificationRequest<Inpu
     private final File tempDir;
     private final long size;
 
-    private WindowReader reader;
+    private InputStreamReader reader;
 
 
     /**
@@ -88,7 +89,7 @@ public class ISOImageIdentificationRequest implements IdentificationRequest<Inpu
     public void open(InputStream in) throws IOException {
         reader = ResourceUtils.getStreamReader(in, tempDir, TOP_TAIL_CAPACITY, true);
         // Force read of entire input stream to build reader and remove dependence on source input stream.
-        final long readSize = reader.length(); // getting the size of a reader backed by a stream forces a stream read.
+        final long readSize = reader.readEntireStream();
         if (size != readSize) {
             //Possible to change log level im future as we did in ZIP.
             log.warn("Rar element metadata size is not same as read size : " + readSize);

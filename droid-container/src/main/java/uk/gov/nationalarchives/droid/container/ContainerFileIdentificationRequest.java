@@ -35,6 +35,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import net.byteseek.io.reader.InputStreamReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
@@ -57,7 +58,7 @@ public class ContainerFileIdentificationRequest implements IdentificationRequest
     private long size;
     private File tempDir;
     private Log log = LogFactory.getLog(this.getClass());
-    private WindowReader reader;
+    private InputStreamReader reader;
 
     /**
      * Constructs a new container file resource.
@@ -74,7 +75,7 @@ public class ContainerFileIdentificationRequest implements IdentificationRequest
     public final void open(final InputStream in) throws IOException {
         reader = ResourceUtils.getStreamReader(in, tempDir, TOP_TAIL_CAPACITY);
         // Force read of entire input stream to build reader and remove dependence on source input stream.
-        size = reader.length(); // getting the size of a reader backed by a stream forces a stream read.
+        size = reader.readEntireStream();
     }
     
     /**
