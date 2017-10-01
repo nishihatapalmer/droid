@@ -647,7 +647,6 @@ public class SubSequence extends SimpleElement {
         try {
             matcher  = SequenceMatcherCompiler.compileFrom(subsequenceText);
             searcher = SequenceSearcherFactory.SELECT_BY_LENGTH.create(matcher);
-            //searcher = new SignedHorspoolSearcher(matcher);
         } catch (CompileException ex) {
             final String warning = String.format(SEQUENCE_PARSE_ERROR, subsequenceText, ex.getMessage());
             getLog().warn(warning);
