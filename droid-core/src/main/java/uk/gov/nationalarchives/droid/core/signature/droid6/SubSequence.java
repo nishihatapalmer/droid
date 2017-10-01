@@ -115,7 +115,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-import net.byteseek.searcher.sequence.*;
+import net.byteseek.matcher.MatchResult;
+import net.byteseek.searcher.sequence.SequenceSearcher;
+import net.byteseek.searcher.sequence.SignedHorspoolSearcher;
 import net.byteseek.searcher.sequence.factory.SequenceSearcherFactory;
 import org.apache.commons.lang.ArrayUtils;
 
@@ -123,8 +125,6 @@ import net.byteseek.compiler.CompileException;
 import net.byteseek.compiler.matcher.SequenceMatcherCompiler;
 import net.byteseek.io.reader.WindowReader;
 import net.byteseek.matcher.sequence.SequenceMatcher;
-import net.byteseek.searcher.sequence.factory.SequenceSearcherFactory;
-
 
 import uk.gov.nationalarchives.droid.core.signature.ByteReader;
 import uk.gov.nationalarchives.droid.core.signature.xml.SimpleElement;
@@ -647,6 +647,7 @@ public class SubSequence extends SimpleElement {
         try {
             matcher  = SequenceMatcherCompiler.compileFrom(subsequenceText);
             searcher = SequenceSearcherFactory.SELECT_BY_LENGTH.create(matcher);
+            //searcher = new SignedHorspoolSearcher(matcher);
         } catch (CompileException ex) {
             final String warning = String.format(SEQUENCE_PARSE_ERROR, subsequenceText, ex.getMessage());
             getLog().warn(warning);
@@ -877,14 +878,17 @@ public class SubSequence extends SimpleElement {
                 while (matchPosition >= endSearchWindow) {
 
                     if (matchPosition == endSearchWindow) {
-                        matchPosition = matcher.matches(windowReader, matchPosition)?
-                                matchPosition : -1;
+                        matchPosition = matcher.matches(windowReader, matchPosition)? matchPosition : -1;
                     } else {
-                        matchPosition = searcher.searchSequenceBackwards(windowReader, matchPosition, endSearchWindow);
-                        matchPosition = matchPosition < 0? -1 : matchPosition;
+                        //matchPosition = searcher.searchSequenceBackwards(windowReader, matchPosition, endSearchWindow);
+                        final List<MatchResult> matches =
+                                searcher.searchBackwards(windowReader, matchPosition, endSearchWindow);
+                        matchPosition = matches.size() > 0?
+                                matches.get(0).getMatchPosition() : -1;
+
                     }
 
-                    if (matchPosition != -1) {
+                    if (matchPosition >= 0) {
                         boolean matchFound = true;
                         // Check that any right fragments, behind our sequence, match.
                         if (hasRightFragments) {
@@ -995,10 +999,12 @@ public class SubSequence extends SimpleElement {
                     final long matchStarterPosition = matchPosition - matchLength + 1;
                     final long matchEndingPosition  = endSearchWindow - matchLength + 1;
                     if (matchStarterPosition == matchEndingPosition) {
-                        matchPosition = matcher.matches(windowReader, matchStarterPosition)?
-                                matchStarterPosition + matchLength - 1 : -1;
+                        matchPosition = matcher.matches(windowReader, matchStarterPosition)? matchStarterPosition + matchLength - 1 : -1;
                     } else {
                         matchPosition = searcher.searchSequenceForwards(windowReader, matchStarterPosition, matchEndingPosition);
+                        if (matchPosition >= 0) {
+                            matchPosition += matchLength - 1;
+                        }
                     }
 
                     if (matchPosition >= 0) {
