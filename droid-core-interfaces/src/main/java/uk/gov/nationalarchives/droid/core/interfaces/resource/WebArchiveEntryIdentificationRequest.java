@@ -108,16 +108,16 @@ public class WebArchiveEntryIdentificationRequest implements IdentificationReque
      * temporary files hanging around.
      * {@inheritDoc}
      */
-    @Override
+    //@Override
     //CHECKSTYLE:OFF
-    public void finalize() throws Throwable {
+    //public void finalize() throws Throwable {
     //CHECKSTYLE:ON
-        try {
-            close();
-        } finally {
-            super.finalize();
-        }
-    }   
+    //    try {
+     //       close();
+    //    } finally {
+    //        super.finalize();
+     //   }
+    //}
 
 
     /**
