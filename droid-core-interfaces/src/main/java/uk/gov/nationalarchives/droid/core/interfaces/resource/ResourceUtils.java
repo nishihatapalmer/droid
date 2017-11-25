@@ -117,12 +117,18 @@ public final class ResourceUtils {
         if (Runtime.getRuntime().freeMemory() > FREE_MEMORY_THRESHOLD) {
             cache = TwoLevelCache.create(
                     new TopAndTailStreamCache(topTailCapacity),
-                    new TempFileCache(tempDir));
+                    new TempFileCache(tempDir)); //TODO: may not need this if reading can be done in one pass (middle section never needed again).
+            // TODO: e.g. do hash if required when reading stream for first time, and discard middle section rather than write out to temp file.
+            //TODO:  two situations: when DROID is only scanning a top and tail (e.g. 64k), or when
+            //       it is configured to scan entire file.  In latter case, have to write to temp file.
+            //       in case where we can hold entire top and tail in memory, don't need tempfile cache.
+            //       In former case (assuming we have taken care of hashing), we can discard entries
+            //       which fall off the tail, because they won't be needed again.
             reader = new InputStreamReader(in, cache);
         } else {
-            final WindowCache memoryCache = new LeastRecentlyUsedCache(1024);
+            //TODO: LRU capacity should align with top tail buffers if possible?
             final TempFileCache persistentCache = new TempFileCache(tempDir);
-            cache = new WriteThroughCache(memoryCache, persistentCache);
+            cache = new WriteThroughCache(new LeastRecentlyUsedCache(1024), persistentCache);
             reader = new InputStreamReader(in, cache);
             reader.setSoftWindowRecovery(persistentCache);
         }
