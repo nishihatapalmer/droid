@@ -50,6 +50,7 @@ import uk.gov.nationalarchives.droid.core.interfaces.RequestIdentifier;
  */
 public class FileSystemIdentificationRequest implements IdentificationRequest<File> {
 
+    //TODO: buffering 8Mb for each file is useless if we're only doing 64K top and tails...
     private static final int TOP_TAIL_BUFFER_CAPACITY = 8 * 1024 * 1024; // buffer 8Mb on the top and tail of files.
 
     private final String extension;
@@ -82,9 +83,11 @@ public class FileSystemIdentificationRequest implements IdentificationRequest<Fi
         // cached file bytes in low memory conditions.
         final WindowCache cache = new TopAndTailFixedLengthCache(theFile.length(), TOP_TAIL_BUFFER_CAPACITY);
         fileReader = new FileReader(theFile, cache);
+        //TODO: always use soft windows?  safe option for low memory issues, not most adaptable though.
         ((FileReader) fileReader).useSoftWindows(true);
         this.file = theFile;
         fileReader.getWindow(0); // force read of first block to generate any IO exceptions.
+        //TODO: what about zero length files?
     }
 
     /**
