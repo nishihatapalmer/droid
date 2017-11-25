@@ -63,7 +63,6 @@ public class ISOImageIdentificationRequest implements IdentificationRequest<Inpu
 
     private InputStreamReader reader;
 
-
     /**
      * Create new identification request instance.
      * @param requestMetaData a
@@ -75,14 +74,11 @@ public class ISOImageIdentificationRequest implements IdentificationRequest<Inpu
         this.extension = ResourceUtils.getExtension(fileName);
         this.requestMetaData = requestMetaData;
         this.identifier = identifier;
-        this.requestMetaData.getSize();
         this.tempDir = tempDir;
         this.size = requestMetaData.getSize();
-
         if (size < 0) {
             throw new IllegalArgumentException("Size can't be bellow zero.");
         }
-
     }
 
     @Override
