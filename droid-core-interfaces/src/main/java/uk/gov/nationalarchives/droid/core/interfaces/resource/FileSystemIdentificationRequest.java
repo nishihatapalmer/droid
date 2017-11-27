@@ -38,8 +38,10 @@ import java.io.InputStream;
 import net.byteseek.io.reader.ReaderInputStream;
 import net.byteseek.io.reader.WindowReader;
 import net.byteseek.io.reader.FileReader;
+
 import net.byteseek.io.reader.cache.TopAndTailFixedLengthCache;
 import net.byteseek.io.reader.cache.WindowCache;
+
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationRequest;
 import uk.gov.nationalarchives.droid.core.interfaces.RequestIdentifier;
 

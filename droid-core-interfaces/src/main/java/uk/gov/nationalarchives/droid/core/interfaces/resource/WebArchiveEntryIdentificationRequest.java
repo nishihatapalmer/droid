@@ -35,10 +35,10 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
-import net.byteseek.io.reader.InputStreamReader;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
+import net.byteseek.io.reader.InputStreamReader;
 import net.byteseek.io.reader.WindowReader;
 import net.byteseek.io.reader.ReaderInputStream;
 

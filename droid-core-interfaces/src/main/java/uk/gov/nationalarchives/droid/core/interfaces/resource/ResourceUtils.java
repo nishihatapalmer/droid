@@ -61,6 +61,8 @@ public final class ResourceUtils {
      */
     public static final double FREE_MEMORY_THRESHOLD = 64 * 1024 * 1024; // 64 Mb of free memory must be available.
 
+    private static final int DEFAULT_BUFFER_SIZE = 1024;
+    
     private static final int BUFFER_SIZE = 8192;
     
     private static final int NINENTYEIGHT = 98;
@@ -128,7 +130,7 @@ public final class ResourceUtils {
         } else {
             //TODO: LRU capacity should align with top tail buffers if possible?
             final TempFileCache persistentCache = new TempFileCache(tempDir);
-            cache = new WriteThroughCache(new LeastRecentlyUsedCache(1024), persistentCache);
+            cache = new WriteThroughCache(new LeastRecentlyUsedCache(DEFAULT_BUFFER_SIZE), persistentCache);
             reader = new InputStreamReader(in, cache);
             reader.setSoftWindowRecovery(persistentCache);
         }
@@ -159,7 +161,7 @@ public final class ResourceUtils {
                     new TempFileCache(tempDir));
             reader = new InputStreamReader(in, cache, closeStream);
         } else {
-            final WindowCache memoryCache = new LeastRecentlyUsedCache(1024);
+            final WindowCache memoryCache = new LeastRecentlyUsedCache(DEFAULT_BUFFER_SIZE);
             final TempFileCache persistentCache = new TempFileCache(tempDir);
             cache = new WriteThroughCache(memoryCache, persistentCache);
             reader = new InputStreamReader(in, cache, closeStream);

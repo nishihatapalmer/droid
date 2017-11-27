@@ -115,16 +115,18 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Stack;
 
-import net.byteseek.matcher.MatchResult;
-import net.byteseek.searcher.sequence.SequenceSearcher;
-import net.byteseek.searcher.sequence.SignedHorspoolSearcher;
-import net.byteseek.searcher.sequence.factory.SequenceSearcherFactory;
 import org.apache.commons.lang.ArrayUtils;
 
 import net.byteseek.compiler.CompileException;
 import net.byteseek.compiler.matcher.SequenceMatcherCompiler;
+
 import net.byteseek.io.reader.WindowReader;
+
+import net.byteseek.matcher.MatchResult;
 import net.byteseek.matcher.sequence.SequenceMatcher;
+
+import net.byteseek.searcher.sequence.SequenceSearcher;
+import net.byteseek.searcher.sequence.factory.SequenceSearcherFactory;
 
 import uk.gov.nationalarchives.droid.core.signature.ByteReader;
 import uk.gov.nationalarchives.droid.core.signature.xml.SimpleElement;
