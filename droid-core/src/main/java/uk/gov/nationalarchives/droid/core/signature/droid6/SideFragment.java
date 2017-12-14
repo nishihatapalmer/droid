@@ -94,7 +94,7 @@ import net.byteseek.io.reader.WindowReader;
 import net.byteseek.matcher.MatchResult;
 import net.byteseek.matcher.sequence.SequenceMatcher;
 import net.byteseek.searcher.sequence.SequenceSearcher;
-import net.byteseek.searcher.sequence.factory.SequenceSearcherFactory;
+import net.byteseek.searcher.sequence.factory.SelectByLengthFactory;
 import uk.gov.nationalarchives.droid.core.signature.xml.SimpleElement;
 
 
@@ -180,7 +180,7 @@ public class SideFragment extends SimpleElement implements Cloneable {
         try {
             final String transformed = FragmentRewriter.rewriteFragment(expression);
             matcher = SequenceMatcherCompiler.compileFrom(transformed);
-            searcher = SequenceSearcherFactory.SELECT_BY_LENGTH.create(matcher);
+            searcher = SelectByLengthFactory.SHIFTOR_THEN_SIGNEDHASH.create(matcher);
         } catch (CompileException ex) {
             final String warning = String.format(FRAGMENT_PARSE_ERROR, expression, ex.getMessage());
             isInvalidFragment = true;

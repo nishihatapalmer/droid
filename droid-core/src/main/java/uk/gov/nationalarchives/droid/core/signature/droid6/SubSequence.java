@@ -126,7 +126,7 @@ import net.byteseek.matcher.MatchResult;
 import net.byteseek.matcher.sequence.SequenceMatcher;
 
 import net.byteseek.searcher.sequence.SequenceSearcher;
-import net.byteseek.searcher.sequence.factory.SequenceSearcherFactory;
+import net.byteseek.searcher.sequence.factory.SelectByLengthFactory;
 
 import uk.gov.nationalarchives.droid.core.signature.ByteReader;
 import uk.gov.nationalarchives.droid.core.signature.xml.SimpleElement;
@@ -648,7 +648,7 @@ public class SubSequence extends SimpleElement {
     private void buildMatcherAndSearcher() {
         try {
             matcher  = SequenceMatcherCompiler.compileFrom(subsequenceText);
-            searcher = SequenceSearcherFactory.SELECT_BY_LENGTH.create(matcher);
+            searcher = SelectByLengthFactory.SHIFTOR_THEN_SIGNEDHASH.create(matcher);
         } catch (CompileException ex) {
             final String warning = String.format(SEQUENCE_PARSE_ERROR, subsequenceText, ex.getMessage());
             getLog().warn(warning);
