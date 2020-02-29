@@ -407,6 +407,7 @@ public class ProfileManagerImpl implements ProfileManager {
             profile.setLoadedFrom(source);
             profile.setName(FilenameUtils.getBaseName(FileUtil.fileName(source)));
             profile.setUuid(String.valueOf(System.currentTimeMillis()));
+            profile.setProperties(config.getProperties());
             profile.onLoad();
 
             String profileId = profile.getUuid();

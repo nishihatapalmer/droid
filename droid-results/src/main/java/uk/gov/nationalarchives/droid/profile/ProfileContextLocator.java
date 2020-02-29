@@ -132,7 +132,6 @@ public class ProfileContextLocator {
     public void removeProfileContext(String id) {
         profileInstances.remove(id);
         profileInstanceLocator.closeProfileInstance(id);
-        
     }
     
     /**
@@ -161,8 +160,11 @@ public class ProfileContextLocator {
         final Path profileHome = globalConfig.getProfilesDir().resolve(profile.getUuid());
         final Path databasePath = profileHome.resolve("db");
         final Path signatureFile = profileHome.resolve(profile.getSignatureFileName());
+        final Path containerSignatureFile = profileHome.resolve(profile.getContainerSignatureFileName());
 
         final Properties springProperties = createProfileProperties(profile);
+        springProperties.setProperty("signatureFilePath", signatureFile.toFile().getAbsolutePath());
+        springProperties.setProperty("containerSigPath",containerSignatureFile.toFile().getAbsolutePath());
         springProperties.setProperty("tempDirLocation", globalConfig.getTempDir().toAbsolutePath().toString());
         springProperties.setProperty("submissionQueueFile", profileHome.resolve("submissionQueue.xml").toAbsolutePath().toString());
         springProperties.setProperty("profileHome", profileHome.toAbsolutePath().toString());
@@ -365,8 +367,6 @@ public class ProfileContextLocator {
     private Properties createProfileProperties(ProfileInstance profile) {
         // Some global properties are needed to initialise the profile context.
         final Properties props = new Properties();
-        props.setProperty("signatureFilePath", profile.getSignatureFileName());
-        props.setProperty("containerSigPath", profile.getContainerSignatureFileName());
         props.setProperty("defaultThrottle", String.valueOf(profile.getThrottle()));
         props.setProperty("processTar", String.valueOf(profile.getProcessTarFiles()));
         props.setProperty("processZip", String.valueOf(profile.getProcessZipFiles()));
@@ -381,7 +381,8 @@ public class ProfileContextLocator {
         props.setProperty("hashAlgorithm", String.valueOf(profile.getHashAlgorithm()));
         props.setProperty("maxBytesToScan", String.valueOf(profile.getMaxBytesToScan()));
         props.setProperty("matchAllExtensions", String.valueOf(profile.getMatchAllExtensions()));
-        String createUrl = profile.getProperties().getString("database.createUrl");
+        //String createUrl = profile.getProperties().getString("database.createUrl");
+        String createUrl = globalConfig.getProperties().getString("database.createUrl");
         if (createUrl == null || createUrl.isEmpty()) {
             createUrl = "{none}";
         }

@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import uk.gov.nationalarchives.droid.core.interfaces.config.DroidGlobalProperty;
 
 /**
  * Base class for a profile.
@@ -777,5 +778,20 @@ public class ProfileInstance {
     public void setProperties(PropertiesConfiguration properties) {
         this.properties = new PropertiesConfiguration();
         this.properties.append(properties);
+        this.properties.setProperty(DroidGlobalProperty.DEFAULT_THROTTLE.getName(), throttle);
+        this.properties.setProperty(DroidGlobalProperty.HASH_ALGORITHM.getName(), hashAlgorithm);
+        this.properties.setProperty(DroidGlobalProperty.GENERATE_HASH.getName(), generateHash);
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_TAR.getName(), processTarFiles);
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_ZIP.getName(), processZipFiles);
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_GZIP.getName(), processGzipFiles);
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_RAR.getName(), processRarFiles);
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_7ZIP.getName(), process7zipFiles);
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_ISO.getName(), processIsoFiles);
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_BZIP2.getName(), processBzip2Files);
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_ARC.getName(), processArcFiles);
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_WARC.getName(), processWarcFiles);
+        this.properties.setProperty(DroidGlobalProperty.MAX_BYTES_TO_SCAN.getName(), maxBytesToScan);
+        this.properties.setProperty(DroidGlobalProperty.EXTENSION_ALL.getName(), matchAllExtensions);
     }
+    
 }
