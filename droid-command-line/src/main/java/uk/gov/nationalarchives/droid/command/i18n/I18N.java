@@ -83,6 +83,11 @@ public final class I18N {
     
     /** Run without a profile. */
     public static final String RUN_NO_PROFILE_HELP = "no_profile.run.help";
+
+    /**
+     * Print profile properties.
+     */
+    public static final String PRINT_PROPERTIES_HELP = "print.properties.help";
     
     /** Help for signature file. */
     public static final String SIGNATURE_FILE_HELP = "signature_file.help";

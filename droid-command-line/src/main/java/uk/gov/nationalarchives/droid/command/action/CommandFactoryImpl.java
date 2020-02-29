@@ -49,7 +49,7 @@ import uk.gov.nationalarchives.droid.export.interfaces.ExportOptions;
 public class CommandFactoryImpl implements CommandFactory {
 
     private static final String NO_RESOURCES_SPECIFIED = "No resources specified.";
-    private static final String NO_PROFILES_SPECIFIED_FOR_EXPORT = "No profiles specified for export.";
+    private static final String NO_PROFILES_SPECIFIED = "No profiles specified.";
     private GlobalContext context;
     private PrintWriter printWriter;
 
@@ -74,7 +74,7 @@ public class CommandFactoryImpl implements CommandFactory {
     public DroidCommand getExportFileCommand(final CommandLine cli) throws CommandLineSyntaxException {
 
         if (!cli.hasOption(CommandLineParam.PROFILES.toString())) {
-            throw new CommandLineSyntaxException(NO_PROFILES_SPECIFIED_FOR_EXPORT);
+            throw new CommandLineSyntaxException(NO_PROFILES_SPECIFIED);
         }
 
         final String destination = cli.getOptionValue(CommandLineParam.EXPORT_ONE_ROW_PER_FILE.toString());
@@ -100,6 +100,19 @@ public class CommandFactoryImpl implements CommandFactory {
         return cmd;
     }
 
+    @Override
+    public DroidCommand getPrintProfilePropertiesCommand(final CommandLine cli) throws CommandLineSyntaxException {
+        //TODO: test should also work creating or opening previous profiles.
+        if (!cli.hasOption(CommandLineParam.PROFILES.toString())) {
+            throw new CommandLineSyntaxException(NO_PROFILES_SPECIFIED);
+        }
+        final String[] profiles = cli.getOptionValues(CommandLineParam.PROFILES.toString());
+        final PrintProfilePropertiesCommand cmd = context.getPrintProfilePropertiesCommand();
+        cmd.setPrintWriter(printWriter);
+        cmd.setProfiles(profiles);
+        return cmd;
+    }
+
     /**
      * @param cli the command line
      * @throws CommandLineSyntaxException command parse exception.
@@ -109,7 +122,7 @@ public class CommandFactoryImpl implements CommandFactory {
     public DroidCommand getExportFormatCommand(final CommandLine cli) throws CommandLineSyntaxException {
 
         if (!cli.hasOption(CommandLineParam.PROFILES.toString())) {
-            throw new CommandLineSyntaxException(NO_PROFILES_SPECIFIED_FOR_EXPORT);
+            throw new CommandLineSyntaxException(NO_PROFILES_SPECIFIED);
         }
 
         final String destination = cli.getOptionValue(CommandLineParam.EXPORT_ONE_ROW_PER_FORMAT.toString());

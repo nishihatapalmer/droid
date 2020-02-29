@@ -42,6 +42,7 @@ import uk.gov.nationalarchives.droid.command.action.ExportCommand;
 import uk.gov.nationalarchives.droid.command.action.ListAllSignatureFilesCommand;
 import uk.gov.nationalarchives.droid.command.action.ListReportsCommand;
 import uk.gov.nationalarchives.droid.command.action.NoProfileRunCommand;
+import uk.gov.nationalarchives.droid.command.action.PrintProfilePropertiesCommand;
 import uk.gov.nationalarchives.droid.command.action.ProfileRunCommand;
 import uk.gov.nationalarchives.droid.command.action.ReportCommand;
 import uk.gov.nationalarchives.droid.core.interfaces.config.DroidGlobalConfig;
@@ -114,6 +115,11 @@ public final class SpringUiContext implements GlobalContext {
     @Override
     public ReportCommand getReportCommand() {
         return context.getBean("reportCommand", ReportCommand.class);
+    }
+
+    @Override
+    public PrintProfilePropertiesCommand getPrintProfilePropertiesCommand() {
+        return context.getBean("printPropertiesCommand", PrintProfilePropertiesCommand.class);
     }
     
     /**

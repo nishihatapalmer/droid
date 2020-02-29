@@ -177,6 +177,16 @@ public enum CommandLineParam {
         }
     },
 
+    /**
+     * Prints profile properties to standard out.
+     */
+    PRINT_PROPERTIES("Pr", "print-props", false, 0, I18N.PRINT_PROPERTIES_HELP, "print properties") {
+        @Override
+        public DroidCommand getCommand(CommandFactory commandFactory, CommandLine cli) throws CommandLineException {
+            return commandFactory.getPrintProfilePropertiesCommand(cli);
+        }
+    },
+
     /** Signature file. */
     SIGNATURE_FILE("Ns", "signature-file", true, 1, I18N.SIGNATURE_FILE_HELP, filename()) {
         @Override
@@ -310,6 +320,7 @@ public enum CommandLineParam {
         addTopLevelCommand(CONFIGURE_DEFAULT_SIGNATURE_VERSION);
         addTopLevelCommand(LIST_SIGNATURE_VERSIONS);
         addTopLevelCommand(LIST_REPORTS);
+        addTopLevelCommand(PRINT_PROPERTIES);
     }
 
     private static final String FILENAME = "filename";
@@ -415,6 +426,7 @@ public enum CommandLineParam {
         options.addOption(RECURSIVE.newOption());
         options.addOption(QUIET.newOption());
         options.addOption(BOM.newOption());
+        options.addOption(PRINT_PROPERTIES.newOption());
 
         OptionGroup filterOptions = new OptionGroup();
         filterOptions.addOption(ALL_FILTER.newOption());

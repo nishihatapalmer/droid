@@ -83,7 +83,11 @@
         <property name="signatureManager" ref="signatureManager"/>
         <property name="config" ref="globalConfig"/>
     </bean>
-    
+
+    <bean id="printPropertiesCommand" class="uk.gov.nationalarchives.droid.command.action.PrintProfilePropertiesCommand">
+        <property name="profileManager" ref="profileManager"/>
+    </bean>
+
     <bean id="profileSpecDao" class="uk.gov.nationalarchives.droid.profile.JaxbProfileSpecDao"/>
     
     <bean id="uuidGenerator" class="uk.gov.nationalarchives.droid.profile.ProfileUuidGeneratorImpl"/>

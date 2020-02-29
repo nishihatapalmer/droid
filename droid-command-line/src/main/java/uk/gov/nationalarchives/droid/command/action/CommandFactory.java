@@ -48,15 +48,12 @@ public interface CommandFactory {
      */
     DroidCommand getExportFileCommand(CommandLine cli) throws CommandLineSyntaxException;
 
-
     /**
      * @param cli the command line
      * @throws CommandLineSyntaxException command parse exception.
      * @return an export command
      */
     DroidCommand getExportFormatCommand(CommandLine cli) throws CommandLineSyntaxException;
-    
-    
     
     /**
      * @param cli the command line
@@ -65,24 +62,28 @@ public interface CommandFactory {
      */
     DroidCommand getReportCommand(CommandLine cli) throws CommandLineSyntaxException;
 
+    /**
+     *
+     * @param cli the command line
+     * @return a print profile properties comamnd.
+     * @throws CommandLineSyntaxException command parse exception.
+     */
+    DroidCommand getPrintProfilePropertiesCommand(CommandLine cli) throws CommandLineSyntaxException;
 
     /**
      * @return a new {@link FilterFieldCommand}
      */
     FilterFieldCommand getFilterFieldCommand();
 
-
     /**
      * @return a new {@link HelpCommand}
      */
     DroidCommand getHelpCommand();
 
-
     /**
      * @return a new version command
      */
     DroidCommand getVersionCommand();
-
 
     /**
      * @param cli the command line;
@@ -91,7 +92,6 @@ public interface CommandFactory {
      */
     DroidCommand getProfileCommand(CommandLine cli) throws CommandLineSyntaxException;
 
-
     /**
      * @param cli the command line;
      * @return a new {@link DroidCommand}
@@ -99,24 +99,20 @@ public interface CommandFactory {
      */
     DroidCommand getNoProfileCommand(CommandLine cli) throws CommandLineSyntaxException;
 
-
     /**
      * @return a new check signature update command.
      */
     DroidCommand getCheckSignatureUpdateCommand();
-
 
     /**
      * @return a new download signature update command
      */
     DroidCommand getDownloadSignatureUpdateCommand();
 
-
     /**
      * @return a new 'Display default signature version' command
      */
     DroidCommand getDisplayDefaultSignatureVersionCommand();
-
 
     /**
      * @param cli the command line
@@ -125,12 +121,10 @@ public interface CommandFactory {
      */
     DroidCommand getConfigureDefaultSignatureVersionCommand(CommandLine cli) throws CommandLineException;
 
-
     /**
      * @return command to list all signature file versions
      */
     DroidCommand getListAllSignatureVersionsCommand();
-
 
     /**
      * @return command to list reports and output formats.
