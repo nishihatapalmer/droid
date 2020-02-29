@@ -40,6 +40,7 @@ import java.util.Map;
 import java.util.concurrent.Future;
 import java.util.zip.ZipFile;
 
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,15 +97,28 @@ public class ProfileManagerImpl implements ProfileManager {
     }
 
     /**
-     * Gets a profile instance manager.
-     * 
-     * @param sigFileInfos
-     *            the path to the signature file to be used for this profile.
+     * Gets a profile instance with default properties.
+     *
+     * @param sigFileInfos the paths to the signature files to be used for this profile.
      * @return the profile instance created.
      * @throws ProfileManagerException if the profile could not be created
      */
     @Override
-    public ProfileInstance createProfile(Map<SignatureType, SignatureFileInfo> sigFileInfos) 
+    public ProfileInstance createProfile(Map<SignatureType, SignatureFileInfo> sigFileInfos) throws ProfileManagerException {
+        return createProfile(sigFileInfos, null);
+    }
+
+    /**
+     * Gets a profile instance with any default properties overridden by the override properties.
+     * 
+     * @param sigFileInfos the paths to the signature files to be used for this profile.
+     * @param overrideProperties properties which should override the default profile properties.  If null, no override.
+     * @return the profile instance created.
+     * @throws ProfileManagerException if the profile could not be created
+     */
+    @Override
+    public ProfileInstance createProfile(Map<SignatureType, SignatureFileInfo> sigFileInfos,
+                                         PropertiesConfiguration overrideProperties)
         throws ProfileManagerException {
         Map<SignatureType, SignatureFileInfo> signatures = sigFileInfos;
         if (sigFileInfos == null) {
@@ -118,7 +132,7 @@ public class ProfileManagerImpl implements ProfileManager {
         
         String profileId = String.valueOf(System.currentTimeMillis());
         log.info("Creating profile: " + profileId);
-        ProfileInstance profile = profileContextLocator.getProfileInstance(profileId);
+        ProfileInstance profile = profileContextLocator.getProfileInstance(profileId, overrideProperties);
         
         final Path profileHomeDir = config.getProfilesDir().resolve(profile.getUuid());
         FileUtil.mkdirsQuietly(profileHomeDir);
@@ -129,8 +143,6 @@ public class ProfileManagerImpl implements ProfileManager {
 
         profile.setUuid(profileId);
         profile.setProfileSpec(new ProfileSpec());
-
-        
 
         // Persist the profile.
         profileSpecDao.saveProfile(profile, profileHomeDir);

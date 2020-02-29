@@ -37,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Future;
 
+import org.apache.commons.configuration.PropertiesConfiguration;
 import uk.gov.nationalarchives.droid.core.interfaces.signature.SignatureFileInfo;
 import uk.gov.nationalarchives.droid.core.interfaces.signature.SignatureType;
 import uk.gov.nationalarchives.droid.profile.referencedata.Format;
@@ -54,13 +55,23 @@ public interface ProfileManager {
 
     /**
      * Creates a profile using the signature file specified.
-     * 
-     * @param sigFiles
-     *            the signature files.
+     *
+     * @param sigFiles the signature files.
      * @return the new Profile Instance.
      * @throws ProfileManagerException if the profile could not be created
      */
     ProfileInstance createProfile(Map<SignatureType, SignatureFileInfo> sigFiles) throws ProfileManagerException;
+
+    /**
+     * Creates a profile using the signature file specified.
+     * 
+     * @param sigFiles the signature files.
+     * @param propertyOverrides properties which should override the default profile properties.  If null, no overrides.
+     * @return the new Profile Instance.
+     * @throws ProfileManagerException if the profile could not be created
+     */
+    ProfileInstance createProfile(Map<SignatureType, SignatureFileInfo> sigFiles,
+                                  PropertiesConfiguration propertyOverrides) throws ProfileManagerException;
 
     /**
      * Loads the reference data for the selected profile.

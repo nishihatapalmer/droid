@@ -44,6 +44,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -153,6 +154,9 @@ public class ProfileInstance {
 
     @XmlTransient
     private Set<ProfileEventListener> eventListeners = new HashSet<ProfileEventListener>();
+
+    @XmlTransient
+    private PropertiesConfiguration properties;
 
     /**
      * Constructs a profile instance in a default state.
@@ -756,5 +760,22 @@ public class ProfileInstance {
      */
     public Boolean getProcessWarcFiles() {
         return processWarcFiles;
+    }
+
+    /**
+     * Returns the properties used to configure this profile.
+     * @return the properties used to configure this profile.
+     */
+    public PropertiesConfiguration getProperties() {
+        return properties;
+    }
+
+    /**
+     * Sets the properties which are used to configure this profile.
+     * @param properties The properties values to override profile defaults.
+     */
+    public void setProperties(PropertiesConfiguration properties) {
+        this.properties = new PropertiesConfiguration();
+        this.properties.append(properties);
     }
 }

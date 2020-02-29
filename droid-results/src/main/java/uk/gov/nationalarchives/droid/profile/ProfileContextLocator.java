@@ -38,9 +38,9 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Properties;
 
-import org.apache.commons.collections4.Transformer;
-import org.apache.commons.collections4.map.LazyMap;
-
+import org.apache.commons.configuration.CombinedConfiguration;
+import org.apache.commons.configuration.PropertiesConfiguration;
+import org.apache.commons.configuration.tree.OverrideCombiner;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -71,8 +71,7 @@ public class ProfileContextLocator {
     private enum TemplateStatus { NO_TEMPLATE, BLANK_TEMPLATE, SIGNATURE_TEMPLATE };
 
     @SuppressWarnings("unchecked")
-    private Map<String, ProfileInstance> profileInstances = 
-        LazyMap.lazyMap(new HashMap<String, ProfileInstance>(), new ProfileTransformer());
+    private Map<String, ProfileInstance> profileInstances = new HashMap<String, ProfileInstance>();
     
     private ProfileInstanceLocator profileInstanceLocator;
 
@@ -93,51 +92,31 @@ public class ProfileContextLocator {
     }
 
     /**
-     * Transformer for creating profile instance objects.
-     * @author rflitcroft
-     */
-    private final class ProfileTransformer implements Transformer {
-        @Override
-        public Object transform(Object id) {
-            ProfileInstance profileInstance = new ProfileInstance(ProfileState.INITIALISING);
-            profileInstance.setUuid((String) id);
-            profileInstance.setThrottle(globalConfig.getProperties()
-                    .getInt(DroidGlobalProperty.DEFAULT_THROTTLE.getName()));
-            profileInstance.setHashAlgorithm(globalConfig.getProperties()
-                    .getString(DroidGlobalProperty.HASH_ALGORITHM.getName()));
-            profileInstance.setGenerateHash(globalConfig.getProperties()
-                    .getBoolean(DroidGlobalProperty.GENERATE_HASH.getName()));
-
-            profileInstance.setProcessTarFiles(globalConfig.getProperties()
-                    .getBoolean(DroidGlobalProperty.PROCESS_TAR.getName()));
-            profileInstance.setProcessZipFiles(globalConfig.getProperties()
-                    .getBoolean(DroidGlobalProperty.PROCESS_ZIP.getName()));
-            profileInstance.setProcessGzipFiles(globalConfig.getProperties().getBoolean(DroidGlobalProperty.PROCESS_GZIP.getName()));
-            profileInstance.setProcessRarFiles(globalConfig.getProperties().getBoolean(DroidGlobalProperty.PROCESS_RAR.getName()));
-            profileInstance.setProcess7zipFiles(globalConfig.getProperties().getBoolean(DroidGlobalProperty.PROCESS_7ZIP.getName()));
-            profileInstance.setProcessIsoFiles(globalConfig.getProperties().getBoolean(DroidGlobalProperty.PROCESS_ISO.getName()));
-            profileInstance.setProcessBzip2Files(globalConfig.getProperties().getBoolean(DroidGlobalProperty.PROCESS_BZIP2.getName()));
-
-            profileInstance.setProcessArcFiles(globalConfig.getProperties().getBoolean(DroidGlobalProperty.PROCESS_ARC.getName()));
-            profileInstance.setProcessWarcFiles(globalConfig.getProperties().getBoolean(DroidGlobalProperty.PROCESS_WARC.getName()));
-
-            profileInstance.setMaxBytesToScan(globalConfig.getProperties()
-                    .getLong(DroidGlobalProperty.MAX_BYTES_TO_SCAN.getName()));
-            profileInstance.setMatchAllExtensions(globalConfig.getProperties()
-                    .getBoolean(DroidGlobalProperty.EXTENSION_ALL.getName()));
-            return profileInstance;
-        }
-    }
-    
-    /**
      * Lazily instantiates (if necessary) and returns the profile instance with the name given.
      * @param id the id of the profile instance
      * @return the profile instance with the name given
      */
     public ProfileInstance getProfileInstance(String id) {
-        return profileInstances.get(id);
+        return getProfileInstance(id, null);
     }
-    
+
+    /**
+     * Lazily instantiates (if necessary) and returns the profile instance with the name given.
+     * @param id the id of the profile instance
+     * @param overrides Any properties which should override default profile properties.  If null, no overrides are done.
+     * @return the profile instance with the name given
+     */
+    public ProfileInstance getProfileInstance(String id, PropertiesConfiguration overrides) {
+        ProfileInstance profileInstance = profileInstances.get(id);
+        if (profileInstance == null) {
+            profileInstance = new ProfileInstance();
+            profileInstance.setUuid(id);
+            setProfileProperties(profileInstance, overrides);
+            addProfileContext(profileInstance);
+        }
+        return profileInstance;
+    }
+
     /**
      * Adds a profile context.
      * @param profileInstance the profile instance to add
@@ -182,41 +161,13 @@ public class ProfileContextLocator {
         final Path profileHome = globalConfig.getProfilesDir().resolve(profile.getUuid());
         final Path databasePath = profileHome.resolve("db");
         final Path signatureFile = profileHome.resolve(profile.getSignatureFileName());
-        final Path containerSignatureFile = profileHome.resolve(profile.getContainerSignatureFileName());
-        final Path submissionQueueFile = profileHome.resolve("submissionQueue.xml");
 
-        // Some global properties are needed to initialise the profile context.
-        final Properties props = new Properties();
-        props.setProperty("defaultThrottle", String.valueOf(profile.getThrottle()));
-        props.setProperty("signatureFilePath", signatureFile.toAbsolutePath().toString());
-        props.setProperty("submissionQueueFile", submissionQueueFile.toAbsolutePath().toString());
-        props.setProperty("tempDirLocation", globalConfig.getTempDir().toAbsolutePath().toString());
-        props.setProperty("profileHome", profileHome.toAbsolutePath().toString());
-        
-        props.setProperty("containerSigPath", containerSignatureFile.toAbsolutePath().toString());
+        final Properties springProperties = createProfileProperties(profile);
+        springProperties.setProperty("tempDirLocation", globalConfig.getTempDir().toAbsolutePath().toString());
+        springProperties.setProperty("submissionQueueFile", profileHome.resolve("submissionQueue.xml").toAbsolutePath().toString());
+        springProperties.setProperty("profileHome", profileHome.toAbsolutePath().toString());
+        springProperties.setProperty(DATABASE_URL, String.format("jdbc:derby:%s", databasePath.toAbsolutePath().toString()));
 
-        props.setProperty("processTar", String.valueOf(profile.getProcessTarFiles()));
-        props.setProperty("processZip", String.valueOf(profile.getProcessZipFiles()));
-        props.setProperty("processGzip", String.valueOf(profile.getProcessGzipFiles()));
-        props.setProperty("processRar", String.valueOf(profile.getProcessRarFiles()));
-        props.setProperty("process7zip", String.valueOf(profile.getProcess7zipFiles()));
-        props.setProperty("processIso", String.valueOf(profile.getProcessIsoFiles()));
-        props.setProperty("processBzip2", String.valueOf(profile.getProcessBzip2Files()));
-
-        props.setProperty("processArc", String.valueOf(profile.getProcessArcFiles()));
-        props.setProperty("processWarc", String.valueOf(profile.getProcessWarcFiles()));
-
-        props.setProperty("generateHash", String.valueOf(profile.getGenerateHash()));
-        props.setProperty("hashAlgorithm", String.valueOf(profile.getHashAlgorithm()));
-        props.setProperty("maxBytesToScan", String.valueOf(profile.getMaxBytesToScan()));
-        props.setProperty("matchAllExtensions", String.valueOf(profile.getMatchAllExtensions()));
- 
-        String createUrl = globalConfig.getProperties().getString("database.createUrl");
-        if (createUrl == null || createUrl.isEmpty()) {
-            createUrl = "{none}";
-        }
-        props.setProperty(CREATE_URL, createUrl);
-        props.setProperty(DATABASE_URL, String.format("jdbc:derby:%s", databasePath.toAbsolutePath().toString()));
         TemplateStatus status = null;
         final boolean newDatabase = !Files.exists(databasePath);
         if (newDatabase) {
@@ -240,7 +191,7 @@ public class ProfileContextLocator {
             JDBCBatchResultHandlerDao.setIsFreshTemplate(true);
         }
 
-        ProfileInstanceManager profileManager = profileInstanceLocator.getProfileInstanceManager(profile, props);
+        ProfileInstanceManager profileManager = profileInstanceLocator.getProfileInstanceManager(profile, springProperties);
 
         //if (status == TemplateStatus.NO_TEMPLATE ) {
             JDBCBatchResultHandlerDao.setIsFreshTemplate(false);
@@ -253,7 +204,7 @@ public class ProfileContextLocator {
         return profileManager;
     }
     //CHECKSTYLE:ON
-    
+
     private void setCreateSchemaProperties(boolean create, Properties props) {
         if (create) {
             props.setProperty(HIBERNATE_GENERATE_DDL, "true");
@@ -409,6 +360,65 @@ public class ProfileContextLocator {
      */
     public void setGlobalConfig(DroidGlobalConfig globalConfig) {
         this.globalConfig = globalConfig;
+    }
+
+    private Properties createProfileProperties(ProfileInstance profile) {
+        // Some global properties are needed to initialise the profile context.
+        final Properties props = new Properties();
+        props.setProperty("signatureFilePath", profile.getSignatureFileName());
+        props.setProperty("containerSigPath", profile.getContainerSignatureFileName());
+        props.setProperty("defaultThrottle", String.valueOf(profile.getThrottle()));
+        props.setProperty("processTar", String.valueOf(profile.getProcessTarFiles()));
+        props.setProperty("processZip", String.valueOf(profile.getProcessZipFiles()));
+        props.setProperty("processGzip", String.valueOf(profile.getProcessGzipFiles()));
+        props.setProperty("processRar", String.valueOf(profile.getProcessRarFiles()));
+        props.setProperty("process7zip", String.valueOf(profile.getProcess7zipFiles()));
+        props.setProperty("processIso", String.valueOf(profile.getProcessIsoFiles()));
+        props.setProperty("processBzip2", String.valueOf(profile.getProcessBzip2Files()));
+        props.setProperty("processArc", String.valueOf(profile.getProcessArcFiles()));
+        props.setProperty("processWarc", String.valueOf(profile.getProcessWarcFiles()));
+        props.setProperty("generateHash", String.valueOf(profile.getGenerateHash()));
+        props.setProperty("hashAlgorithm", String.valueOf(profile.getHashAlgorithm()));
+        props.setProperty("maxBytesToScan", String.valueOf(profile.getMaxBytesToScan()));
+        props.setProperty("matchAllExtensions", String.valueOf(profile.getMatchAllExtensions()));
+        String createUrl = profile.getProperties().getString("database.createUrl");
+        if (createUrl == null || createUrl.isEmpty()) {
+            createUrl = "{none}";
+        }
+        props.setProperty(CREATE_URL, createUrl);
+        return props;
+    }
+
+    private void setProfileProperties(ProfileInstance profileInstance, PropertiesConfiguration overrideProperties) {
+        PropertiesConfiguration properties = mergeProperties(globalConfig.getProperties(), overrideProperties);
+        profileInstance.setThrottle(properties.getInt(DroidGlobalProperty.DEFAULT_THROTTLE.getName()));
+        profileInstance.setHashAlgorithm(properties.getString(DroidGlobalProperty.HASH_ALGORITHM.getName()));
+        profileInstance.setGenerateHash(properties.getBoolean(DroidGlobalProperty.GENERATE_HASH.getName()));
+        profileInstance.setProcessTarFiles(properties.getBoolean(DroidGlobalProperty.PROCESS_TAR.getName()));
+        profileInstance.setProcessZipFiles(properties.getBoolean(DroidGlobalProperty.PROCESS_ZIP.getName()));
+        profileInstance.setProcessGzipFiles(properties.getBoolean(DroidGlobalProperty.PROCESS_GZIP.getName()));
+        profileInstance.setProcessRarFiles(properties.getBoolean(DroidGlobalProperty.PROCESS_RAR.getName()));
+        profileInstance.setProcess7zipFiles(properties.getBoolean(DroidGlobalProperty.PROCESS_7ZIP.getName()));
+        profileInstance.setProcessIsoFiles(properties.getBoolean(DroidGlobalProperty.PROCESS_ISO.getName()));
+        profileInstance.setProcessBzip2Files(properties.getBoolean(DroidGlobalProperty.PROCESS_BZIP2.getName()));
+        profileInstance.setProcessArcFiles(properties.getBoolean(DroidGlobalProperty.PROCESS_ARC.getName()));
+        profileInstance.setProcessWarcFiles(properties.getBoolean(DroidGlobalProperty.PROCESS_WARC.getName()));
+        profileInstance.setMaxBytesToScan(properties.getLong(DroidGlobalProperty.MAX_BYTES_TO_SCAN.getName()));
+        profileInstance.setMatchAllExtensions(properties.getBoolean(DroidGlobalProperty.EXTENSION_ALL.getName()));
+        profileInstance.setProperties(properties);
+    }
+
+    private PropertiesConfiguration mergeProperties(PropertiesConfiguration defaultProperties, PropertiesConfiguration overrideProperties) {
+        if (overrideProperties != null) {
+            CombinedConfiguration combined = new CombinedConfiguration();
+            combined.setNodeCombiner(new OverrideCombiner());
+            combined.addConfiguration(overrideProperties); // add overrides first.
+            combined.addConfiguration(defaultProperties);
+            PropertiesConfiguration mergedProperties = new PropertiesConfiguration();
+            mergedProperties.append(combined);
+            return mergedProperties;
+        }
+        return defaultProperties;
     }
     
 }
