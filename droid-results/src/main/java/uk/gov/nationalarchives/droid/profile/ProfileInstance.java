@@ -47,6 +47,7 @@ import javax.xml.bind.annotation.XmlTransient;
 import org.apache.commons.configuration.PropertiesConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import uk.gov.nationalarchives.droid.core.interfaces.config.DroidGlobalProperty;
 
 /**
@@ -55,6 +56,13 @@ import uk.gov.nationalarchives.droid.core.interfaces.config.DroidGlobalProperty;
 @XmlRootElement(name = "Profile")
 @XmlAccessorType(XmlAccessType.FIELD)
 public class ProfileInstance {
+
+    private static final String PROFILE_NAME = "profile.name";
+    private static final String PROFILE_DATE_CREATED = "profile.dateCreated";
+    private static final String PROFILE_START_DATE = "profile.startDate";
+    private static final String PROFILE_END_DATE = "profile.endDate";
+    private static final String PROFILE_THROTTLE = "profile.throttle";
+    private static final String PROFILE_LOADED_FROM = "profile.loadedFrom";
 
     @XmlTransient
     private final Logger log = LoggerFactory.getLogger(getClass());
@@ -157,7 +165,7 @@ public class ProfileInstance {
     private Set<ProfileEventListener> eventListeners = new HashSet<ProfileEventListener>();
 
     @XmlTransient
-    private PropertiesConfiguration properties;
+    private PropertiesConfiguration properties = new PropertiesConfiguration();
 
     /**
      * Constructs a profile instance in a default state.
@@ -203,6 +211,7 @@ public class ProfileInstance {
      */
     public void setDateCreated(Date dateCreated) {
         this.dateCreated = dateCreated;
+        properties.setProperty(PROFILE_DATE_CREATED, dateCreated);
     }
 
     /**
@@ -258,6 +267,7 @@ public class ProfileInstance {
      */
     public void setName(String name) {
         this.name = name;
+        properties.setProperty(PROFILE_NAME, name);
     }
 
     /**
@@ -376,6 +386,7 @@ public class ProfileInstance {
      */
     public void setLoadedFrom(Path loadedFrom) {
         this.loadedFrom = loadedFrom;
+        this.properties.setProperty(PROFILE_LOADED_FROM, loadedFrom.toFile().getAbsolutePath());
     }
 
     /**
@@ -422,6 +433,7 @@ public class ProfileInstance {
      */
     void setThrottle(int throttle) {
         this.throttle = throttle;
+        properties.setProperty(PROFILE_THROTTLE, throttle);
     }
     
     /**
@@ -457,6 +469,7 @@ public class ProfileInstance {
      */
     public void setProfileEndDate(Date profileEndDate) {
         this.profileEndDate = profileEndDate;
+        properties.setProperty(PROFILE_END_DATE, profileEndDate);
     }
 
     /**
@@ -471,6 +484,7 @@ public class ProfileInstance {
      */
     public void setProfileStartDate(Date profileStartDate) {
         this.profileStartDate = profileStartDate;
+        properties.setProperty(PROFILE_START_DATE, profileStartDate);
     }
     
     /**
@@ -565,6 +579,7 @@ public class ProfileInstance {
      */
     public void setGenerateHash(boolean generateHash) {
         this.generateHash = generateHash;
+        this.properties.setProperty(DroidGlobalProperty.GENERATE_HASH.getName(), generateHash);
     }
 
     /**
@@ -581,6 +596,7 @@ public class ProfileInstance {
      */
     public void setHashAlgorithm(String hashAlgorithm) {
         this.hashAlgorithm = hashAlgorithm;
+        this.properties.setProperty(DroidGlobalProperty.HASH_ALGORITHM.getName(), hashAlgorithm);
     }
 
     /**
@@ -597,6 +613,7 @@ public class ProfileInstance {
      */
     public void setProcessTarFiles(Boolean processTarFiles) {
         this.processTarFiles = processTarFiles;
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_TAR.getName(), processTarFiles);
     }
 
     /**
@@ -613,6 +630,7 @@ public class ProfileInstance {
      */
     public void setProcessZipFiles(Boolean processZipFiles) {
         this.processZipFiles = processZipFiles;
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_ZIP.getName(), processZipFiles);
     }
 
     /**
@@ -631,6 +649,7 @@ public class ProfileInstance {
      */
     public void setMaxBytesToScan(long maxBytesToScan) {
         this.maxBytesToScan = maxBytesToScan;
+        properties.setProperty(DroidGlobalProperty.MAX_BYTES_TO_SCAN.getName(), maxBytesToScan);
     }
     
     /**
@@ -640,6 +659,7 @@ public class ProfileInstance {
      */
     public void setMatchAllExtensions(Boolean matchAllExtensions) {
         this.matchAllExtensions = matchAllExtensions;
+        properties.setProperty(DroidGlobalProperty.EXTENSION_ALL.getName(), matchAllExtensions);
     }
     
     /**
@@ -665,6 +685,7 @@ public class ProfileInstance {
      */
     public void setProcessRarFiles(Boolean processRarFiles) {
         this.processRarFiles = processRarFiles;
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_RAR.getName(), processRarFiles);
     }
 
     /**
@@ -681,6 +702,7 @@ public class ProfileInstance {
      */
     public void setProcessGzipFiles(Boolean processGzipFiles) {
         this.processGzipFiles = processGzipFiles;
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_GZIP.getName(), processGzipFiles);
     }
 
     /**
@@ -697,6 +719,7 @@ public class ProfileInstance {
      */
     public void setProcess7zipFiles(Boolean process7zipFiles) {
         this.process7zipFiles = process7zipFiles;
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_7ZIP.getName(), process7zipFiles);
     }
 
     /**
@@ -713,6 +736,7 @@ public class ProfileInstance {
      */
     public void setProcessIsoFiles(Boolean processIsoFiles) {
         this.processIsoFiles = processIsoFiles;
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_ISO.getName(), processIsoFiles);
     }
 
     /**
@@ -729,6 +753,7 @@ public class ProfileInstance {
      */
     public void setProcessBzip2Files(Boolean processBzip2Files) {
         this.processBzip2Files = processBzip2Files;
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_BZIP2.getName(), processBzip2Files);
     }
 
     /**
@@ -737,6 +762,7 @@ public class ProfileInstance {
      */
     public void setProcessArcFiles(Boolean processArcFiles) {
         this.processArcFiles = processArcFiles;
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_ARC.getName(), processArcFiles);
     }
 
     /**
@@ -753,6 +779,7 @@ public class ProfileInstance {
      */
     public void setProcessWarcFiles(Boolean processWarcFiles) {
         this.processWarcFiles = processWarcFiles;
+        this.properties.setProperty(DroidGlobalProperty.PROCESS_WARC.getName(), processWarcFiles);
     }
 
     /**
@@ -777,21 +804,34 @@ public class ProfileInstance {
      */
     public void setProperties(PropertiesConfiguration properties) {
         this.properties = new PropertiesConfiguration();
-        this.properties.append(properties);
-        this.properties.setProperty(DroidGlobalProperty.DEFAULT_THROTTLE.getName(), throttle);
-        this.properties.setProperty(DroidGlobalProperty.HASH_ALGORITHM.getName(), hashAlgorithm);
-        this.properties.setProperty(DroidGlobalProperty.GENERATE_HASH.getName(), generateHash);
-        this.properties.setProperty(DroidGlobalProperty.PROCESS_TAR.getName(), processTarFiles);
-        this.properties.setProperty(DroidGlobalProperty.PROCESS_ZIP.getName(), processZipFiles);
-        this.properties.setProperty(DroidGlobalProperty.PROCESS_GZIP.getName(), processGzipFiles);
-        this.properties.setProperty(DroidGlobalProperty.PROCESS_RAR.getName(), processRarFiles);
-        this.properties.setProperty(DroidGlobalProperty.PROCESS_7ZIP.getName(), process7zipFiles);
-        this.properties.setProperty(DroidGlobalProperty.PROCESS_ISO.getName(), processIsoFiles);
-        this.properties.setProperty(DroidGlobalProperty.PROCESS_BZIP2.getName(), processBzip2Files);
-        this.properties.setProperty(DroidGlobalProperty.PROCESS_ARC.getName(), processArcFiles);
-        this.properties.setProperty(DroidGlobalProperty.PROCESS_WARC.getName(), processWarcFiles);
-        this.properties.setProperty(DroidGlobalProperty.MAX_BYTES_TO_SCAN.getName(), maxBytesToScan);
-        this.properties.setProperty(DroidGlobalProperty.EXTENSION_ALL.getName(), matchAllExtensions);
+        if (properties != null) {
+            this.properties.append(properties);
+        }
+        updatePropertiesWithProfileValues();
+    }
+
+    private void updatePropertiesWithProfileValues() {
+        properties.setProperty(PROFILE_NAME, name);
+        properties.setProperty(PROFILE_DATE_CREATED, dateCreated);
+        properties.setProperty(PROFILE_START_DATE, profileStartDate);
+        properties.setProperty(PROFILE_END_DATE, profileEndDate);
+        properties.setProperty(PROFILE_THROTTLE, throttle);
+        properties.setProperty(PROFILE_LOADED_FROM, loadedFrom.toFile().getAbsolutePath());
+
+        properties.setProperty(DroidGlobalProperty.DEFAULT_THROTTLE.getName(), throttle);
+        properties.setProperty(DroidGlobalProperty.HASH_ALGORITHM.getName(), hashAlgorithm);
+        properties.setProperty(DroidGlobalProperty.GENERATE_HASH.getName(), generateHash);
+        properties.setProperty(DroidGlobalProperty.PROCESS_TAR.getName(), processTarFiles);
+        properties.setProperty(DroidGlobalProperty.PROCESS_ZIP.getName(), processZipFiles);
+        properties.setProperty(DroidGlobalProperty.PROCESS_GZIP.getName(), processGzipFiles);
+        properties.setProperty(DroidGlobalProperty.PROCESS_RAR.getName(), processRarFiles);
+        properties.setProperty(DroidGlobalProperty.PROCESS_7ZIP.getName(), process7zipFiles);
+        properties.setProperty(DroidGlobalProperty.PROCESS_ISO.getName(), processIsoFiles);
+        properties.setProperty(DroidGlobalProperty.PROCESS_BZIP2.getName(), processBzip2Files);
+        properties.setProperty(DroidGlobalProperty.PROCESS_ARC.getName(), processArcFiles);
+        properties.setProperty(DroidGlobalProperty.PROCESS_WARC.getName(), processWarcFiles);
+        properties.setProperty(DroidGlobalProperty.MAX_BYTES_TO_SCAN.getName(), maxBytesToScan);
+        properties.setProperty(DroidGlobalProperty.EXTENSION_ALL.getName(), matchAllExtensions);
     }
     
 }

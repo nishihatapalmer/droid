@@ -38,6 +38,7 @@ import java.util.Map;
 import java.util.concurrent.Future;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
+
 import uk.gov.nationalarchives.droid.core.interfaces.signature.SignatureFileInfo;
 import uk.gov.nationalarchives.droid.core.interfaces.signature.SignatureType;
 import uk.gov.nationalarchives.droid.profile.referencedata.Format;
