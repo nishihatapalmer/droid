@@ -451,15 +451,6 @@ public class SubmissionGateway implements AsynchDroid {
         return identificationFilter == null || identificationFilter.passesFilter(request);
     }
 
-    /**
-     *
-     * {@inheritDoc}
-     */
-    @Override
-    public void setMatchAllExtensions(boolean matchAllExtensions) {
-        this.matchAllExtensions = matchAllExtensions;
-    }
-
     private final class SubmissionFutureTask extends FutureTask<IdentificationResultCollection> {
 
         private IdentificationRequest request;
