@@ -226,25 +226,16 @@ public final class Restrictions {
             this.op = op;
         }
         
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public String toEjbQl(QueryBuilder parent) {
             return getAliasedQualifier(propertyName, parent) + SPACE + op + " ?"; 
         }
         
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public Object[] getValues() {
             return values;
         }
         
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public String toString() {
             return propertyName + op + values;
@@ -277,17 +268,11 @@ public final class Restrictions {
             this.inverse = inverse;
         }
         
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public Object[] getValues() {
             return values;
         }
         
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public String toEjbQl(QueryBuilder parent) {
             return getAliasedQualifier(propertyName, parent) + (inverse ? " NOT " : SPACE) + "IN ("
@@ -302,9 +287,6 @@ public final class Restrictions {
             return buf.toString();
         }
         
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public String toString() {
             return propertyName + " IN (" + values + ')';
@@ -324,17 +306,11 @@ public final class Restrictions {
             this.op = op;
         }
         
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public Object[] getValues() {
             return ArrayUtils.addAll(lhs.getValues(), rhs.getValues());
         }
         
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public String toEjbQl(QueryBuilder parent) {
             return '(' + lhs.toEjbQl(parent) + ' ' + op + ' ' + rhs.toEjbQl(parent) + ')';
@@ -366,24 +342,16 @@ public final class Restrictions {
         BooleanExpression(List<String> propertyNames, boolean value, String op, boolean inverse) {
             this.propertyNames = propertyNames;
             this.values = new Boolean[propertyNames.size()];
-            Arrays.fill(this.values, new Boolean(value));
+            Arrays.fill(this.values, value);
             this.op = op;
             this.inverse = inverse;
         }
 
-
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public Object[] getValues() {
             return values;
         }
 
-
-        /**
-         * {@inheritDoc}
-         */
         @Override
         public String toEjbQl(QueryBuilder parent) {
             StringBuilder builder = new StringBuilder();
