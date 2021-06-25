@@ -256,57 +256,6 @@ public class Ole2RootFileTest {
 
         assertEquals("fmt/666", results.getResults().iterator().next().getPuid());
     }
-    
-    @Test
-    public void testInitialiseRegistersOle2ContainerIdentifierWithContainerIdentifierResolver() throws Exception {
-        
-        URL containerSignatureUrl = getClass().getClassLoader().getResource("container-signature-20200121.xml");
-        final Path path = Paths.get(containerSignatureUrl.toURI());
-
-        ContainerIdentifierFactory containerIdentifierFactory = mock(ContainerIdentifierFactory.class);
-        ArchiveFormatResolver containerFormatResolver = mock(ArchiveFormatResolver.class);
-
-        DroidCore droidCore = mock(DroidCore.class);
-        ole2Identifier.setDroidCore(droidCore);
-
-        ole2Identifier.setContainerIdentifierFactory(containerIdentifierFactory);
-        ole2Identifier.setContainerFormatResolver(containerFormatResolver);
-        ole2Identifier.setSignatureReader(new ContainerSignatureFileReader(path));
-        ole2Identifier.setContainerType("OLE2");
-        IdentificationRequestFactory requestFactory = mock(IdentificationRequestFactory.class);
-
-        IdentificationRequest request = mock(IdentificationRequest.class);
-        when(requestFactory.newRequest(null, null))
-            .thenReturn(request);
-
-        ole2Identifier.init();
-
-        verify(containerIdentifierFactory).addContainerIdentifier("OLE2", ole2Identifier);
-
-    }
-
-    @Test
-    public void testInitialiseRegistersOle2ContainerFormatsAgainstOoxmlPuid() throws Exception {
-
-        URL containerSignatureUrl = getClass().getClassLoader().getResource("container-signature-20200121.xml");
-        final Path path = Paths.get(containerSignatureUrl.toURI());
-        
-        ContainerIdentifierFactory containerIdentifierFactory = mock(ContainerIdentifierFactory.class);
-        ArchiveFormatResolver containerFormatResolver = mock(ArchiveFormatResolver.class);
-        
-        DroidCore droidCore = mock(DroidCore.class);
-        ole2Identifier.setDroidCore(droidCore);
-
-        ole2Identifier.setContainerIdentifierFactory(containerIdentifierFactory);
-        ole2Identifier.setContainerFormatResolver(containerFormatResolver);
-        ole2Identifier.setContainerType("OLE2");
-        ole2Identifier.setSignatureReader(new ContainerSignatureFileReader(path));
-        ole2Identifier.init();
-        
-        verify(containerIdentifierFactory).addContainerIdentifier("OLE2", ole2Identifier);
-        verify(containerFormatResolver).registerPuid("fmt/111", "OLE2");
-        
-    }
 
     @Test
     public void testInitialiseDeregistersOle2BinarySignaturesFromDroid() throws Exception {
