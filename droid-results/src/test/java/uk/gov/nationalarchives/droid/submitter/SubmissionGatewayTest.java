@@ -54,7 +54,7 @@ import static org.mockito.Mockito.when;
 import org.junit.Test;
 import org.mockito.ArgumentCaptor;
 
-import uk.gov.nationalarchives.droid.core.BinarySignatureIdentifier;
+import uk.gov.nationalarchives.droid.signature.SignatureIdentifier;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationRequest;
 import uk.gov.nationalarchives.droid.core.interfaces.IdentificationResultCollection;
 import uk.gov.nationalarchives.droid.core.interfaces.RequestIdentifier;
@@ -77,7 +77,7 @@ public class SubmissionGatewayTest {
     @Test
     public void testDroid4IndentificationWithAZipFile() throws Exception {
 
-        BinarySignatureIdentifier droid = new BinarySignatureIdentifier();
+        SignatureIdentifier droid = new SignatureIdentifier();
         SubmissionGateway submissionGateway = new SubmissionGateway();
         submissionGateway.setDroidCore(droid);
         PauseAspect pauseControl = new PauseAspect();
@@ -116,7 +116,6 @@ public class SubmissionGatewayTest {
         
         submissionGateway.setArchiveFormatResolver(archiveFormatResolver);
         submissionGateway.setArchiveHandlerFactory(archiveHandlerFactory);
-        submissionGateway.setContainerFormatResolver(containerFormatResolver);
         try {
             droid.init();
         } catch (SignatureParseException x) {
@@ -169,7 +168,7 @@ public class SubmissionGatewayTest {
     @Test
     public void testResultAvailableWhenIdentificationFailed() throws InterruptedException {
 
-        BinarySignatureIdentifier droid = new BinarySignatureIdentifier();
+        SignatureIdentifier droid = new SignatureIdentifier();
         
         SubmissionGateway submissionGateway = new SubmissionGateway();
         SubmissionQueue submissionQueue = mock(SubmissionQueue.class);
