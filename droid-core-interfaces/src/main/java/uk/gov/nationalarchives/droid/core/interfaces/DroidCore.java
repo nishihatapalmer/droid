@@ -76,7 +76,7 @@ public interface DroidCore {
     IdentificationResultCollection matchContainerSignatures(IdentificationRequest request) throws IOException;
 
     /**
-     * matches a known file format extension.
+     * Matches only on known file format extensions.
      * 
      * @param request The identification request to identify files using file extensions.
      * @return the identification result.
