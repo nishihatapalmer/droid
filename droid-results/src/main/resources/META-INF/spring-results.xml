@@ -225,13 +225,9 @@ http://www.springframework.org/schema/context http://www.springframework.org/sch
 
     <bean id="pauseControl" class="uk.gov.nationalarchives.droid.core.interfaces.control.PauseAspect"/>
 
-    <bean id="containerSignatureFileReader" class="uk.gov.nationalarchives.droid.container.ContainerSignatureFileReader">
-        <property name="filePath" value="${containerSigPath}"/>
-    </bean>
-
     <bean id="droid" class="uk.gov.nationalarchives.droid.signature.SignatureIdentifier" init-method="init">
         <property name="signatureFile" value="${signatureFilePath}"/>
-        <property name="containerSignatureFileReader" ref="containerSignatureFileReader"/>
+        <property name="containerFile" value="${containerSigPath}"/>
         <property name="matchAllExtensions" value="${matchAllExtensions}"/>
         <property name="maxBytesToScan" value="${maxBytesToScan}"/>
         <property name="tempDirLocation" value="${tempDirLocation}"/>
