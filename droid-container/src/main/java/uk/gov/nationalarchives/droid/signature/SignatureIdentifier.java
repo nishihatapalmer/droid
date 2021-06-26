@@ -41,6 +41,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import net.byteseek.utils.ArgUtils;
 import uk.gov.nationalarchives.droid.container.ContainerSignatureDefinitions;
 import uk.gov.nationalarchives.droid.container.ContainerSignatureFileReader;
 import uk.gov.nationalarchives.droid.container.TriggerPuid;
@@ -141,7 +142,7 @@ public class SignatureIdentifier implements DroidCore {
      * It assists in trying out different match strategies and benchmarking performance.
      * In normal operation, the default should be ContainerOrBinaryMatching.
      */
-    private MatchStrategy matchStrategy = new ContainerOrBinaryMatching();
+    private MatchStrategy matchStrategy;
 
     /**
      * Default bean constructor.
@@ -166,6 +167,7 @@ public class SignatureIdentifier implements DroidCore {
                                boolean matchAllExtensions,
                                long maxBytesToScan)
             throws SignatureParseException {
+        setMatchStrategy(matchStrategy);
         setTempDirLocation(tempDirLocation);
         setMatchAllExtensions(matchAllExtensions);
         setMaxBytesToScan(maxBytesToScan);
@@ -175,11 +177,15 @@ public class SignatureIdentifier implements DroidCore {
     }
 
     /**
-     * Initialises this droid core with its signature files.
+     * Initialises this droid core with its signature files and sets the default
+     * match strategy to ContainerOrBinaryMatching if one has not already been set.
      * 
      * @throws SignatureParseException When a signature could not be parsed
      */
     public void init() throws SignatureParseException {
+        if (matchStrategy == null) {
+            matchStrategy = new MatchStrategies.ContainerOrBinaryMatching(this);
+        }
         getBinarySignatureIdentifier().setMaxBytesToScan(maxBytesToScan);
         if (containerSignatureFileReader != null) {
             try {
@@ -379,6 +385,15 @@ public class SignatureIdentifier implements DroidCore {
     }
 
     /**
+     * Sets the strategy to use when matching (e.g. container only, binary first then containers, extension only).
+     * @param matchStrategy the strategy to use when matching (e.g. container only, binary first then containers, extension only).
+     */
+    public void setMatchStrategy(final MatchStrategy matchStrategy) {
+        ArgUtils.checkNullObject(matchStrategy, "matchStrategy");
+        this.matchStrategy = matchStrategy;
+    }
+
+    /**
      * Sets whether we should identify all extensions, or only if there are no binary signatures defined for them.
      * @param matchAllExtensions whether we should identify all extensions, or only if there are no binary signatures
      *                          defined for them.
@@ -430,35 +445,11 @@ public class SignatureIdentifier implements DroidCore {
     }
 
     /**
-     * Returns a set of results with extension signature information added.
-     * If there are no existing results, it will match on extensions only.
-     * If there are existing results, it will look for extension mismatches.
-     * @param request The request
-     * @param results The results
-     * @return the results
-     */
-    protected IdentificationResultCollection processExtensions(IdentificationRequest<?> request,
-                                                               IdentificationResultCollection results) {
-        List<IdentificationResult> resultList = results.getResults();
-        //TODO: under what circumstances could the resultList be null?  If it is null, the logic doesn't look correct...
-        // If we have no results at all so far:
-        if (resultList != null && resultList.isEmpty()) {
-            IdentificationResultCollection extensionResults = matchExtensions(request);
-            if (extensionResults != null) {
-                return extensionResults;
-            }
-        } else { // check for extensions mismatches in the results we have.
-            checkForExtensionsMismatches(results, request.getExtension());
-        }
-        return results;
-    }
-
-    /**
      * Find the binary signatures which match the base container type.
      *
      * @throws SignatureParseException If there was a problem parsing the container signatures.
      */
-    protected void processContainerSignatureTriggerPuids() throws SignatureParseException {
+    private void processContainerSignatureTriggerPuids() throws SignatureParseException {
         if (containerSignatureFileReader != null) {
             ContainerSignatureDefinitions definitions = containerSignatureFileReader.getDefinitions();
             // For each trigger puid, add the signatures for it to the binary sigs that identify its container type.
@@ -516,108 +507,4 @@ public class SignatureIdentifier implements DroidCore {
         ole2BinarySigs = new InternalSignatureCollection();
     }
 
-    /**
-     * A simple interface for different signature matching strategies.
-     * This makes it easier to play with different match strategies and compare their performance and results.
-     * There is currently no intention to make this public and configurable, although it could if
-     * there was a demand for users to be able to select different match strategies.
-     */
-    private interface MatchStrategy {
-        IdentificationResultCollection match(IdentificationRequest request) throws IOException;
-    }
-
-    /**
-     * Returns an empty collection of results and does no matching.
-     * Useful to baseline the other match strategies against.
-     * Note you can never process archives with this strategy, as the archival types will not be recognised.
-     */
-    private class NoMatching implements MatchStrategy {
-        @Override
-        public IdentificationResultCollection match(IdentificationRequest request) {
-            IdentificationResultCollection result = new IdentificationResultCollection(request);
-            result.setRequestMetaData(request.getRequestMetaData());
-            result.setFileLength(request.size());
-            return result;
-        }
-    }
-
-    /**
-     * Matches only on extensions.
-     * If you want to process archives, you should set matchAllExtensions to true, as otherwise the archival
-     * types will not be recognised (as there are binary signatures for those extensions, so extensions will not
-     * be matched for them if matchAllExtensions is false).
-     */
-    private class ExtensionMatching implements MatchStrategy {
-        @Override
-        public IdentificationResultCollection match(IdentificationRequest request) {
-            return matchExtensions(request);
-        }
-    }
-
-    /**
-     * Matches binary signatures and extensions.
-     * This is how DROID matched before container signatures were introduced.
-     */
-    private class BinaryMatching implements MatchStrategy {
-        @Override
-        public IdentificationResultCollection match(IdentificationRequest request) {
-            IdentificationResultCollection results = matchBinarySignatures(request);
-            removeLowerPriorityHits(results);
-            return processExtensions(request, results);
-        }
-    }
-
-    /**
-     * Matches container signatures and extensions.
-     * Binary signatures are not run (except the ones which identify ZIP or OLE2 container types).
-     * This isn't a particularly useful strategy, except to benchmark the performance impact of different strategies.
-     */
-    private class ContainerMatching implements MatchStrategy {
-        @Override
-        public IdentificationResultCollection match(IdentificationRequest request) throws IOException {
-            IdentificationResultCollection results = matchContainerSignatures(request);
-            removeLowerPriorityHits(results);
-            return processExtensions(request, results);
-        }
-    }
-
-    /**
-     * Matches binary first, then any container signatures (if we found any binary signatures), then extensions.
-     * If there were no binary matches, we can't have any containers (as we won't have recognised ZIP or OLE2 types).
-     * If there was a result from container matching, that is used, otherwise it uses the binary matches.
-     * This is the strategy used in all earlier versions of DROID that match container signatures.
-     */
-    private class BinaryAndContainerMatching implements MatchStrategy {
-        @Override
-        public IdentificationResultCollection match(IdentificationRequest request) throws IOException {
-            IdentificationResultCollection results = matchBinarySignatures(request);
-            if (!results.getResults().isEmpty()) {
-                IdentificationResultCollection containerResults = matchContainerSignatures(request);
-                if (!containerResults.getResults().isEmpty()) {
-                    results = containerResults;
-                }
-            }
-            removeLowerPriorityHits(results);
-            return processExtensions(request, results);
-        }
-    }
-
-    /**
-     * Matches container first, but only matches binary if there were no results from container matching,
-     * then matches extensions.  This should be more efficient than the traditional strategy, since it
-     * avoids running the binary signatures if we already found a container.  It should give identical
-     * results to the traditional strategy (since it always preferred a container match over any binary
-     * matches, even though it ran both of them).
-     */
-    private class ContainerOrBinaryMatching implements MatchStrategy {
-        @Override
-        public IdentificationResultCollection match(IdentificationRequest request) throws IOException {
-            IdentificationResultCollection results = matchContainerSignatures(request);
-            if (results.getResults().isEmpty()) {
-                results = matchBinarySignatures(request);
-            }
-            removeLowerPriorityHits(results);
-            return processExtensions(request, results);
-        }
-    }
 }
