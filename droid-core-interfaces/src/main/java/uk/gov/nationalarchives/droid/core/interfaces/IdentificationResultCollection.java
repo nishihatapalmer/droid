@@ -148,6 +148,13 @@ public class IdentificationResultCollection {
     public boolean isArchive() {
         return archive;
     }
+
+    /**
+     * @return true if the collection is empty.
+     */
+    public boolean isEmpty() {
+        return results.isEmpty();
+    }
     
     /**
      * @param value Whether there is a file extension mismatch
