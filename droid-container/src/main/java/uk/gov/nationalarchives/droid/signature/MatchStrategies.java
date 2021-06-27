@@ -65,9 +65,12 @@ public final class MatchStrategies {
      * It provides a utility method to add in extension matches after any other matching has been done,
      * as this has proved to be a common requirement for many of them.
      */
-    public static abstract class DroidCoreMatchStrategy implements MatchStrategy {
+    public abstract static class DroidCoreMatchStrategy implements MatchStrategy {
 
-        protected final DroidCore core;
+        /**
+         * The DroidCore to use with the MatchStrategy.
+         */
+        private final DroidCore core;
 
         /**
          * Constructs the base match strategy with a DroidCore.
@@ -76,6 +79,13 @@ public final class MatchStrategies {
          */
         public DroidCoreMatchStrategy(DroidCore core) {
             this.core = core;
+        }
+
+        /**
+         * @return The DroidCore to use when matching.
+         */
+        protected DroidCore getCore() {
+            return core;
         }
 
         /**
@@ -111,13 +121,17 @@ public final class MatchStrategies {
      */
     public static class ExtensionMatching extends DroidCoreMatchStrategy {
 
+        /**
+         * Construct an ExtensionMatching strategy.
+         * @param core the DroidCore to use.
+         */
         public ExtensionMatching(DroidCore core) {
             super(core);
         }
 
         @Override
         public IdentificationResultCollection match(IdentificationRequest request) {
-            return core.matchExtensions(request);
+            return getCore().matchExtensions(request);
         }
     }
 
@@ -127,12 +141,17 @@ public final class MatchStrategies {
      */
     public static class BinaryMatching extends DroidCoreMatchStrategy {
 
+        /**
+         * Construct a BinaryMatching strategy.
+         * @param core the DroidCore to use.
+         */
         public BinaryMatching(DroidCore core) {
             super(core);
         }
 
         @Override
         public IdentificationResultCollection match(IdentificationRequest request) {
+            final DroidCore core = getCore();
             IdentificationResultCollection results = core.matchBinarySignatures(request);
             core.removeLowerPriorityHits(results);
             return addExtensionMatches(request, results);
@@ -146,12 +165,17 @@ public final class MatchStrategies {
      */
     public static class ContainerMatching extends DroidCoreMatchStrategy {
 
+        /**
+         * Construct a ContainerMatching strategy.
+         * @param core the DroidCore to use.
+         */
         public ContainerMatching(DroidCore core) {
             super(core);
         }
 
         @Override
         public IdentificationResultCollection match(IdentificationRequest request) throws IOException {
+            final DroidCore core = getCore();
             IdentificationResultCollection results = core.matchContainerSignatures(request);
             core.removeLowerPriorityHits(results);
             return addExtensionMatches(request, results);
@@ -166,17 +190,22 @@ public final class MatchStrategies {
      */
     public static class BinaryAndContainerMatching extends DroidCoreMatchStrategy {
 
+        /**
+         * Construct a BinaryAndContainerMatching strategy.
+         * @param core the DroidCore to use.
+         */
         public BinaryAndContainerMatching(DroidCore core) {
             super(core);
         }
 
         @Override
         public IdentificationResultCollection match(IdentificationRequest request) throws IOException {
+            final DroidCore core = getCore();
             IdentificationResultCollection results = core.matchBinarySignatures(request);
             if (!results.isEmpty()) { // If we match nothing, then we can't have found the container type.
                 IdentificationResultCollection containerResults = core.matchContainerSignatures(request);
                 if (!containerResults.isEmpty()) {
-                    results = containerResults;
+                    results = containerResults; // If we found a container match, we discard any binary matches and use the container.
                 }
             }
             core.removeLowerPriorityHits(results);
@@ -194,12 +223,17 @@ public final class MatchStrategies {
      */
     public static class ContainerOrBinaryMatching extends DroidCoreMatchStrategy {
 
+        /**
+         * Construct a ContainerOrBinaryMatching strategy.
+         * @param core the DroidCore to use.
+         */
         public ContainerOrBinaryMatching(DroidCore core) {
             super(core);
         }
 
         @Override
         public IdentificationResultCollection match(IdentificationRequest request) throws IOException {
+            final DroidCore core = getCore();
             IdentificationResultCollection results = core.matchContainerSignatures(request);
             if (results.isEmpty()) {
                 results = core.matchBinarySignatures(request);
