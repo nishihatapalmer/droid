@@ -84,12 +84,6 @@ public interface DroidCore {
     IdentificationResultCollection matchExtensions(IdentificationRequest request);
 
     /**
-     * Sets the signature file for the DROID core to use.
-     * @param sigFilename the signature file to use
-     */
-    void setSignatureFile(String sigFilename);
-
-    /**
      * Removes binary Signatures which identify the PUID specified.
      * @param string a puid
      */
