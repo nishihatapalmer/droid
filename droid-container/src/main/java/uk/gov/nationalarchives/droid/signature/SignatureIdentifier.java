@@ -155,7 +155,6 @@ public class SignatureIdentifier implements DroidCore {
      *
      * @param signatureFile The path to the binary signature file.
      * @param containerFile The path to the container signature file.
-     // * @param containerSignatureFileReader A class which can parse a container signature file and cache the parsed definitions.
      * @param tempDirLocation the location of the temp dir to store temporary caches of internal container files.
      * @param matchAllExtensions if true, matches all extensions defined, if false only matches extensions if there are
      *                           no other signatures defined for that format.
@@ -174,7 +173,6 @@ public class SignatureIdentifier implements DroidCore {
         setMaxBytesToScan(maxBytesToScan);
         setSignatureFile(signatureFile);
         setContainerFile(containerFile);
-        //setContainerSignatureFileReader(containerSignatureFileReader);
         init();
     }
 
@@ -417,13 +415,12 @@ public class SignatureIdentifier implements DroidCore {
      * Sets the signature file path.
      * @param signatureFile the signature file path to set
      */
-    @Override
     public void setSignatureFile(final String signatureFile) {
         this.signatureFile = Paths.get(signatureFile).toUri();
     }
 
     /**
-     * Sets the container signature path
+     * Sets the container signature path.
      * @param containerFile the container signature file path to set.
      */
     public void setContainerFile(final String containerFile) {
