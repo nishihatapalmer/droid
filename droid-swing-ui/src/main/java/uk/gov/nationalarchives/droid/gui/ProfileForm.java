@@ -32,9 +32,6 @@
 package uk.gov.nationalarchives.droid.gui;
 
 import java.awt.Color;
-import java.awt.Cursor;
-import java.awt.Desktop;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -42,17 +39,14 @@ import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+
 import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URL;
+
 import java.nio.file.Path;
+
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -64,33 +58,22 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JProgressBar;
 import javax.swing.JSlider;
-import javax.swing.JTable;
+import javax.swing.ListSelectionModel;
 import javax.swing.TransferHandler;
-import javax.swing.event.TreeWillExpandListener;
-import javax.swing.table.TableCellRenderer;
-import javax.swing.table.TableColumnModel;
+
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreePath;
+import javax.swing.tree.TreeNode;
 
-import org.apache.commons.lang.StringUtils;
-import org.netbeans.swing.etable.ETableColumn;
-import org.netbeans.swing.outline.DefaultOutlineModel;
-import org.netbeans.swing.outline.Outline;
-import org.netbeans.swing.outline.OutlineModel;
+import net.byteseek.swing.treetable.TreeTableModel;
 
 import uk.gov.nationalarchives.droid.core.interfaces.config.DroidGlobalProperty;
 import uk.gov.nationalarchives.droid.gui.action.CloseProfileAction;
 import uk.gov.nationalarchives.droid.gui.action.OpenContainingFolderAction;
 import uk.gov.nationalarchives.droid.gui.action.SaveProfileWorker;
-import uk.gov.nationalarchives.droid.gui.treemodel.TreeUtils;
-import uk.gov.nationalarchives.droid.gui.treemodel.DefaultMutableTreeNodeComparator;
-import uk.gov.nationalarchives.droid.gui.treemodel.DirectoryComparableLong;
 import uk.gov.nationalarchives.droid.gui.treemodel.ExpandingTreeListener;
-import uk.gov.nationalarchives.droid.gui.treemodel.NodeRenderer;
-import uk.gov.nationalarchives.droid.gui.treemodel.OutlineColumn;
-import uk.gov.nationalarchives.droid.gui.treemodel.OutlineComparableComparator;
-import uk.gov.nationalarchives.droid.gui.treemodel.ProfileRowModel;
+import uk.gov.nationalarchives.droid.gui.treemodel.ProfileTreeTableModel;
+import uk.gov.nationalarchives.droid.gui.treemodel.TreeUtils;
 import uk.gov.nationalarchives.droid.gui.widgetwrapper.FileChooserProxy;
 import uk.gov.nationalarchives.droid.gui.widgetwrapper.FileChooserProxyImpl;
 import uk.gov.nationalarchives.droid.gui.widgetwrapper.JOptionPaneProxy;
@@ -111,9 +94,10 @@ public class ProfileForm extends JPanel {
     private static final int MAX_LEVELS_TO_EXPAND = 3;
 
     private static final long serialVersionUID = 1671584434169040994L;
+    private  static final int ROW_HEIGHT = 28; // height of rows in the tree table.
 
     private DefaultTreeModel treeModel;
-    private OutlineModel mdl;
+    private TreeTableModel treeTableModel;
     private ProfileInstance profile;
     private DroidMainFrame droidMainUi;
     private DroidUIContext context;
@@ -168,8 +152,31 @@ public class ProfileForm extends JPanel {
         this.profile = profile;
     }
 
-    //CHECKSTYLE:OFF too many statements
     private void initOutline() {
+        // Set up the table
+        final Color backColor = jTable1.getBackground();
+        jTable1.setShowHorizontalLines(false);
+        jTable1.setShowVerticalLines(true);
+        jTable1.setGridColor(TreeUtils.getDarkerColor(backColor));
+        jTable1.setRowHeight(ROW_HEIGHT);
+
+        // Set up the tree and table models
+        final DefaultMutableTreeNode root = new DefaultMutableTreeNode(null, true);
+        treeModel = new DefaultTreeModel(root, true);
+        treeTableModel = new ProfileTreeTableModel(root, backColor);
+        treeModel.addTreeModelListener(treeTableModel);
+        treeTableModel.addExpandCollapseListener(new ExpandingTreeListener(droidMainUi.getProfileManager(), this));
+        treeTableModel.bindTable(jTable1);
+
+        // Set up file dropping to add new files or folders:
+        setDropFilesOn(jTable1);
+        setDropFilesOn(jScrollPane2);
+    }
+
+            /*
+
+    //CHECKSTYLE:OFF too many statements
+    private void initOutlineOld() {
     //CHECKSTYLE:ON
         DefaultMutableTreeNode root = new DefaultMutableTreeNode(null, true);
         treeModel = new DefaultTreeModel(root, true);
@@ -181,6 +188,7 @@ public class ProfileForm extends JPanel {
         //resultsOutline.setRenderDataProvider(new ProfileResultsRenderData());
         resultsOutline.setRootVisible(false);
 
+
         TreeWillExpandListener expandingTreeListener = new ExpandingTreeListener(droidMainUi.getProfileManager(), this);
         mdl.getTreePathSupport().addTreeWillExpandListener(expandingTreeListener);
         
@@ -190,8 +198,8 @@ public class ProfileForm extends JPanel {
         ETableColumn nodeColumn0 = (ETableColumn) columnModel.getColumn(0);
         Color backColor = resultsOutline.getBackground();
         nodeColumn0.setNestedComparator(new DefaultMutableTreeNodeComparator(nodeColumn0));
-        nodeColumn0.setCellRenderer(new NodeRenderer(backColor));
-        resultsOutline.setDefaultRenderer(Object.class, new NodeRenderer(backColor));
+        nodeColumn0.setCellRenderer(new TreeRenderer(backColor));
+        resultsOutline.setDefaultRenderer(Object.class, new TreeRenderer(backColor));
 
         resultsOutline.setShowHorizontalLines(false);
         resultsOutline.setShowVerticalLines(true);
@@ -232,7 +240,9 @@ public class ProfileForm extends JPanel {
         });
 
         setDropFilesOn(resultsOutline);
+
     }
+             */
 
     private void setDropFilesOn(JComponent component) {
         // Support dropping files on to the results outline.
@@ -288,8 +298,6 @@ public class ProfileForm extends JPanel {
         jSeparator1 = new javax.swing.JSeparator();
         PopupMenuExpandChildren = new javax.swing.JMenuItem();
         PopupMenuExpandNextThree = new javax.swing.JMenuItem();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        resultsOutline = new org.netbeans.swing.outline.Outline();
         jPanel3 = new javax.swing.JPanel();
         statusProgressPanel = new javax.swing.JPanel();
         statusLabel = new javax.swing.JLabel();
@@ -299,6 +307,8 @@ public class ProfileForm extends JPanel {
         throttleLabel = new javax.swing.JLabel();
         progressPanel = new javax.swing.JPanel();
         profileProgressBar = new javax.swing.JProgressBar();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        jTable1 = new javax.swing.JTable();
 
         jPopupMenu1.addPopupMenuListener(new javax.swing.event.PopupMenuListener() {
             public void popupMenuCanceled(javax.swing.event.PopupMenuEvent evt) {
@@ -369,11 +379,6 @@ public class ProfileForm extends JPanel {
         });
         jPopupMenu1.add(PopupMenuExpandNextThree);
 
-        resultsOutline.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
-        resultsOutline.setFillsViewportHeight(true);
-        resultsOutline.setSelectVisibleColumnsLabel(org.openide.util.NbBundle.getMessage(ProfileForm.class, "results.columns.select")); // NOI18N
-        jScrollPane1.setViewportView(resultsOutline);
-
         statusLabel.setLabelFor(statusProgressBar);
         statusLabel.setText(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.statusLabel.text")); // NOI18N
 
@@ -428,11 +433,11 @@ public class ProfileForm extends JPanel {
             throttlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(throttlePanelLayout.createSequentialGroup()
                 .addGroup(throttlePanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(throttleSlider, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
+                    .addComponent(throttleSlider, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(throttlePanelLayout.createSequentialGroup()
                         .addContainerGap()
                         .addComponent(throttleLabel)))
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         profileProgressBar.setToolTipText(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.profileProgressBar.toolTipText")); // NOI18N
@@ -475,17 +480,30 @@ public class ProfileForm extends JPanel {
                 .addContainerGap())
         );
 
+        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane2.setViewportView(jTable1);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 868, Short.MAX_VALUE)
+            .addComponent(jScrollPane2)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 504, Short.MAX_VALUE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 634, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -543,11 +561,11 @@ public class ProfileForm extends JPanel {
     private javax.swing.JSeparator PopupSeparator1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JPopupMenu jPopupMenu1;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JTable jTable1;
     private javax.swing.JProgressBar profileProgressBar;
     private javax.swing.JPanel progressPanel;
-    private org.netbeans.swing.outline.Outline resultsOutline;
     private javax.swing.JLabel statusLabel;
     private javax.swing.JProgressBar statusProgressBar;
     private javax.swing.JPanel statusProgressPanel;
@@ -561,17 +579,10 @@ public class ProfileForm extends JPanel {
      * Copies selected rows to the system clipboard.
      */
     public void copySelectedToClipboard() {
-        final TransferHandler handler = resultsOutline.getTransferHandler();
+        final TransferHandler handler = jTable1.getTransferHandler();
         final Toolkit tk = Toolkit.getDefaultToolkit();
         final Clipboard clipboard = tk.getSystemClipboard();
-        handler.exportToClipboard(resultsOutline, clipboard, TransferHandler.COPY);
-    }
-    
-    /**
-     * @return the results outline
-     */
-    public Outline getResultsOutline() {
-        return resultsOutline;
+        handler.exportToClipboard(jTable1, clipboard, TransferHandler.COPY);
     }
 
     /**
@@ -809,17 +820,24 @@ public class ProfileForm extends JPanel {
      */
     public List<ProfileResourceNode> getSelectedNodes() {
         List<ProfileResourceNode> results = new ArrayList<ProfileResourceNode>();
-        Outline outline = getResultsOutline();
-        int[] selectedRows = outline.getSelectedRows();
-        for (int i = selectedRows.length; i > 0; i--) {
-            int index = selectedRows[i - 1];
-            DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) outline
-                    .getValueAt(index, 0);
-            ProfileResourceNode prn = (ProfileResourceNode) treeNode
-                    .getUserObject();
-            results.add(prn);
+        for (TreeNode node : treeTableModel.getSelectedNodes()) {
+            results.add((ProfileResourceNode) ((DefaultMutableTreeNode) node).getUserObject());
         }
         return results;
+    }
+
+    /**
+     * @return The first selected DefaultMutableTreeNode or null if none selected.
+     */
+    public DefaultMutableTreeNode getSelectedTreeNode() {
+        return anyRowsSelected() ? (DefaultMutableTreeNode) treeTableModel.getSelectedNode() : null;
+    }
+
+    /**
+     * @return A list of all currently selected tree nodes.
+     */
+    public List<TreeNode> getSelectedTreeNodes() {
+        return anyRowsSelected() ? treeTableModel.getSelectedNodes() : Collections.emptyList();
     }
     
     /**
@@ -827,38 +845,28 @@ public class ProfileForm extends JPanel {
      * @return whether any rows are selected in the profile.
      */
     public boolean anyRowsSelected() {
-        Outline outline = getResultsOutline();
-        return outline.getSelectedRows().length > 0;
+        return jTable1.getSelectedRow() >= 0;
     }
-    
-    
+
+    /**
+     * @return A ListSelectionModel from the table.
+     */
+    public ListSelectionModel getSelectionModel() {
+        return jTable1.getSelectionModel();
+    }
+
     /**
      * Expands the selected nodes in the tree.
      * @param recursive whether to expand all children.
      */
     public void expandSelectedNodes(boolean recursive) {
-        Outline outline = getResultsOutline();
-        int[] selectedRows = outline.getSelectedRows();
-        for (int i = selectedRows.length; i > 0; i--) {
-            int index = selectedRows[i - 1];
-            DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) outline
-                    .getValueAt(index, 0);
-            expandNode(treeNode, recursive, 1);
-        }
-    }
-    
-    
-    private void expandNode(DefaultMutableTreeNode treeNode, boolean recursive, int level) {
-        if (treeNode.getAllowsChildren()) {
-            if (treeNode.getChildCount() == 0) {
-                TreePath path = new TreePath(treeNode.getPath());
-                mdl.getTreePathSupport().expandPath(path);
+        if (recursive) {
+            for (TreeNode node : treeTableModel.getSelectedNodes()) {
+                treeTableModel.expandChildren(node, MAX_LEVELS_TO_EXPAND);
             }
-            if (recursive && level <= MAX_LEVELS_TO_EXPAND) {
-                for (int childIndex = 0; childIndex < treeNode.getChildCount(); childIndex++) {
-                    DefaultMutableTreeNode child = (DefaultMutableTreeNode) treeNode.getChildAt(childIndex);
-                    expandNode(child, recursive, level + 1);
-                }
+        } else {
+            for (TreeNode node : treeTableModel.getSelectedNodes()) {
+                treeTableModel.expandNode(node);
             }
         }
     }
@@ -875,25 +883,26 @@ public class ProfileForm extends JPanel {
         return String.format(puidUrl, puid);
     }
 
+    /*
     private class OutlineMouseAdapter extends MouseAdapter {
         @Override
         public void mouseReleased(MouseEvent e) {
 
             if (e.getButton() == MouseEvent.BUTTON3) {
                 Point mousePoint = e.getPoint();
-                int rowIndex = resultsOutline.rowAtPoint(mousePoint);
-                if (rowIndex > -1 && !resultsOutline.isRowSelected(rowIndex)) {
-                    resultsOutline.setRowSelectionInterval(rowIndex, rowIndex);
+                int rowIndex = jTable1.rowAtPoint(mousePoint);
+                if (rowIndex > -1 && !jTable1.isRowSelected(rowIndex)) {
+                    jTable1.setRowSelectionInterval(rowIndex, rowIndex);
                 }
-                jPopupMenu1.show(resultsOutline, e.getX(), e.getY());
+                jPopupMenu1.show(jTable1, e.getX(), e.getY());
             } else {
                 Point mousePoint = e.getPoint();
-                int colIndex = resultsOutline.columnAtPoint(mousePoint);
-                int rowIndex = resultsOutline.rowAtPoint(mousePoint);
-                int colModelIndex = resultsOutline.convertColumnIndexToModel(resultsOutline.columnAtPoint(mousePoint));
+                int colIndex = jTable1.columnAtPoint(mousePoint);
+                int rowIndex = jTable1.rowAtPoint(mousePoint);
+                int colModelIndex = jTable1.convertColumnIndexToModel(jTable1.columnAtPoint(mousePoint));
     
                 if (colModelIndex == OutlineColumn.PUID.ordinal() + 1) {
-                    Object cellObj = resultsOutline.getValueAt(rowIndex, colIndex);
+                    Object cellObj = jTable1.getValueAt(rowIndex, colIndex);
                     if (cellObj != null) {
                         String cellValue = cellObj.toString();
                         cellValue = cellValue.replace(puidValuePrefix, "");
@@ -939,25 +948,25 @@ public class ProfileForm extends JPanel {
         
         @Override
         public void mouseMoved(MouseEvent e) {
-            
+
             final Point mousePoint = e.getPoint();
-            final int colIndex = resultsOutline.columnAtPoint(mousePoint);
-            final int rowIndex = resultsOutline.rowAtPoint(mousePoint);
-            final int colModelIndex = resultsOutline.convertColumnIndexToModel(
-                    resultsOutline.columnAtPoint(mousePoint));
-            final Object cellObject = resultsOutline.getValueAt(rowIndex, colIndex);
+            final int colIndex = jTable1.columnAtPoint(mousePoint);
+            final int rowIndex = jTable1.rowAtPoint(mousePoint);
+            final int colModelIndex = jTable1.convertColumnIndexToModel(
+                    jTable1.columnAtPoint(mousePoint));
+            final Object cellObject = jTable1.getValueAt(rowIndex, colIndex);
             if (cellObject != null) {
                 String cellValue = cellObject.toString();
-                resultsOutline.setToolTipText(cellValue);
+                jTable1.setToolTipText(cellValue);
                 
                 if (colModelIndex == 0) {
                     ProfileResourceNode resourceNode = (ProfileResourceNode) ((DefaultMutableTreeNode) 
                             cellObject).getUserObject();
-                    resultsOutline.setToolTipText(java.net.URLDecoder.decode(resourceNode.getUri().toString()));
+                    jTable1.setToolTipText(java.net.URLDecoder.decode(resourceNode.getUri().toString()));
                 }
                 
                 if (colModelIndex == OutlineColumn.PUID.ordinal() + 1) {
-                    cellValue = resultsOutline.getValueAt(rowIndex, colIndex).toString();
+                    cellValue = jTable1.getValueAt(rowIndex, colIndex).toString();
                     cellValue = cellValue.replace(puidValuePrefix, "");
                     cellValue = cellValue.replace(puidValueSuffix, "");
                     cellValue.trim();
@@ -967,9 +976,9 @@ public class ProfileForm extends JPanel {
                         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     }
                 } else if (colModelIndex == OutlineColumn.IDENTIFICATION_COUNT.ordinal() + 1) {
-                    DirectoryComparableLong value = (DirectoryComparableLong) 
-                        resultsOutline.getValueAt(resultsOutline.rowAtPoint(e.getPoint()),
-                            resultsOutline.columnAtPoint(e.getPoint()));
+                    DirectoryComparableLong value = (DirectoryComparableLong)
+                            jTable1.getValueAt(jTable1.rowAtPoint(e.getPoint()),
+                                    jTable1.columnAtPoint(e.getPoint()));
                     if (value.getSource() != null && value.getSource() > 1) {
                         setCursor(new Cursor(Cursor.HAND_CURSOR));
                     } else {
@@ -982,28 +991,25 @@ public class ProfileForm extends JPanel {
                 repaint();
             }
         }
-        
-        /**
-         * @see java.awt.event.MouseAdapter#mouseClicked(java.awt.event.MouseEvent)
-         */
-        @Override
+
+
         public void mouseClicked(MouseEvent e) {
             Point mousePoint = e.getPoint();
-            int colIndex = resultsOutline.columnAtPoint(mousePoint);
-            int rowIndex = resultsOutline.rowAtPoint(mousePoint);
-            int colModelIndex = resultsOutline.convertColumnIndexToModel(resultsOutline.columnAtPoint(mousePoint));
+            int colIndex = jTable1.columnAtPoint(mousePoint);
+            int rowIndex = jTable1.rowAtPoint(mousePoint);
+            int colModelIndex = jTable1.convertColumnIndexToModel(jTable1.columnAtPoint(mousePoint));
 
             if (colModelIndex == OutlineColumn.IDENTIFICATION_COUNT.ordinal() + 1) {
-                DirectoryComparableLong count = (DirectoryComparableLong) resultsOutline
+                DirectoryComparableLong count = (DirectoryComparableLong) jTable1
                     .getValueAt(rowIndex, colIndex);
                 if (count != null && count.getSource() != null && count.getSource() > 1) {
-                    int rowModelIndex = resultsOutline.convertRowIndexToModel(rowIndex);
-                    DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) mdl.getValueAt(rowModelIndex, 0);
+                    DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) treeTableModel.getNodeAtTableRow(rowIndex);
                     ProfileResourceNode node = (ProfileResourceNode) treeNode.getUserObject();
                     multiIdentificationDialog.showDialog(node);
                 }
             }
         }
     }
+    */
 
 }

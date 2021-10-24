@@ -35,20 +35,19 @@ import java.awt.Cursor;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.swing.event.TreeExpansionEvent;
-import javax.swing.event.TreeWillExpandListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
+import net.byteseek.swing.treetable.TreeTableModel;
 import uk.gov.nationalarchives.droid.gui.ProfileForm;
 import uk.gov.nationalarchives.droid.profile.ProfileManager;
 import uk.gov.nationalarchives.droid.profile.ProfileResourceNode;
 
 /**
- * @author rflitcroft
+ * @author rflitcroft, mpalmer
  *
  */
-public class ExpandingTreeListener implements TreeWillExpandListener {
+public class ExpandingTreeListener implements TreeTableModel.ExpandCollapseListener {
 
     private ProfileManager profileManager;
     private ProfileForm profileForm;
@@ -61,22 +60,19 @@ public class ExpandingTreeListener implements TreeWillExpandListener {
         this.profileManager = profileManager;
         this.profileForm = profileForm;
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
-    public void treeWillExpand(TreeExpansionEvent event) {
+    public boolean nodeExpanding(TreeNode treeNode) {
         try {
             profileForm.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            DefaultMutableTreeNode expandingNode = (DefaultMutableTreeNode) event.getPath().getLastPathComponent();
+            DefaultMutableTreeNode expandingNode = (DefaultMutableTreeNode) treeNode;
             ProfileResourceNode prn = (ProfileResourceNode) expandingNode.getUserObject();
             profileForm.getInMemoryNodes().put(prn.getId(), expandingNode);
             expandingNode.removeAllChildren();
-            
-            final List<ProfileResourceNode> childNodes = 
-                profileManager.findProfileResourceNodeAndImmediateChildren(
-                        profileForm.getProfile().getUuid(), prn.getId());
+
+            final List<ProfileResourceNode> childNodes =
+                    profileManager.findProfileResourceNodeAndImmediateChildren(
+                            profileForm.getProfile().getUuid(), prn.getId());
             if (!childNodes.isEmpty()) {
                 expandingNode.setAllowsChildren(true);
                 for (ProfileResourceNode node : childNodes) {
@@ -85,35 +81,29 @@ public class ExpandingTreeListener implements TreeWillExpandListener {
                     profileForm.getInMemoryNodes().put(node.getId(), newNode);
                 }
             }
-            
+
             if (expandingNode.getChildCount() == 0) {
                 expandingNode.setAllowsChildren(false);
             }
-            
-            profileForm.getTreeModel().nodeStructureChanged(expandingNode);
         } finally {
             profileForm.setCursor(Cursor.getDefaultCursor());
         }
+        return true;
     }
-    
-    /**
-     * {@inheritDoc}
-     */
-    @SuppressWarnings("unchecked")
+
     @Override
-    public void treeWillCollapse(TreeExpansionEvent event) {
-        DefaultMutableTreeNode collapsingNode = (DefaultMutableTreeNode) event.getPath().getLastPathComponent();
+    public boolean nodeCollapsing(TreeNode treeNode) {
+        DefaultMutableTreeNode collapsingNode = (DefaultMutableTreeNode) treeNode;
         ProfileResourceNode prn = (ProfileResourceNode) collapsingNode.getUserObject();
         profileForm.getInMemoryNodes().remove(prn.getId());
-        
+
         for (Enumeration<TreeNode> e = collapsingNode.children(); e.hasMoreElements();) {
             DefaultMutableTreeNode nodeToRemove = (DefaultMutableTreeNode) e.nextElement();
             final ProfileResourceNode node = (ProfileResourceNode) nodeToRemove.getUserObject();
             profileForm.getInMemoryNodes().remove(node.getId());
         }
         collapsingNode.removeAllChildren();
-        
-        profileForm.getTreeModel().nodeStructureChanged(collapsingNode);
+
+        return true;
     }
-    
 }

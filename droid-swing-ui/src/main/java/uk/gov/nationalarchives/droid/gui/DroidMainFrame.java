@@ -1394,7 +1394,7 @@ public class DroidMainFrame extends JFrame {
     }
 
     public void jButtonRemoveFilesAndFolderActionPerformed(java.awt.event.ActionEvent evt) {// GEN-FIRST:event_jButtonRemoveFilesAndFolderActionPerformed
-        if (droidContext.getSelectedProfile().getResultsOutline().getSelectedRows().length == 0) {
+        if (!droidContext.getSelectedProfile().anyRowsSelected()) {
             DialogUtils.showNothingIsSelectedForRemoveDialog(this);
         }
         RemoveFilesAndFoldersAction removeAction = new RemoveFilesAndFoldersAction(droidContext, profileManager);

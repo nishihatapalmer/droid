@@ -34,38 +34,37 @@ package uk.gov.nationalarchives.droid.gui.treemodel;
 import java.awt.Color;
 
 import javax.swing.Icon;
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
 
+import net.byteseek.swing.treetable.TreeTableModel;
+
+
 /**
- * @author a-mpalmer
+ * Renders file extensions, with a warning icon if there is file extension mismatch.
  *
+ * @author a-mpalmer
  */
 public class FileExtensionRenderer extends DefaultCellRenderer {
 
-    private Icon warningIcon;
+    private final Icon warningIcon;
     
     /**
+     * Constructs a FileExtension renderer which supplies a warning icon on mismatches.
+     *
+     * @param treeTableModel the tree table model used by renderers to find node sin the tree.
      * @param backColor the background color to render in.
      */
-    public FileExtensionRenderer(Color backColor) {
-        super(backColor);
-        getRenderer().setHorizontalTextPosition(SwingConstants.LEFT);
-        warningIcon = getIconResource("warning_extension_mismatch");
+    public FileExtensionRenderer(final TreeTableModel treeTableModel, final Color backColor) {
+        super(treeTableModel, backColor, SwingConstants.LEFT);
+        warningIcon = getIconResource("warning_extension_mismatch.gif");
     }
     
-    
     @Override
-    /**
-     * @param Object the object being rendered.
-     * @return Icon the icon for a file extension mismatch.
-     * @see uk.gov.nationalarchives.droid.gui.treemodel.DefaultCellRenderer#getIcon(java.lang.Object)
-     */
-    public Icon getIcon(Object value) {
-        DirectoryComparableObject o = (DirectoryComparableObject) value;
-        if (o.getExtensionMismatch()) {
-            return warningIcon;
-        }
-        return null;
+    public Icon getIcon(final JTable table, final Object value,
+                        final boolean isSelected, final boolean hasFocus,
+                        final int row, final int column) {
+        return getProfileNode() == null ? null : getProfileNode().getExtensionMismatch() ? warningIcon : null;
     }
 
 }

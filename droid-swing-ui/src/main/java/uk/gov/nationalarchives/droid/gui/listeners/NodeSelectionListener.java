@@ -37,11 +37,9 @@ import java.awt.event.KeyListener;
 import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-
-import org.netbeans.swing.outline.Outline;
 
 import uk.gov.nationalarchives.droid.gui.DroidUIContext;
+import uk.gov.nationalarchives.droid.gui.ProfileForm;
 import uk.gov.nationalarchives.droid.profile.ProfileManager;
 
 /**
@@ -68,9 +66,9 @@ public class NodeSelectionListener implements ListSelectionListener, KeyListener
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == F5_KEY_CODE) {
-            Outline outline = droidContext.getSelectedProfile().getResultsOutline();
-            // if any row is selected and hte node is not the root node.
-            if (outline.getSelectedRow() != -1 && !getSelectedNode().isRoot()) {
+            // if any row is selected and the node is not the root node.
+            final ProfileForm form = droidContext.getSelectedProfile();
+            if (form.anyRowsSelected() && !form.getSelectedTreeNode().isRoot()) {
                 populateNode();
             }
         }
@@ -79,10 +77,10 @@ public class NodeSelectionListener implements ListSelectionListener, KeyListener
     @Override
     public void valueChanged(ListSelectionEvent event) {
         if (!event.getValueIsAdjusting()) {
-            Outline outline = droidContext.getSelectedProfile().getResultsOutline();
-            ListSelectionModel m = outline.getSelectionModel();
-            if (outline.getSelectedRow() != -1 && m.getMinSelectionIndex() == m.getMaxSelectionIndex()) {
-                if (!getSelectedNode().isRoot() && getSelectedNode().getDepth() == 0) {
+            final ProfileForm form = droidContext.getSelectedProfile();
+            ListSelectionModel m = form.getSelectionModel();
+            if (form.anyRowsSelected() && m.getMinSelectionIndex() == m.getMaxSelectionIndex()) {
+                if (!form.getSelectedTreeNode().isRoot() && form.getSelectedTreeNode().getDepth() == 0) {
                     populateNode();
                 }
             }
@@ -138,11 +136,6 @@ public class NodeSelectionListener implements ListSelectionListener, KeyListener
 //                ((DefaultTreeModel) treeMdl).reload(node);
 //            }
 //        }
-    }
-
-    private DefaultMutableTreeNode getSelectedNode() {
-        Outline outline = droidContext.getSelectedProfile().getResultsOutline();
-        return (DefaultMutableTreeNode) outline.getValueAt(outline.getSelectedRow(), 0);
     }
     
     @Override

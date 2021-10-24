@@ -33,38 +33,47 @@ package uk.gov.nationalarchives.droid.gui.treemodel;
 
 import java.awt.Color;
 
+import javax.swing.JTable;
+
+import net.byteseek.swing.treetable.TreeTableModel;
+
+
 /**
- * @author matt
+ * Renders hyperlinks in a cell in the tree.  Used for PUID links to PRONOM.
  *
+ * @author matt
  */
 public class HyperlinkRenderer extends DefaultCellRenderer {
 
     /**
      * Constructor for HyperlinkRenderer.
+     * @param treeTableModel the tree table model used by renderers to find node sin the tree.
      * @param backColor - the default background color of a cell.
      */
-    public HyperlinkRenderer(Color backColor) {
-        super(backColor);
+    public HyperlinkRenderer(final TreeTableModel treeTableModel, final Color backColor) {
+        super(treeTableModel, backColor);
     }
-    
+
     /**
      * Constructor for Hyperlink Renderer.
+     * @param treeTableModel the tree table model used by renderers to find nodes in the tree.
      * @param backColor - the default background color of a cell.
      * @param alignment - the left, center or right alignment of the values.
      */
-    public HyperlinkRenderer(Color backColor, int alignment) {
-        super(backColor, alignment);
+    public HyperlinkRenderer(final TreeTableModel treeTableModel, final Color backColor, final int alignment) {
+        super(treeTableModel, backColor, alignment);
     }
 
     @Override
-    /**
-     * {@InheritDoc}
-     */
-    public String getDisplayValue(Object value) {
-        final String display = value.toString();
-        if (display.startsWith("\"")) {
-            return display;
+    public String getDisplayValue(final JTable table, final Object value,
+                                  final boolean isSelected, final boolean hasFocus,
+                                  final int row, final int column) {
+        if (value != null) {
+            final String display = value.toString();
+            if (display.startsWith("\"")) {
+                return display;
+            }
         }
-        return String.format("<html><a href=\"\">%s</a></html>", value.toString());
+        return String.format("<html><a href=\"\">%s</a></html>", value);
     }
 }

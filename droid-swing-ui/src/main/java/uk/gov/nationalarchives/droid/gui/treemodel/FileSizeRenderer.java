@@ -33,11 +33,16 @@ package uk.gov.nationalarchives.droid.gui.treemodel;
 
 import java.awt.Color;
 
+import javax.swing.JTable;
 import javax.swing.SwingConstants;
+
+import net.byteseek.swing.treetable.TreeTableModel;
 
 import uk.gov.nationalarchives.droid.util.FileUtil;
 
 /**
+ * Renders file sizes in the tree, formatting the size display value into kb, mb, etc.
+ *
  * @author a-mpalmer
  *
  */
@@ -46,20 +51,19 @@ public class FileSizeRenderer extends DefaultCellRenderer {
     /**
      * Constructs a file size renderer and sets the generic properties of its 
      * private cached JLabel object used to actually render.
+     *
+     * @param treeTableModel the tree table model used by renderers to find node sin the tree.
      * @param backColor - the background color of the cell.
      */
-    public FileSizeRenderer(Color backColor) {
-        super(backColor);
-        getRenderer().setHorizontalAlignment(SwingConstants.RIGHT);
+    public FileSizeRenderer(final TreeTableModel treeTableModel, final Color backColor) {
+        super(treeTableModel, backColor, SwingConstants.RIGHT);
     }
         
     @Override
-    public String getDisplayValue(Object value) {
-        if (getFilterStatus(value) != 1) {
-            return "";
-        }
-        DirectoryComparableLong val = (DirectoryComparableLong) value;
-        final Long sizeValue = val.getSource(); 
+    public String getDisplayValue(final JTable table, final Object value,
+                                  final boolean isSelected, final boolean hasFocus,
+                                  final int row, final int column) {
+        final Long sizeValue = (Long) value;
         return sizeValue == null ? "" : FileUtil.formatFileSize(sizeValue, 1) + "  ";
     }
     

@@ -33,8 +33,7 @@ package uk.gov.nationalarchives.droid.gui.action;
 
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-
-import org.netbeans.swing.outline.Outline;
+import javax.swing.tree.TreeNode;
 
 import uk.gov.nationalarchives.droid.gui.DroidUIContext;
 import uk.gov.nationalarchives.droid.gui.ProfileForm;
@@ -71,27 +70,16 @@ public class RemoveFilesAndFoldersAction {
         ProfileForm selectedProfile = droidContext.getSelectedProfile();
 
         DefaultTreeModel treeMdl = selectedProfile.getTreeModel();
-        Outline outline = selectedProfile.getResultsOutline();
         ProfileInstance profile = selectedProfile.getProfile();
 
-        int[] selectedRows = outline.getSelectedRows();
-
-        for (int i = selectedRows.length; i > 0; i--) {
-            // remove node from profile spec
-            int index = selectedRows[i - 1];
-
-            DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) outline
-                    .getValueAt(index, 0);
-            ProfileResourceNode prn = (ProfileResourceNode) treeNode
-                    .getUserObject();
+        for (TreeNode node : selectedProfile.getSelectedTreeNodes()) {
+            ProfileResourceNode prn = (ProfileResourceNode) ((DefaultMutableTreeNode) node).getUserObject();
             if (profile.removeResource(prn.getUri())) {
-                treeMdl.removeNodeFromParent(treeNode);
+                treeMdl.removeNodeFromParent((DefaultMutableTreeNode) node);
             }
         }
 
-        profileManager.updateProfileSpec(
-                selectedProfile.getProfile().getUuid(), profile
-                        .getProfileSpec());
+        profileManager.updateProfileSpec(selectedProfile.getProfile().getUuid(), profile.getProfileSpec());
 //        if (profile.isDirty()) {
 //            selectedProfile.onResourceChanged();
 //        }
