@@ -49,12 +49,14 @@ import uk.gov.nationalarchives.droid.profile.NodeMetaData;
 import uk.gov.nationalarchives.droid.profile.ProfileResourceNode;
 import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 
+//TODO: sorting broken in DROID... need to see what's going on here.  Works in my treetable demo!
 
 /**
  * A TreeTableModel which maps a ProfileResourceNode tree to a JTable.
  */
 public class ProfileTreeTableModel extends TreeTableModel {
 
+    private static final int DEFAULT_RESOURCE_COLUMN_WIDTH = 300;
     private static final int RESOURCE_COLUMN_INDEX = 0;
     private static final int EXTENSION_COLUMN_INDEX = 1;
     private static final int DATE_COLUMN_INDEX = 2;
@@ -66,7 +68,7 @@ public class ProfileTreeTableModel extends TreeTableModel {
     private static final int PUID_COLUMN_INDEX = 8;
     private static final int METHOD_COLUMN_INDEX = 9;
     private static final int HASH_COLUMN_INDEX = 10;
-    
+
     private final Color backColor;
 
     /**
@@ -105,7 +107,7 @@ public class ProfileTreeTableModel extends TreeTableModel {
     @Override
     public TableColumnModel createTableColumnModel() {
         TableColumnModel columns = new DefaultTableColumnModel();
-        columns.addColumn(createColumn(RESOURCE_COLUMN_INDEX, "Resource", new TreeRenderer(this, backColor)));
+        columns.addColumn(createColumn(RESOURCE_COLUMN_INDEX, "Resource", DEFAULT_RESOURCE_COLUMN_WIDTH, new TreeRenderer(this, backColor)));
         columns.addColumn(createColumn(EXTENSION_COLUMN_INDEX, "Extension", new FileExtensionRenderer(this, backColor)));
         columns.addColumn(createColumn(DATE_COLUMN_INDEX, "Last modified", new DateRenderer(this, backColor)));
         columns.addColumn(createColumn(SIZE_COLUMN_INDEX, "Size", new FileSizeRenderer(this, backColor)));
@@ -118,6 +120,8 @@ public class ProfileTreeTableModel extends TreeTableModel {
         columns.addColumn(createColumn(HASH_COLUMN_INDEX, "Hash", new DefaultCellRenderer(this, backColor)));
         return columns;
     }
+
+    //TODO: add comparators for relevant columns (e.g. case insensitive string comparisons).
 
     private String getNodeIdentificationDisplayText(ProfileResourceNode node) {
         return buildFormatInfo(node, Format::getName);
@@ -138,7 +142,7 @@ public class ProfileTreeTableModel extends TreeTableModel {
         final String displayText;
         final List<Format> formatIdentifications = node.getFormatIdentifications();
         if (formatIdentifications.size() == 1) {
-            displayText = formatIdentifications.get(0).getName();
+            displayText = stringProvider.apply(formatIdentifications.get(0));
         } else if (formatIdentifications.size() > 1) {
             final Set<String> formatInfo = new HashSet<>();
             for (Format f : formatIdentifications) {
