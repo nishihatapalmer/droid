@@ -62,48 +62,44 @@ public class ExpandingTreeListener implements TreeTableModel.ExpandCollapseListe
     }
 
     @Override
-    public boolean nodeExpanding(TreeNode treeNode) {
-        try {
-            profileForm.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
-            DefaultMutableTreeNode expandingNode = (DefaultMutableTreeNode) treeNode;
-            ProfileResourceNode prn = (ProfileResourceNode) expandingNode.getUserObject();
-            profileForm.getInMemoryNodes().put(prn.getId(), expandingNode);
-            expandingNode.removeAllChildren();
-
-            final List<ProfileResourceNode> childNodes =
-                    profileManager.findProfileResourceNodeAndImmediateChildren(
-                            profileForm.getProfile().getUuid(), prn.getId());
-            if (!childNodes.isEmpty()) {
+    public boolean nodeExpanding(final TreeNode treeNode) {
+        final DefaultMutableTreeNode expandingNode = (DefaultMutableTreeNode) treeNode;
+        final ProfileResourceNode prn = (ProfileResourceNode) expandingNode.getUserObject();
+        profileForm.getInMemoryNodes().put(prn.getId(), expandingNode);
+        // If we don't already have children, fetch them from the database:
+        if (expandingNode.getChildCount() == 0) {
+            final List<ProfileResourceNode> childNodes = loadChildNodes(prn);
+            if (childNodes.isEmpty()) { // If no children in database, flag the node doesn't allow children.
+                expandingNode.setAllowsChildren(false);
+            } else { // build the child nodes for the tree.
                 expandingNode.setAllowsChildren(true);
                 for (ProfileResourceNode node : childNodes) {
-                    DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(node, node.allowsChildren());
+                    final DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(node, node.allowsChildren());
                     expandingNode.add(newNode);
                     profileForm.getInMemoryNodes().put(node.getId(), newNode);
                 }
             }
-
-            if (expandingNode.getChildCount() == 0) {
-                expandingNode.setAllowsChildren(false);
-            }
-        } finally {
-            profileForm.setCursor(Cursor.getDefaultCursor());
         }
         return true;
     }
 
+    private List<ProfileResourceNode> loadChildNodes(ProfileResourceNode prn) {
+        try {
+            profileForm.setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+            return profileManager.findProfileResourceNodeAndImmediateChildren(
+                    profileForm.getProfile().getUuid(), prn.getId());
+        } finally {
+            profileForm.setCursor(Cursor.getDefaultCursor());
+        }
+    }
+
     @Override
     public boolean nodeCollapsing(TreeNode treeNode) {
-        DefaultMutableTreeNode collapsingNode = (DefaultMutableTreeNode) treeNode;
-        ProfileResourceNode prn = (ProfileResourceNode) collapsingNode.getUserObject();
-        profileForm.getInMemoryNodes().remove(prn.getId());
-
-        for (Enumeration<TreeNode> e = collapsingNode.children(); e.hasMoreElements();) {
-            DefaultMutableTreeNode nodeToRemove = (DefaultMutableTreeNode) e.nextElement();
-            final ProfileResourceNode node = (ProfileResourceNode) nodeToRemove.getUserObject();
-            profileForm.getInMemoryNodes().remove(node.getId());
-        }
-        collapsingNode.removeAllChildren();
-
+        // Do nothing on node collapse - retain all previously expanded children in memory.
+        // There will be a slight increase in memory (a few hundred or thousand nodes possibly),
+        // but loading nodes will be much faster than going to the database, and it also preserves
+        // any child expansion structure in the tree model, so if you re-expand a parent, all the sub-trees
+        // you were previously exploring are as they were instead of being reset on each collapse.
         return true;
     }
 }
