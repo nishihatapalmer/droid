@@ -85,8 +85,8 @@ public class TreeRenderer extends TreeTableCellRenderer {
     private final Icon containerResourceTypeErrorIcon = getIconResource("containerResourceType_ERROR");
     private final Icon fileResourceTypeErrorIcon = getIconResource("fileResourceType_ERROR");
 
-    private final Color backColor;
-    private final Color darkerColor;
+    private final Color evenBackColor;
+    private final Color oddBackColor;
 
     /**
      * Constructs a TreeRenderer.
@@ -96,17 +96,14 @@ public class TreeRenderer extends TreeTableCellRenderer {
      */
     public TreeRenderer(final TreeTableModel treeTableModel, final Color backColor) {
         super(treeTableModel);
-        this.backColor = backColor;
-        this.darkerColor = TreeUtils.getDarkerColor(backColor);
+        this.evenBackColor = backColor;
+        this.oddBackColor = TreeUtils.getContrastingColor(backColor);
     }
 
     @Override
-    protected Color getUnselectedBackgroundColor(final JTable table, final Object value, final boolean isSelected,
+    protected Color getUnselectedBackgroundColor(final JTable table, final Object value,
                                                 final boolean hasFocus, final int row, final int column) {
-        if (row % 2 == 0) {
-            return backColor;
-        }
-        return darkerColor;
+        return (row % 2 == 0) ? evenBackColor : oddBackColor;
     }
 
     /**
