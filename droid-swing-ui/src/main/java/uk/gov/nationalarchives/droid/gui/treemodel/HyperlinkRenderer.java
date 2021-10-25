@@ -70,10 +70,8 @@ public class HyperlinkRenderer extends DefaultCellRenderer {
                                   final int row, final int column) {
         if (value != null) {
             final String display = value.toString();
-            if (display.startsWith("\"")) {
-                return display;
-            }
+            return display.startsWith("\"") ? display : String.format("<html><a href=\"\">%s</a></html>", value);
         }
-        return String.format("<html><a href=\"\">%s</a></html>", value);
+        return "";
     }
 }
