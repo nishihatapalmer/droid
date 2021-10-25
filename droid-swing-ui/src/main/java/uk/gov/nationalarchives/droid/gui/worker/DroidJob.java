@@ -105,18 +105,20 @@ public class DroidJob extends SwingWorker<Integer, ProfileResourceNode> {
             DefaultMutableTreeNode parent = profileForm.getInMemoryNodes().get(parentId);
             if (parent != null) {
                 parent.setAllowsChildren(true);
+
+                // The node may already exist and have been updated - search for it in children.
                 boolean updated = false;
-                for (Enumeration<TreeNode> e = parent.children();
-                     e.hasMoreElements() && !updated;) {
-                    DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) e.nextElement();
+                for (int childIndex = 0; childIndex < parent.getChildCount(); childIndex++) {
+                    final DefaultMutableTreeNode childNode = (DefaultMutableTreeNode) parent.getChildAt(childIndex);
                     if (childNode.getUserObject().equals(node)) {
                         childNode.setUserObject(node);
                         childNode.setAllowsChildren(node.allowsChildren());
                         treeModel.nodeChanged(childNode);
                         updated = true;
                     }
-                } 
-                
+                }
+
+                // If not updated, then it's a new node.
                 if (!updated) {
                     DefaultMutableTreeNode newNode = new DefaultMutableTreeNode(node, node.allowsChildren());
                     treeModel.insertNodeInto(newNode, parent, parent.getChildCount());
