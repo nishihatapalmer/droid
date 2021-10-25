@@ -64,12 +64,12 @@ public class DefaultCellRenderer implements TableCellRenderer {
     /**
      * The lighter back color used in alternating rows in the table.
      */
-    private final Color backColor;
+    private final Color evenRowColor;
 
     /**
      * The darker back color used in alternating rows in the table.
      */
-    private final Color darkerColor;
+    private final Color oddRowColor;
 
     /**
      * The TreeTableModel which can be used to get DefaultMutableNodes and ProfileResourceNodes from the tree
@@ -95,8 +95,8 @@ public class DefaultCellRenderer implements TableCellRenderer {
     public DefaultCellRenderer(final TreeTableModel treeTableModel, final Color backColor) {
         renderer.setOpaque(true);
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
-        this.backColor = backColor;
-        this.darkerColor = TreeUtils.getDarkerColor(backColor);
+        this.evenRowColor = backColor;
+        this.oddRowColor = TreeUtils.getContrastingColor(backColor);
         this.treeTableModel = treeTableModel;
     }
 
@@ -126,9 +126,12 @@ public class DefaultCellRenderer implements TableCellRenderer {
         }
         if (isFiltered()) {
             renderer.setText("");
+            renderer.setToolTipText("");
             renderer.setIcon(null);
         } else {
-            renderer.setText(getDisplayValue(table, value, isSelected, hasFocus, row, column));
+            String displayValue = getDisplayValue(table, value, isSelected, hasFocus, row, column);
+            renderer.setText(displayValue);
+            renderer.setToolTipText(displayValue);
             renderer.setIcon(getIcon(table, value, isSelected, hasFocus, row, column));
         }
         return renderer;
@@ -170,13 +173,7 @@ public class DefaultCellRenderer implements TableCellRenderer {
      */
     public Color getUnselectedBackgroundColor(final JTable table, final Object value, final boolean hasFocus,
                                               final int row, final int column) {
-        final Color theColor;
-        if (row % 2 == 0) {
-            theColor = this.backColor;
-        } else {
-            theColor = this.darkerColor;
-        }
-        return theColor;
+        return row % 2 == 0 ? evenRowColor : oddRowColor;
     }
 
     /**
