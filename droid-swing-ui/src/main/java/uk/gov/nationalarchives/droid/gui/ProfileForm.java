@@ -47,6 +47,8 @@ import java.nio.file.Path;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,6 +69,7 @@ import javax.swing.tree.TreeNode;
 
 import net.byteseek.swing.treetable.TreeTableModel;
 
+import uk.gov.nationalarchives.droid.core.interfaces.ResourceType;
 import uk.gov.nationalarchives.droid.core.interfaces.config.DroidGlobalProperty;
 import uk.gov.nationalarchives.droid.gui.action.CloseProfileAction;
 import uk.gov.nationalarchives.droid.gui.action.OpenContainingFolderAction;
@@ -78,6 +81,7 @@ import uk.gov.nationalarchives.droid.gui.widgetwrapper.FileChooserProxy;
 import uk.gov.nationalarchives.droid.gui.widgetwrapper.FileChooserProxyImpl;
 import uk.gov.nationalarchives.droid.gui.widgetwrapper.JOptionPaneProxy;
 import uk.gov.nationalarchives.droid.gui.worker.DroidJob;
+import uk.gov.nationalarchives.droid.profile.NodeMetaData;
 import uk.gov.nationalarchives.droid.profile.ProfileEventListener;
 import uk.gov.nationalarchives.droid.profile.ProfileInstance;
 import uk.gov.nationalarchives.droid.profile.ProfileManager;
@@ -95,6 +99,18 @@ public class ProfileForm extends JPanel {
 
     private static final long serialVersionUID = 1671584434169040994L;
     private  static final int ROW_HEIGHT = 28; // height of rows in the tree table.
+
+    private static final Comparator<TreeNode> FOLDER_GROUPING_COMPARATOR = (o1, o2) -> {
+        final ResourceType type1 = getResourceType(o1);
+        final ResourceType type2 = getResourceType(o2);
+        return type1 == type2 ? 0 : type1 == ResourceType.FOLDER ? -1 : type2 == ResourceType.FOLDER ? 1 : 0;
+    };
+
+    private static final ResourceType getResourceType(TreeNode node) {
+        final ProfileResourceNode node1 = (ProfileResourceNode) ((DefaultMutableTreeNode) node).getUserObject();
+        final NodeMetaData metadata = node1.getMetaData();
+        return metadata == null ? null : metadata.getResourceType();
+    }
 
     private DefaultTreeModel treeModel;
     private TreeTableModel treeTableModel;
@@ -152,8 +168,11 @@ public class ProfileForm extends JPanel {
         this.profile = profile;
     }
 
+    //TODO: serious bug where sorting corrupts node values, expanding and collapsing while sorted causes further issues.
+
     private void initOutline() {
         // Set up the table
+        new Date();
         final Color backColor = jTable1.getBackground();
         jTable1.setShowHorizontalLines(false);
         jTable1.setShowVerticalLines(true);
@@ -166,83 +185,13 @@ public class ProfileForm extends JPanel {
         treeTableModel = new ProfileTreeTableModel(root, backColor);
         treeModel.addTreeModelListener(treeTableModel);
         treeTableModel.addExpandCollapseListener(new ExpandingTreeListener(droidMainUi.getProfileManager(), this));
+        treeTableModel.setGroupingComparator(FOLDER_GROUPING_COMPARATOR);
         treeTableModel.bindTable(jTable1);
 
         // Set up file dropping to add new files or folders:
         setDropFilesOn(jTable1);
         setDropFilesOn(jScrollPane2);
     }
-
-            /*
-
-    //CHECKSTYLE:OFF too many statements
-    private void initOutlineOld() {
-    //CHECKSTYLE:ON
-        DefaultMutableTreeNode root = new DefaultMutableTreeNode(null, true);
-        treeModel = new DefaultTreeModel(root, true);
-        mdl = DefaultOutlineModel.createOutlineModel(treeModel, new ProfileRowModel(), true, "Resource");
-        final OutlineMouseAdapter mouseAdapter = new OutlineMouseAdapter();
-        resultsOutline.addMouseListener(mouseAdapter);
-        resultsOutline.addMouseMotionListener(mouseAdapter);
-        resultsOutline.setVisible(true);
-        //resultsOutline.setRenderDataProvider(new ProfileResultsRenderData());
-        resultsOutline.setRootVisible(false);
-
-
-        TreeWillExpandListener expandingTreeListener = new ExpandingTreeListener(droidMainUi.getProfileManager(), this);
-        mdl.getTreePathSupport().addTreeWillExpandListener(expandingTreeListener);
-        
-        resultsOutline.setModel(mdl);
-        TableColumnModel columnModel = resultsOutline.getColumnModel();
-
-        ETableColumn nodeColumn0 = (ETableColumn) columnModel.getColumn(0);
-        Color backColor = resultsOutline.getBackground();
-        nodeColumn0.setNestedComparator(new DefaultMutableTreeNodeComparator(nodeColumn0));
-        nodeColumn0.setCellRenderer(new TreeRenderer(backColor));
-        resultsOutline.setDefaultRenderer(Object.class, new TreeRenderer(backColor));
-
-        resultsOutline.setShowHorizontalLines(false);
-        resultsOutline.setShowVerticalLines(true);
-        resultsOutline.setGridColor(TreeUtils.getDarkerColor(backColor));
-        
-        OutlineColumn[] columns = OutlineColumn.values();
-        for (int i = 0; i < columns.length; i++) {
-            ETableColumn nodeColumn = (ETableColumn) columnModel.getColumn(i + 1);
-            nodeColumn.setNestedComparator(new OutlineComparableComparator(nodeColumn));
-
-            TableCellRenderer cellRenderer = OutlineColumn.values()[i].getRenderer(backColor);
-            if (cellRenderer != null) {
-                nodeColumn.setCellRenderer(cellRenderer);
-            }
-        } 
-        
-        // VITAL! We do not want to recreate columns after we have set them up
-        // with their comparators!
-        resultsOutline.setAutoCreateColumnsFromModel(false);
-        
-        // Sort ascending on first resource column by default:
-        nodeColumn0 = (ETableColumn) columnModel.getColumn(0);
-        int modelIndex = nodeColumn0.getModelIndex();
-        resultsOutline.setColumnSorted(modelIndex, true, 1);
-        
-
-        //((DefaultTreeModel) treeModel).reload();
-
-        jScrollPane1.addComponentListener(new ComponentAdapter() {
-            @Override
-            public void componentResized(ComponentEvent e) {
-                if (resultsOutline.getPreferredSize().width <= jScrollPane1.getViewport().getExtentSize().width) {
-                    resultsOutline.setAutoResizeMode(JTable.AUTO_RESIZE_SUBSEQUENT_COLUMNS);
-                } else {
-                    resultsOutline.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
-                }
-            }
-        });
-
-        setDropFilesOn(resultsOutline);
-
-    }
-             */
 
     private void setDropFilesOn(JComponent component) {
         // Support dropping files on to the results outline.
@@ -277,7 +226,6 @@ public class ProfileForm extends JPanel {
         }
         return acceptDrop;
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
