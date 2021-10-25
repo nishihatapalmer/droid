@@ -44,7 +44,7 @@ import javax.swing.RowSorter.SortKey;
  */
 public final class TreeUtils {
 
-    private static final double LIGHTER_SCALE = 1.05;
+    private static final double LIGHTER_SCALE = 1.07;
     private static final double DARKER_SCALE = 0.95;
     private static final int MINVALUE = 0;
     private static final int MAXVALUE = 255;
@@ -77,6 +77,19 @@ public final class TreeUtils {
     }
 
     /**
+     * @param color The color to get a contrasting color for.
+     * @return A color which is scaled either a bit lighter if the color is mostly dark, or scaled a bit darker.
+     */
+    public static Color getContrastingColor(Color color) {
+        return colorIsDark(color) ? getLighterColor(color) : getDarkerColor(color);
+    }
+
+    private static boolean colorIsDark(Color color) {
+        final int HALF_BRIGHTNESS = 128;
+        return color.getRed() < HALF_BRIGHTNESS && color.getBlue() < HALF_BRIGHTNESS && color.getGreen() < HALF_BRIGHTNESS;
+    }
+
+    /**
      * 
      * @param color The color to make darker
      * @return The darker color
@@ -94,7 +107,7 @@ public final class TreeUtils {
         return getScaledColor(color, LIGHTER_SCALE);
     }
 
-    
+    //TODO: unused - remove?
     /**
      * Returns whether a table column is sorted.
      * @param table - the table to check
