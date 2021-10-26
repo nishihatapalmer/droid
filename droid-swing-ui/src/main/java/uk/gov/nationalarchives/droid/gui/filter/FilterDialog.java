@@ -697,8 +697,6 @@ public class FilterDialog extends JDialog {
             dispatchEvent(new WindowEvent(this,  WindowEvent.WINDOW_CLOSING));
         }
         
-        //ApplyFilterAction applyFilterAction = new ApplyFilterAction();
-        //applyFilterAction.applyFilter(this);
     }// GEN-LAST:event_jButtonApplyActionPerformed
 
     /**
