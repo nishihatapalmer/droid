@@ -49,8 +49,6 @@ import uk.gov.nationalarchives.droid.profile.NodeMetaData;
 import uk.gov.nationalarchives.droid.profile.ProfileResourceNode;
 import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 
-//TODO: sorting broken in DROID... need to see what's going on here.  Works in my treetable demo!
-
 /**
  * A TreeTableModel which maps a ProfileResourceNode tree to a JTable.
  */

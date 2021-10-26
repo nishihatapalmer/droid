@@ -45,7 +45,6 @@ import net.byteseek.swing.treetable.TreeTableModel;
  * @author rflitcroft
  *
  */
-//TODO: why not inherit from DefaultCellRenderer?
 public class FormatCountRenderer extends DefaultCellRenderer {
 
     private static final String ZERO_IDS = "format_count_small_ZERO.png";
