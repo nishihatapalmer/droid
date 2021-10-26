@@ -32,7 +32,6 @@
 package uk.gov.nationalarchives.droid.gui.treemodel;
 
 import java.awt.Cursor;
-import java.util.Enumeration;
 import java.util.List;
 
 import javax.swing.tree.DefaultMutableTreeNode;
@@ -49,14 +48,14 @@ import uk.gov.nationalarchives.droid.profile.ProfileResourceNode;
  */
 public class ExpandingTreeListener implements TreeTableModel.ExpandCollapseListener {
 
-    private ProfileManager profileManager;
-    private ProfileForm profileForm;
+    private final ProfileManager profileManager;
+    private final ProfileForm profileForm;
 
     /**
      * @param profileManager a profile manager. 
      * @param profileForm the parent profile form 
      */
-    public ExpandingTreeListener(ProfileManager profileManager, ProfileForm profileForm) {
+    public ExpandingTreeListener(final ProfileManager profileManager, final ProfileForm profileForm) {
         this.profileManager = profileManager;
         this.profileForm = profileForm;
     }
