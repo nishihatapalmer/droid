@@ -61,7 +61,7 @@ public class ProfileResourceNode {
     private List<Format> formatIdentifications = new ArrayList<Format>();
     private Integer filterStatus = 1;
     private NodeMetaData metaData = new NodeMetaData();
-    
+
     /**
      * Default constructor.
      */
@@ -268,7 +268,12 @@ public class ProfileResourceNode {
     }
     
     /**
-     *
+     * The filter status of the node reflects whether it is filtered, and also whether it should be displayed at all:
+     * <ul>
+     *     <li>0 = completely filtered out and should not be dislayed</li>
+     *     <li>1 = meets filter criteria and is not filtered out.</li>
+     *     <li>any other positive value means it doesn't meet the filter criteria, but is required as it is an ancestor of a node that does</li>
+     * </ul>
      * @return the filter status
      */
     public int getFilterStatus() {
