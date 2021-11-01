@@ -97,7 +97,7 @@ public class TreeRenderer extends TreeTableCellRenderer {
     public TreeRenderer(final TreeTableModel treeTableModel, final Color backColor) {
         super(treeTableModel);
         this.evenBackColor = backColor;
-        this.oddBackColor = TreeUtils.getContrastingColor(backColor);
+        this.oddBackColor = ColorUtils.getContrastingColor(backColor);
     }
 
     @Override

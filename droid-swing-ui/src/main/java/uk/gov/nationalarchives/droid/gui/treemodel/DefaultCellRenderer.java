@@ -96,7 +96,7 @@ public class DefaultCellRenderer implements TableCellRenderer {
         renderer.setOpaque(true);
         renderer.setHorizontalAlignment(SwingConstants.CENTER);
         this.evenRowColor = backColor;
-        this.oddRowColor = TreeUtils.getContrastingColor(backColor);
+        this.oddRowColor = ColorUtils.getContrastingColor(backColor);
         this.treeTableModel = treeTableModel;
     }
 
@@ -247,7 +247,7 @@ public class DefaultCellRenderer implements TableCellRenderer {
      * @return the filter status of the current node, or false if there is no current node.
      */
     protected  boolean isFiltered() {
-        return profileResourceNode == null ? false : profileResourceNode.getFilterStatus() != 1;
+        return profileResourceNode != null && profileResourceNode.getFilterStatus() != 1;
     }
 
     /**
