@@ -81,7 +81,6 @@ import uk.gov.nationalarchives.droid.export.interfaces.ExportOptions;
 import uk.gov.nationalarchives.droid.gui.action.ActionDoneCallback;
 import uk.gov.nationalarchives.droid.gui.action.ActionFactory;
 import uk.gov.nationalarchives.droid.gui.action.AddFilesAndFoldersAction;
-import uk.gov.nationalarchives.droid.gui.action.ApplyFilterToTreeTableAction;
 import uk.gov.nationalarchives.droid.gui.action.ExitAction;
 import uk.gov.nationalarchives.droid.gui.action.LoadProfileWorker;
 import uk.gov.nationalarchives.droid.gui.action.NewProfileAction;
@@ -1085,9 +1084,7 @@ public class DroidMainFrame extends JFrame {
         if (filter != null) {
             filter.setEnabled(filterStatus);
         }
-        ProfileForm profileToFilter = droidContext.getSelectedProfile();
-        ApplyFilterToTreeTableAction applyFilter = new ApplyFilterToTreeTableAction(profileToFilter, profileManager);
-        applyFilter.applyFilter();
+        droidContext.getSelectedProfile().refreshFiltering();
         updateFilterControls();
     }
 
@@ -1250,8 +1247,7 @@ public class DroidMainFrame extends JFrame {
         Collection<ProfileForm> profileForms = droidContext.allProfiles();
         for (ProfileForm profileForm : profileForms) {
             profileForm.getProfile().setFilter((FilterImpl) filter.clone());
-            ApplyFilterToTreeTableAction filterProfile = new ApplyFilterToTreeTableAction(profileForm, profileManager);
-            filterProfile.applyFilter();
+            profileForm.refreshFiltering();
         }
 
     }// GEN-LAST:event_jMenuItemCopyFIlterToAllActionPerformed
@@ -1515,10 +1511,7 @@ public class DroidMainFrame extends JFrame {
 
         if (profileForm.getProfile().getFilter().isEnabled()) {
             profileForm.getProfile().getFilter().setEnabled(false);
-
-            ApplyFilterToTreeTableAction refreshTreeTable = new ApplyFilterToTreeTableAction(profileForm,
-                    this.profileManager);
-            refreshTreeTable.applyFilter();
+            profileForm.refreshFiltering();
             updateFilterControls();
         }
         profileForm.start();

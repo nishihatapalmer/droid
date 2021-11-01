@@ -68,7 +68,6 @@ import uk.gov.nationalarchives.droid.core.interfaces.filter.CriterionFieldEnum;
 import uk.gov.nationalarchives.droid.core.interfaces.filter.CriterionOperator;
 import uk.gov.nationalarchives.droid.gui.DroidUIContext;
 import uk.gov.nationalarchives.droid.gui.ProfileForm;
-import uk.gov.nationalarchives.droid.gui.action.ApplyFilterToTreeTableAction;
 import uk.gov.nationalarchives.droid.gui.filter.action.InitialiseFilterAction;
 import uk.gov.nationalarchives.droid.gui.filter.action.LoadFilterAction;
 import uk.gov.nationalarchives.droid.gui.filter.domain.DummyMetadata;
@@ -689,11 +688,9 @@ public class FilterDialog extends JDialog {
         droidContext.getSelectedProfile().getProfile().setFilter(filterContext);
         
         if (applyValuesToContext()) {
-            getDroidContext().getSelectedProfile().getProfile().setDirty(true);
-            ProfileForm profileToFilter = getDroidContext().getSelectedProfile();
-            ApplyFilterToTreeTableAction applyFilterToTreeAction = 
-                new ApplyFilterToTreeTableAction(profileToFilter, getProfileManager());
-            applyFilterToTreeAction.applyFilter();
+            final ProfileForm profileForm = getDroidContext().getSelectedProfile();
+            profileForm.getProfile().setDirty(true);
+            profileForm.refreshFiltering();
             dispatchEvent(new WindowEvent(this,  WindowEvent.WINDOW_CLOSING));
         }
         

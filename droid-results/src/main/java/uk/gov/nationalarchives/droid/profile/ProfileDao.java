@@ -33,6 +33,9 @@ package uk.gov.nationalarchives.droid.profile;
 
 import java.util.List;
 
+import java.util.Map;
+import java.util.Set;
+
 import uk.gov.nationalarchives.droid.core.interfaces.filter.Filter;
 import uk.gov.nationalarchives.droid.profile.referencedata.Format;
 
@@ -74,6 +77,15 @@ public interface ProfileDao {
      * @return the profile resource node identified by this URI and filter.
      */
     List<ProfileResourceNode> findProfileResourceNodes(Long parentId, Filter filter);
+
+
+    /**
+     * Returns a map of node id to its filter status.
+     * @param parentIds A set of parent ids to fetch their children's filter status.
+     * @param filter The filter to apply.
+     * @return A map of node ids to their filter status.
+     */
+    Map<Long, Integer> findFilterStatusForChildren(Set<Long> parentIds, Filter filter);
 
     /**
      * Allows for customised initialisation behaviour (e.g. for new versus existing installation).

@@ -129,11 +129,12 @@ public class JpaProfileFilterTest {
         assertNotNull(nodes.get(0).getFormatIdentifications().get(0));
         assertNotNull(nodes.get(0).getFormatIdentifications().get(0));
         assertEquals("fmt/alok", nodes.get(0).getFormatIdentifications().get(0).getPuid());
+        assertEquals(1, nodes.get(0).getFilterStatus());
 
         assertNotNull(nodes.get(1).getFormatIdentifications().get(0));
         assertNotNull(nodes.get(1).getFormatIdentifications().get(0));
-        assertEquals("fmt/alok", nodes.get(1).getFormatIdentifications().get(0).getPuid());
-
+        assertEquals("fmt/matt", nodes.get(1).getFormatIdentifications().get(0).getPuid());
+        assertEquals(0, nodes.get(1).getFilterStatus());
     }
     
     @Test
@@ -152,11 +153,16 @@ public class JpaProfileFilterTest {
         filter.addFilterCiterion(criterion, 0);
         List<ProfileResourceNode> nodes = profileDao.findProfileResourceNodes(1L, filter);
         
-        assertEquals(1, nodes.size());
-        assertEquals("exe", nodes.get(0).getMetaData().getExtension());
+        assertEquals(2, nodes.size());
+        ProfileResourceNode node0 = nodes.get(0);
+        assertEquals("exe", node0.getMetaData().getExtension());
+        assertEquals(1, node0.getFilterStatus());
+
+        ProfileResourceNode node1 = nodes.get(1);
+        assertEquals("doc", node1.getMetaData().getExtension());
+        assertEquals(0, node1.getFilterStatus());
     }
 
-    
     @Test
     public void testFilterOnSize() {
         FilterCriterionImpl criterion = new FilterCriterionImpl();
@@ -167,19 +173,32 @@ public class JpaProfileFilterTest {
         List<ProfileResourceNode> nodes = profileDao.findProfileResourceNodes(1L, filter);
         
         assertEquals(2, nodes.size());
-        
+        ProfileResourceNode node0 = nodes.get(0);
+        assertEquals((Long) 256L, node0.getMetaData().getSize());
+        assertEquals(1, node0.getFilterStatus());
+
+        ProfileResourceNode node1 = nodes.get(1);
+        assertEquals((Long) 1024L, node1.getMetaData().getSize());
+        assertEquals(0, node1.getFilterStatus());
     }
 
     @Test
     public void testFilterOnFileName() {
         FilterCriterionImpl criterion = new FilterCriterionImpl();
         criterion.setField(CriterionFieldEnum.FILE_NAME);
-        criterion.setOperator(CriterionOperator.STARTS_WITH);
-        criterion.setValueFreeText("f");
+        criterion.setOperator(CriterionOperator.CONTAINS);
+        criterion.setValueFreeText("2");
         filter.addFilterCiterion(criterion, 0);
         List<ProfileResourceNode> nodes = profileDao.findProfileResourceNodes(1L, filter);
         assertEquals(2, nodes.size());
-        
+
+        ProfileResourceNode node0 = nodes.get(0);
+        assertEquals("file1.exe", node0.getMetaData().getName());
+        assertEquals(0, node0.getFilterStatus());
+
+        ProfileResourceNode node1 = nodes.get(1);
+        assertEquals("file2.doc", node1.getMetaData().getName());
+        assertEquals(1, node1.getFilterStatus());
     }    
     
     @Before

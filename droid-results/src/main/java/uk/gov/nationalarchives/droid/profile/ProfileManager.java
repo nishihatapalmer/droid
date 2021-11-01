@@ -35,6 +35,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Future;
 
 import org.apache.commons.configuration.PropertiesConfiguration;
@@ -139,11 +140,21 @@ public interface ProfileManager {
     List<ProfileResourceNode> findProfileResourceNodeAndImmediateChildren(
             String profileUuid, Long parentId);
 
+
+
     /**
      * @param profileUuid the profile ID
      * @return All root nodes for the profile given
      */
     List<ProfileResourceNode> findRootNodes(String profileUuid);
+
+    /**
+     * Returns a map of node id to its filter status.
+     * @param profileUuid the profile ID
+     * @param parentIds A set of parent ids to get filter status updates of their children.
+     * @return A map of the node id to its filter status for all the children of the parent ids passed in.
+     */
+    Map<Long, Integer> findFilterStatusForChildren(String profileUuid, Set<Long> parentIds);
 
     /**
      * Sets the progress monitor for the specified profile.

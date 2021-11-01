@@ -65,6 +65,7 @@ public class ExpandingTreeListener implements TreeTableModel.ExpandCollapseListe
         final DefaultMutableTreeNode expandingNode = (DefaultMutableTreeNode) treeNode;
         final ProfileResourceNode prn = (ProfileResourceNode) expandingNode.getUserObject();
         profileForm.getInMemoryNodes().put(prn.getId(), expandingNode);
+
         // If we don't already have children, fetch them from the database:
         if (expandingNode.getChildCount() == 0) {
             final List<ProfileResourceNode> childNodes = loadChildNodes(prn);

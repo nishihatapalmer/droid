@@ -34,9 +34,11 @@ package uk.gov.nationalarchives.droid.profile;
 import java.io.IOException;
 import java.net.URI;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -400,6 +402,15 @@ public class ProfileInstanceManagerImpl implements ProfileInstanceManager {
             return profileDao.findProfileResourceNodes(parentId, filter);
         }
         return profileDao.findProfileResourceNodes(parentId);
+    }
+
+    @Override
+    public Map<Long, Integer> findFilterStatusForChildren(Set<Long> parentIds) {
+        final Filter filter = profileInstance.getFilter();
+        if (filter.isEnabled() && filter.hasCriteria()) {
+            return profileDao.findFilterStatusForChildren(parentIds, filter);
+        }
+        return Collections.emptyMap();
     }
 
     /**

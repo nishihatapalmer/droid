@@ -37,6 +37,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Future;
 import java.util.zip.ZipFile;
 
@@ -56,10 +57,10 @@ import uk.gov.nationalarchives.droid.profile.referencedata.ReferenceData;
 import uk.gov.nationalarchives.droid.results.handlers.ProgressObserver;
 import uk.gov.nationalarchives.droid.util.FileUtil;
 
-
 /**
+ * The implementation of the ProfileManager interface.
+ *
  * @author rflitcroft
- * 
  */
 public class ProfileManagerImpl implements ProfileManager {
 
@@ -174,10 +175,7 @@ public class ProfileManagerImpl implements ProfileManager {
             throw new ProfileException(e.getMessage(), e);
         }    
     }
-
-    /**
-     * {@inheritDoc}
-     */
+    
     @Override
     public void closeProfile(String profileName) {
         log.info("Closing profile: " + profileName);
@@ -190,9 +188,7 @@ public class ProfileManagerImpl implements ProfileManager {
 
     /**
      * {@inheritDoc}
-     * @param profileId String
      * @throws IllegalArgumentException if profileId nonexistent
-     * @return Profile
      */
     @Override
     public ProfileInstance openProfile(String profileId) {
@@ -207,11 +203,7 @@ public class ProfileManagerImpl implements ProfileManager {
         profile.fireListeners();
         return profile;
     }
-
-    /**
-     * {@inheritDoc}
-     * @param profileInstance The profile to stop
-     */
+    
     @Override
     public void stop(String profileInstance) {
         log.info("Stopping profile: " + profileInstance);
@@ -236,20 +228,14 @@ public class ProfileManagerImpl implements ProfileManager {
                         .getProfileInstance(profileInstance));
         return profileInstanceManager;
     }
-
-    /**
-     * {@inheritDoc}
-     */
+    
     @Override
     public Future<?> start(String profileId) throws IOException {
         log.info("Starting profile: " + profileId);
         ProfileInstanceManager profileInstanceManager = getProfileInstanceManager(profileId);
         return profileInstanceManager.start();
     }
-
-    /**
-     * {@inheritDoc}
-     */
+    
     @Override
     public List<ProfileResourceNode> findProfileResourceNodeAndImmediateChildren(
             String profileId, Long parentId) {
@@ -262,18 +248,18 @@ public class ProfileManagerImpl implements ProfileManager {
         return profileInstanceManager.findAllProfileResourceNodes(parentId);
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public List<ProfileResourceNode> findRootNodes(String profileId) {
         ProfileInstanceManager profileInstanceManager = getProfileInstanceManager(profileId);
         return profileInstanceManager.findRootProfileResourceNodes();
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    @Override
+    public Map<Long, Integer> findFilterStatusForChildren(String profileId, Set<Long> parentIds) {
+        ProfileInstanceManager profileInstanceManager = getProfileInstanceManager(profileId);
+        return profileInstanceManager.findFilterStatusForChildren(parentIds);
+    }
+
     @Override
     public void setProgressObserver(String profileId,
             ProgressObserver progressObserver) {
@@ -299,9 +285,6 @@ public class ProfileManagerImpl implements ProfileManager {
         this.profileContextLocator = profileContextLocator;
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void setResultsObserver(String profileUuid,
             ProfileResultObserver observer) {
@@ -310,9 +293,6 @@ public class ProfileManagerImpl implements ProfileManager {
 
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public void updateProfileSpec(String profileId, ProfileSpec profileSpec) {
         ProfileInstance profile = profileContextLocator
@@ -418,17 +398,11 @@ public class ProfileManagerImpl implements ProfileManager {
         return getProfileInstanceManager(profileId).getAllFormats();
     }
 
-    /**
-     * {@inheritDoc}
-     */
     @Override
     public ReferenceData getReferenceData(String profileId) {
         return getProfileInstanceManager(profileId).getReferenceData();
     }
-    
-    /**
-     * {@inheritDoc}
-     */
+
     @Override
     public void setThrottleValue(String uuid, int value) {
         getProfileInstanceManager(uuid).setThrottleValue(value);

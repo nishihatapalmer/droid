@@ -34,6 +34,8 @@ package uk.gov.nationalarchives.droid.profile;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import java.util.concurrent.Future;
 
 import uk.gov.nationalarchives.droid.core.interfaces.filter.expressions.Criterion;
@@ -95,6 +97,14 @@ public interface ProfileInstanceManager {
      * @return Profile resource containing its immediate children
      */
     List<ProfileResourceNode> findAllProfileResourceNodes(Long parentId);
+
+    /**
+     * Returns a map of node id to its filter status.
+     *
+     * @param parentIds A set of parent ids to get filter status updates of their children.
+     * @return A map of the node id to its filter status for all the children of the parent ids passed in.
+     */
+    Map<Long, Integer> findFilterStatusForChildren(Set<Long> parentIds);
 
     /**
      * @return the progress moniot for this profile manager.

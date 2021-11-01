@@ -50,8 +50,12 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+
+import java.util.function.Predicate;
 
 import javax.swing.JComponent;
 import javax.swing.JFileChooser;
@@ -68,15 +72,17 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 
 import net.byteseek.swing.treetable.TreeTableModel;
+import net.byteseek.swing.treetable.TreeUtils;
 
 import uk.gov.nationalarchives.droid.core.interfaces.ResourceType;
 import uk.gov.nationalarchives.droid.core.interfaces.config.DroidGlobalProperty;
+import uk.gov.nationalarchives.droid.core.interfaces.filter.Filter;
 import uk.gov.nationalarchives.droid.gui.action.CloseProfileAction;
 import uk.gov.nationalarchives.droid.gui.action.OpenContainingFolderAction;
 import uk.gov.nationalarchives.droid.gui.action.SaveProfileWorker;
 import uk.gov.nationalarchives.droid.gui.treemodel.ExpandingTreeListener;
 import uk.gov.nationalarchives.droid.gui.treemodel.ProfileTreeTableModel;
-import uk.gov.nationalarchives.droid.gui.treemodel.TreeUtils;
+import uk.gov.nationalarchives.droid.gui.treemodel.ColorUtils;
 import uk.gov.nationalarchives.droid.gui.widgetwrapper.FileChooserProxy;
 import uk.gov.nationalarchives.droid.gui.widgetwrapper.FileChooserProxyImpl;
 import uk.gov.nationalarchives.droid.gui.widgetwrapper.JOptionPaneProxy;
@@ -99,17 +105,31 @@ public class ProfileForm extends JPanel {
 
     private static final long serialVersionUID = 1671584434169040994L;
     private  static final int ROW_HEIGHT = 28; // height of rows in the tree table.
+    private static final Predicate<TreeNode> TREE_NODE_ALLOWS_CHILDREN = node -> node.getParent() != null && node.getAllowsChildren();
 
+    /**
+     * Groups folders in the tree before files.   Groups are sorted independently of each other.
+     */
     private static final Comparator<TreeNode> FOLDER_GROUPING_COMPARATOR = (o1, o2) -> {
         final ResourceType type1 = getResourceType(o1);
         final ResourceType type2 = getResourceType(o2);
         return type1 == type2 ? 0 : type1 == ResourceType.FOLDER ? -1 : type2 == ResourceType.FOLDER ? 1 : 0;
     };
 
+    /**
+     * Defines a predicate that filters a node out of the tree on the ProfileResourceNode.getFilterStatus().
+     */
+    private static final Predicate<TreeNode> FILTER_BY_STATUS =
+            treeNode -> (treeNode.getParent() != null && getProfileResourceNode(treeNode).getFilterStatus() == 0);
+
     private static final ResourceType getResourceType(TreeNode node) {
-        final ProfileResourceNode node1 = (ProfileResourceNode) ((DefaultMutableTreeNode) node).getUserObject();
+        final ProfileResourceNode node1 = getProfileResourceNode(node);
         final NodeMetaData metadata = node1.getMetaData();
         return metadata == null ? null : metadata.getResourceType();
+    }
+
+    private static ProfileResourceNode getProfileResourceNode(TreeNode node) {
+        return (ProfileResourceNode) ((DefaultMutableTreeNode) node).getUserObject();
     }
 
     private DefaultTreeModel treeModel;
@@ -168,15 +188,13 @@ public class ProfileForm extends JPanel {
         this.profile = profile;
     }
 
-    //TODO: serious bug where sorting corrupts node values, expanding and collapsing while sorted causes further issues.
-
     private void initOutline() {
         // Set up the table
         new Date();
         final Color backColor = jTable1.getBackground();
         jTable1.setShowHorizontalLines(false);
         jTable1.setShowVerticalLines(true);
-        jTable1.setGridColor(TreeUtils.getDarkerColor(backColor));
+        jTable1.setGridColor(ColorUtils.getDarkerColor(backColor));
         jTable1.setRowHeight(ROW_HEIGHT);
 
         // Set up the tree and table models
@@ -769,7 +787,7 @@ public class ProfileForm extends JPanel {
     public List<ProfileResourceNode> getSelectedNodes() {
         List<ProfileResourceNode> results = new ArrayList<ProfileResourceNode>();
         for (TreeNode node : treeTableModel.getSelectedNodes()) {
-            results.add((ProfileResourceNode) ((DefaultMutableTreeNode) node).getUserObject());
+            results.add(getProfileResourceNode(node));
         }
         return results;
     }
@@ -818,7 +836,67 @@ public class ProfileForm extends JPanel {
             }
         }
     }
-    
+
+    /**
+     * Refreshes filtering for the profile.
+     * Call this once a new filter has been set on the profile to update the display, or a filter has been removed,
+     * or is not enabled.
+     */
+    public void refreshFiltering() {
+        if (profileIsFiltered()) {
+            updateProfileResourceNodeFilterStatus();
+            treeTableModel.setNodeFilter(FILTER_BY_STATUS);
+        } else {
+            setAllNodesUnfiltered();
+            treeTableModel.setNodeFilter(null);
+        }
+    }
+
+    private void setAllNodesUnfiltered() {
+        final TreeNode root = treeTableModel.getRoot();
+        TreeUtils.walk(root, node -> getProfileResourceNode(node).setFilterStatus(1), node -> node.getParent() != null);
+    }
+
+
+
+    private boolean profileIsFiltered() {
+        final Filter profileFilter = profile.getFilter();
+        return profileFilter != null && profileFilter.isEnabled() && profileFilter.hasCriteria();
+    }
+
+    private void updateProfileResourceNodeFilterStatus() {
+        // Useful constants:
+        final TreeNode rootNode = treeTableModel.getRoot();
+        final ProfileManager profileManager = droidMainUi.getProfileManager();
+
+        // Get a collection of parents ids currently represented in the tree nodes:
+        final Set<Long> parentIds = new LinkedHashSet<>(); // We use a linked hash set as it will be iterated over later.
+        TreeUtils.walk(rootNode, node -> parentIds.add(getProfileResourceNode(node).getId()), TREE_NODE_ALLOWS_CHILDREN);
+
+        // Obtain up-to-date filter status for all of their children from the profile manager:
+        // This will return an empty map if filtering is not enabled or has criteria
+        final Map<Long, Integer> filterStatus = profileManager.findFilterStatusForChildren(profile.getUuid(), parentIds);
+
+        // If there is nothing being filtered, update all nodes to have a filter status of 1.
+        if (filterStatus.isEmpty())
+            setAllNodesUnfiltered();
+        else { // Update the nodes with the filter status - but not the root node (with a null parent) as it doesn't have a ProfileResourceNode.
+            TreeUtils.walk(treeTableModel.getRoot(), node -> updateFilterStatus(node, filterStatus), node -> node.getParent() != null);
+        }
+    }
+
+
+    private void updateFilterStatus(final TreeNode treeNode, final Map<Long, Integer> filterStatus) {
+        final ProfileResourceNode node = getProfileResourceNode(treeNode);
+        final Integer filterValue = filterStatus.get(node.getId());
+        if (filterValue != null) {
+            node.setFilterStatus(filterValue);
+        } else {
+            node.setFilterStatus(1);  //TODO: this should not happen if we've got all the child ids of all the expanded parents...
+        }
+    }
+
+
     /**
      * Generates a URL to an external page from a PUID. 
      * @param puid the puid
