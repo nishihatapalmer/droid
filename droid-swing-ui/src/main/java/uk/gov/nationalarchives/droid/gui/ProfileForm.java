@@ -104,33 +104,25 @@ public class ProfileForm extends JPanel {
     private static final int MAX_LEVELS_TO_EXPAND = 3;
 
     private static final long serialVersionUID = 1671584434169040994L;
-    private  static final int ROW_HEIGHT = 28; // height of rows in the tree table.
+    private static final int ROW_HEIGHT = 28; // height of rows in the tree table.
     private static final Predicate<TreeNode> TREE_NODE_ALLOWS_CHILDREN = node -> node.getParent() != null && node.getAllowsChildren();
 
     /**
      * Groups folders in the tree before files.   Groups are sorted independently of each other.
      */
+    //CHECKSTYLE:OFF - seems to think that type1 and type2 requires JavaDoc!!!
     private static final Comparator<TreeNode> FOLDER_GROUPING_COMPARATOR = (o1, o2) -> {
         final ResourceType type1 = getResourceType(o1);
         final ResourceType type2 = getResourceType(o2);
         return type1 == type2 ? 0 : type1 == ResourceType.FOLDER ? -1 : type2 == ResourceType.FOLDER ? 1 : 0;
     };
+    //CHECKSTYLE:ON
 
     /**
      * Defines a predicate that filters a node out of the tree on the ProfileResourceNode.getFilterStatus().
      */
     private static final Predicate<TreeNode> FILTER_BY_STATUS =
-            treeNode -> (treeNode.getParent() != null && getProfileResourceNode(treeNode).getFilterStatus() == 0);
-
-    private static final ResourceType getResourceType(TreeNode node) {
-        final ProfileResourceNode node1 = getProfileResourceNode(node);
-        final NodeMetaData metadata = node1.getMetaData();
-        return metadata == null ? null : metadata.getResourceType();
-    }
-
-    private static ProfileResourceNode getProfileResourceNode(TreeNode node) {
-        return (ProfileResourceNode) ((DefaultMutableTreeNode) node).getUserObject();
-    }
+            treeNode -> treeNode.getParent() != null && getProfileResourceNode(treeNode).getFilterStatus() == 0;
 
     private DefaultTreeModel treeModel;
     private TreeTableModel treeTableModel;
@@ -140,32 +132,20 @@ public class ProfileForm extends JPanel {
     private ProfileEventListener listener;
     private ProfileTabComponent profileTab;
     private DroidJob job;
-    
     private MultiIdentificationDialog multiIdentificationDialog;
-
-    private final String puidValuePrefix = "<html><a href=\"\">";
-    private final String puidValueSuffix = "</a></html>";
-
-    private Map<Long, DefaultMutableTreeNode> inMemoryNodes = new HashMap<Long, DefaultMutableTreeNode>();
+    private Map<Long, DefaultMutableTreeNode> inMemoryNodes = new HashMap<>();
 
     /**
      * 
-     * @param droidMainUi
-     *            the droid ui frame
-     * @param context
-     *            the droid ui context
-     * @param listener
-     *            a profile event listener
+     * @param droidMainUi the droid ui frame
+     * @param context the droid ui context
+     * @param listener a profile event listener
      */
     public ProfileForm(DroidMainFrame droidMainUi, DroidUIContext context, ProfileEventListener listener) {
         this.droidMainUi = droidMainUi;
         this.context = context;
         this.listener = listener;
         initComponents();
-        // final NodeSelectionListener nodeRefreshListener =
-        // new NodeSelectionListener(context, droidMainUi.getProfileManager());
-        // getResultsOutline().getSelectionModel().addListSelectionListener(nodeRefreshListener);
-        // getResultsOutline().addKeyListener(nodeRefreshListener);
         profileTab = new ProfileTabComponent(this);
         multiIdentificationDialog = new MultiIdentificationDialog(this);
         initOutline();
@@ -173,14 +153,10 @@ public class ProfileForm extends JPanel {
 
     /**
      * 
-     * @param droidMainUi
-     *            the droidf main ui frame
-     * @param context
-     *            the droid ui context
-     * @param profile
-     *            a profile instance
-     * @param listener
-     *            a profile event listener
+     * @param droidMainUi the droidf main ui frame
+     * @param context the droid ui context
+     * @param profile a profile instance
+     * @param listener a profile event listener
      */
     public ProfileForm(DroidMainFrame droidMainUi, DroidUIContext context, ProfileInstance profile,
             ProfileEventListener listener) {
@@ -604,21 +580,18 @@ public class ProfileForm extends JPanel {
      */
     public void closeProfile() {
         CloseProfileAction closeAction = new CloseProfileAction(droidMainUi.getProfileManager(), context, this);
-        JOptionPaneProxy dialog = new JOptionPaneProxy() {
-            @Override
-            public int getResponse() {
-                int result = JOptionPane.showConfirmDialog(ProfileForm.this, "Save this profile?", "Warning",
-                        JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
+        JOptionPaneProxy dialog = () -> {
+            int result = JOptionPane.showConfirmDialog(ProfileForm.this, "Save this profile?", "Warning",
+                    JOptionPane.YES_NO_CANCEL_OPTION, JOptionPane.WARNING_MESSAGE);
 
-                int response = JOptionPaneProxy.CANCEL;
-                if (result == JOptionPane.YES_OPTION) {
-                    response = JOptionPaneProxy.YES;
-                } else if (result == JOptionPane.NO_OPTION) {
-                    response = JOptionPaneProxy.NO;
-                }
-
-                return response;
+            int response = JOptionPaneProxy.CANCEL;
+            if (result == JOptionPane.YES_OPTION) {
+                response = JOptionPaneProxy.YES;
+            } else if (result == JOptionPane.NO_OPTION) {
+                response = JOptionPaneProxy.NO;
             }
+
+            return response;
         };
 
         closeAction.setUserOptionDialog(dialog);
@@ -785,7 +758,7 @@ public class ProfileForm extends JPanel {
      * @return A list of the profile resource nodes selected in the outline.
      */
     public List<ProfileResourceNode> getSelectedNodes() {
-        List<ProfileResourceNode> results = new ArrayList<ProfileResourceNode>();
+        List<ProfileResourceNode> results = new ArrayList<>();
         for (TreeNode node : treeTableModel.getSelectedNodes()) {
             results.add(getProfileResourceNode(node));
         }
@@ -878,13 +851,12 @@ public class ProfileForm extends JPanel {
         final Map<Long, Integer> filterStatus = profileManager.findFilterStatusForChildren(profile.getUuid(), parentIds);
 
         // If there is nothing being filtered, update all nodes to have a filter status of 1.
-        if (filterStatus.isEmpty())
+        if (filterStatus.isEmpty()) {
             setAllNodesUnfiltered();
-        else { // Update the nodes with the filter status - but not the root node (with a null parent) as it doesn't have a ProfileResourceNode.
+        } else { // Update the nodes with the filter status - but not the root node (with a null parent) as it doesn't have a ProfileResourceNode.
             TreeUtils.walk(treeTableModel.getRoot(), node -> updateFilterStatus(node, filterStatus), node -> node.getParent() != null);
         }
     }
-
 
     private void updateFilterStatus(final TreeNode treeNode, final Map<Long, Integer> filterStatus) {
         final ProfileResourceNode node = getProfileResourceNode(treeNode);
@@ -892,10 +864,9 @@ public class ProfileForm extends JPanel {
         if (filterValue != null) {
             node.setFilterStatus(filterValue);
         } else {
-            node.setFilterStatus(1);  //TODO: this should not happen if we've got all the child ids of all the expanded parents...
+            node.setFilterStatus(1); // set to default if not listed.
         }
     }
-
 
     /**
      * Generates a URL to an external page from a PUID. 
@@ -907,6 +878,16 @@ public class ProfileForm extends JPanel {
         String puidUrl = droidMainUi.getGlobalContext().getGlobalConfig().getProperties().getString(
                 DroidGlobalProperty.PUID_URL_PATTERN.getName());
         return String.format(puidUrl, puid);
+    }
+
+    private static ResourceType getResourceType(TreeNode node) {
+        final ProfileResourceNode node1 = getProfileResourceNode(node);
+        final NodeMetaData metadata = node1.getMetaData();
+        return metadata == null ? null : metadata.getResourceType();
+    }
+
+    private static ProfileResourceNode getProfileResourceNode(TreeNode node) {
+        return (ProfileResourceNode) ((DefaultMutableTreeNode) node).getUserObject();
     }
 
     /*

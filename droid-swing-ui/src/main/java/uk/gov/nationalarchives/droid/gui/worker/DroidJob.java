@@ -31,10 +31,8 @@
  */
 package uk.gov.nationalarchives.droid.gui.worker;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
 import java.io.IOException;
-import java.util.Enumeration;
+
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -42,7 +40,6 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.TreeNode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -61,9 +58,6 @@ import uk.gov.nationalarchives.droid.results.handlers.ProgressObserver;
  */
 public class DroidJob extends SwingWorker<Integer, ProfileResourceNode> {
     
-    private static final int RESULT_MAX_LENGTH = 60;
-    private static final int RESULT_LEFT_MIN = 20;
-
     private final Logger log = LoggerFactory.getLogger(getClass());
     
     private ProfileForm profileForm;
@@ -139,29 +133,16 @@ public class DroidJob extends SwingWorker<Integer, ProfileResourceNode> {
 
         treeModel = profileForm.getTreeModel();
         
-        ProfileResultObserver myObserver = new ProfileResultObserver() {
-            @Override
-            public void onResult(ProfileResourceNode result) {
-                publish(result);
-            }
-        };
+        ProfileResultObserver myObserver = this::publish;
         
         String profileUuid = profileForm.getProfile().getUuid();
         
-        final ProgressObserver observer = new ProgressObserver() {
-            @Override
-            public void onProgress(Integer progress) {
-                setProgress(progress);
-            }
-        };
+        final ProgressObserver observer = this::setProgress;
         
-        addPropertyChangeListener(new PropertyChangeListener() {
-            @Override
-            public void propertyChange(PropertyChangeEvent evt) {
-                if ("progress".equals(evt.getPropertyName())) {
-                    Integer value = (Integer) evt.getNewValue();
-                    profileForm.getProfileProgressBar().setValue(value);
-                }
+        addPropertyChangeListener(evt -> {
+            if ("progress".equals(evt.getPropertyName())) {
+                Integer value = (Integer) evt.getNewValue();
+                profileForm.getProfileProgressBar().setValue(value);
             }
         });
         
@@ -220,7 +201,7 @@ public class DroidJob extends SwingWorker<Integer, ProfileResourceNode> {
 
     /**
      * Update root folder when is empty.
-     * @param node
+     * @param node The node to find.
      */
     private void findAndUpdateNodeInGUI(ProfileResourceNode node) {
         DefaultMutableTreeNode root = (DefaultMutableTreeNode) treeModel.getRoot();

@@ -81,8 +81,8 @@ public final class ColorUtils {
     }
 
     private static boolean colorIsDark(Color color) {
-        final int HALF_BRIGHTNESS = 128;
-        return color.getRed() < HALF_BRIGHTNESS && color.getBlue() < HALF_BRIGHTNESS && color.getGreen() < HALF_BRIGHTNESS;
+        final int halfBrightness = 128;
+        return color.getRed() < halfBrightness && color.getBlue() < halfBrightness && color.getGreen() < halfBrightness;
     }
 
     /**
