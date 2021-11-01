@@ -137,6 +137,12 @@ public class TreeRenderer extends TreeTableCellRenderer {
         return icon;
     }
 
+    @Override
+    protected void setAdditionalProperties(final TreeNode treeNode, final JTable table, final Object value, final boolean isSelected,
+                                           final boolean hasFocus, final int row, final int column) {
+        setToolTipText(java.net.URLDecoder.decode(getProfileInfo(treeNode).getUri().toString()));
+    }
+
     /**
      * @param profileNode The node to get the icon for.
      * @param status The node status

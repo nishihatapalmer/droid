@@ -863,15 +863,20 @@ public class ProfileForm extends JPanel {
         final Set<Long> parentIds = new LinkedHashSet<>(); // We use a linked hash set as it will be iterated over later.
         TreeUtils.walk(rootNode, node -> parentIds.add(getProfileResourceNode(node).getId()), TREE_NODE_ALLOWS_CHILDREN);
 
-        // Obtain up-to-date filter status for all of their children from the profile manager:
-        // This will return an empty map if filtering is not enabled or has criteria
-        final Map<Long, Integer> filterStatus = profileManager.findFilterStatusForChildren(profile.getUuid(), parentIds);
+        setCursor(Cursor.getPredefinedCursor(Cursor.WAIT_CURSOR));
+        try {
+            // Obtain up-to-date filter status for all of their children from the profile manager:
+            // This will return an empty map if filtering is not enabled or has criteria
+            final Map<Long, Integer> filterStatus = profileManager.findFilterStatusForChildren(profile.getUuid(), parentIds);
 
-        // If there is nothing being filtered, update all nodes to have a filter status of 1.
-        if (filterStatus.isEmpty()) {
-            setAllNodesUnfiltered();
-        } else { // Update the nodes with the filter status - but not the root node (with a null parent) as it doesn't have a ProfileResourceNode.
-            TreeUtils.walk(treeTableModel.getRoot(), node -> updateFilterStatus(node, filterStatus), node -> node.getParent() != null);
+            // If there is nothing being filtered, update all nodes to have a filter status of 1.
+            if (filterStatus.isEmpty()) {
+                setAllNodesUnfiltered();
+            } else { // Update the nodes with the filter status - but not the root node (with a null parent) as it doesn't have a ProfileResourceNode.
+                TreeUtils.walk(treeTableModel.getRoot(), node -> updateFilterStatus(node, filterStatus), node -> node.getParent() != null);
+            }
+        } finally {
+            setCursor(Cursor.getDefaultCursor());
         }
     }
 
@@ -978,14 +983,6 @@ public class ProfileForm extends JPanel {
             if (cellObject != null) {
                 String cellValue = cellObject.toString();
                 jTable1.setToolTipText(cellValue);
-                
-                if (colModelIndex == 0) {
-                    ProfileResourceNode resourceNode = getProfileResourceNode(treeTableModel.getNodeAtTableRow(rowIndex));
-                    if (resourceNode != null) {
-                        jTable1.setToolTipText(java.net.URLDecoder.decode(resourceNode.getUri().toString()));
-                    }
-                }
-                
                 if (colModelIndex == jTable1.getColumn(PUID_COLUMN_NAME).getModelIndex()) {
                     cellValue = jTable1.getValueAt(rowIndex, colIndex).toString();
                     cellValue = cellValue.replace(PUID_VALUE_PREFIX, "");
