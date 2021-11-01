@@ -32,6 +32,9 @@
 package uk.gov.nationalarchives.droid.gui;
 
 import java.awt.Color;
+import java.awt.Cursor;
+import java.awt.Desktop;
+import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.datatransfer.Clipboard;
 import java.awt.datatransfer.DataFlavor;
@@ -40,9 +43,14 @@ import java.awt.dnd.DnDConstants;
 import java.awt.dnd.DropTarget;
 import java.awt.dnd.DropTargetDropEvent;
 
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.io.File;
 import java.io.IOException;
 
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.nio.file.Path;
 
 import java.util.ArrayList;
@@ -71,8 +79,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 
-import net.byteseek.swing.treetable.TreeTableModel;
-import net.byteseek.swing.treetable.TreeUtils;
+import org.apache.commons.lang.StringUtils;
 
 import uk.gov.nationalarchives.droid.core.interfaces.ResourceType;
 import uk.gov.nationalarchives.droid.core.interfaces.config.DroidGlobalProperty;
@@ -94,6 +101,9 @@ import uk.gov.nationalarchives.droid.profile.ProfileManager;
 import uk.gov.nationalarchives.droid.profile.ProfileResourceNode;
 import uk.gov.nationalarchives.droid.profile.ProfileState;
 
+import net.byteseek.swing.treetable.TreeTableModel;
+import net.byteseek.swing.treetable.TreeUtils;
+
 /**
  * 
  * @author rflitcroft
@@ -106,6 +116,10 @@ public class ProfileForm extends JPanel {
     private static final long serialVersionUID = 1671584434169040994L;
     private static final int ROW_HEIGHT = 28; // height of rows in the tree table.
     private static final Predicate<TreeNode> TREE_NODE_ALLOWS_CHILDREN = node -> node.getParent() != null && node.getAllowsChildren();
+    private static final String PUID_VALUE_PREFIX = "<html><a href=\"\">";
+    private static final String PUID_VALUE_SUFFIX = "</a></html>";
+    private static final String PUID_COLUMN_NAME = "PUID";
+    private static final String IDENTIFICATIONS_COLUMN_NAME = "Identifications";
 
     /**
      * Groups folders in the tree before files.   Groups are sorted independently of each other.
@@ -172,6 +186,9 @@ public class ProfileForm extends JPanel {
         jTable1.setShowVerticalLines(true);
         jTable1.setGridColor(ColorUtils.getDarkerColor(backColor));
         jTable1.setRowHeight(ROW_HEIGHT);
+        final TreeMouseAdapter mouseAdapter = new TreeMouseAdapter();
+        jTable1.addMouseListener(mouseAdapter);
+        jTable1.addMouseMotionListener(mouseAdapter);
 
         // Set up the tree and table models
         final DefaultMutableTreeNode root = new DefaultMutableTreeNode(null, true);
@@ -890,30 +907,28 @@ public class ProfileForm extends JPanel {
         return (ProfileResourceNode) ((DefaultMutableTreeNode) node).getUserObject();
     }
 
-    /*
-    private class OutlineMouseAdapter extends MouseAdapter {
+
+    private class TreeMouseAdapter extends MouseAdapter {
         @Override
         public void mouseReleased(MouseEvent e) {
 
             if (e.getButton() == MouseEvent.BUTTON3) {
-                Point mousePoint = e.getPoint();
-                int rowIndex = jTable1.rowAtPoint(mousePoint);
+                final Point mousePoint = e.getPoint();
+                final int rowIndex = jTable1.rowAtPoint(mousePoint);
                 if (rowIndex > -1 && !jTable1.isRowSelected(rowIndex)) {
                     jTable1.setRowSelectionInterval(rowIndex, rowIndex);
                 }
                 jPopupMenu1.show(jTable1, e.getX(), e.getY());
             } else {
-                Point mousePoint = e.getPoint();
-                int colIndex = jTable1.columnAtPoint(mousePoint);
-                int rowIndex = jTable1.rowAtPoint(mousePoint);
-                int colModelIndex = jTable1.convertColumnIndexToModel(jTable1.columnAtPoint(mousePoint));
-    
-                if (colModelIndex == OutlineColumn.PUID.ordinal() + 1) {
-                    Object cellObj = jTable1.getValueAt(rowIndex, colIndex);
+                final Point mousePoint = e.getPoint();
+                final int colIndex = jTable1.columnAtPoint(mousePoint);
+                if (colIndex == jTable1.getColumn(PUID_COLUMN_NAME).getModelIndex()) {
+                    final int rowIndex = jTable1.rowAtPoint(mousePoint);
+                    final Object cellObj = jTable1.getValueAt(rowIndex, colIndex);
                     if (cellObj != null) {
                         String cellValue = cellObj.toString();
-                        cellValue = cellValue.replace(puidValuePrefix, "");
-                        cellValue = cellValue.replace(puidValueSuffix, "");
+                        cellValue = cellValue.replace(PUID_VALUE_PREFIX, "");
+                        cellValue = cellValue.replace(PUID_VALUE_SUFFIX, "");
                         cellValue.trim();
                         if (cellValue.startsWith("\"")) {
                             String[] puids = StringUtils.split(cellValue, ",");
@@ -930,8 +945,7 @@ public class ProfileForm extends JPanel {
                 }
             }
         }
-        
-           
+
         public void openURL(String puidUrl) {
             Desktop desktop = null;
             if (Desktop.isDesktopSupported()) {
@@ -951,8 +965,7 @@ public class ProfileForm extends JPanel {
                 }
             }
         }
-        
-        
+
         @Override
         public void mouseMoved(MouseEvent e) {
 
@@ -967,26 +980,25 @@ public class ProfileForm extends JPanel {
                 jTable1.setToolTipText(cellValue);
                 
                 if (colModelIndex == 0) {
-                    ProfileResourceNode resourceNode = (ProfileResourceNode) ((DefaultMutableTreeNode) 
-                            cellObject).getUserObject();
-                    jTable1.setToolTipText(java.net.URLDecoder.decode(resourceNode.getUri().toString()));
+                    ProfileResourceNode resourceNode = getProfileResourceNode(treeTableModel.getNodeAtTableRow(rowIndex));
+                    if (resourceNode != null) {
+                        jTable1.setToolTipText(java.net.URLDecoder.decode(resourceNode.getUri().toString()));
+                    }
                 }
                 
-                if (colModelIndex == OutlineColumn.PUID.ordinal() + 1) {
+                if (colModelIndex == jTable1.getColumn(PUID_COLUMN_NAME).getModelIndex()) {
                     cellValue = jTable1.getValueAt(rowIndex, colIndex).toString();
-                    cellValue = cellValue.replace(puidValuePrefix, "");
-                    cellValue = cellValue.replace(puidValueSuffix, "");
+                    cellValue = cellValue.replace(PUID_VALUE_PREFIX, "");
+                    cellValue = cellValue.replace(PUID_VALUE_SUFFIX, "");
                     cellValue.trim();
                     if (cellValue.length() > 0) {
                         setCursor(new Cursor(Cursor.HAND_CURSOR));
                     } else {
                         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
                     }
-                } else if (colModelIndex == OutlineColumn.IDENTIFICATION_COUNT.ordinal() + 1) {
-                    DirectoryComparableLong value = (DirectoryComparableLong)
-                            jTable1.getValueAt(jTable1.rowAtPoint(e.getPoint()),
-                                    jTable1.columnAtPoint(e.getPoint()));
-                    if (value.getSource() != null && value.getSource() > 1) {
+                } else if (colModelIndex == jTable1.getColumn(IDENTIFICATIONS_COLUMN_NAME).getModelIndex()) {
+                    Integer value = (Integer) jTable1.getValueAt(rowIndex, colIndex);
+                    if (value != null && value > 1) {
                         setCursor(new Cursor(Cursor.HAND_CURSOR));
                     } else {
                         setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
@@ -999,17 +1011,15 @@ public class ProfileForm extends JPanel {
             }
         }
 
-
         public void mouseClicked(MouseEvent e) {
             Point mousePoint = e.getPoint();
             int colIndex = jTable1.columnAtPoint(mousePoint);
             int rowIndex = jTable1.rowAtPoint(mousePoint);
             int colModelIndex = jTable1.convertColumnIndexToModel(jTable1.columnAtPoint(mousePoint));
 
-            if (colModelIndex == OutlineColumn.IDENTIFICATION_COUNT.ordinal() + 1) {
-                DirectoryComparableLong count = (DirectoryComparableLong) jTable1
-                    .getValueAt(rowIndex, colIndex);
-                if (count != null && count.getSource() != null && count.getSource() > 1) {
+            if (colModelIndex == jTable1.getColumn(IDENTIFICATIONS_COLUMN_NAME).getModelIndex()) {
+                Integer count = (Integer) jTable1.getValueAt(rowIndex, colIndex);
+                if (count != null && count > 1) {
                     DefaultMutableTreeNode treeNode = (DefaultMutableTreeNode) treeTableModel.getNodeAtTableRow(rowIndex);
                     ProfileResourceNode node = (ProfileResourceNode) treeNode.getUserObject();
                     multiIdentificationDialog.showDialog(node);
@@ -1017,6 +1027,5 @@ public class ProfileForm extends JPanel {
             }
         }
     }
-    */
 
 }
