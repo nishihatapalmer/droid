@@ -32,6 +32,7 @@
 package uk.gov.nationalarchives.droid.gui.treemodel;
 
 import java.awt.Color;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -117,6 +118,17 @@ public class ProfileTreeTableModel extends TreeTableModel {
         columns.addColumn(createColumn(METHOD_COLUMN_INDEX, "Method", new DefaultCellRenderer(this, backColor)));
         columns.addColumn(createColumn(HASH_COLUMN_INDEX, "Hash", new DefaultCellRenderer(this, backColor)));
         return columns;
+    }
+
+    @Override
+    public Comparator<?> getColumnComparator(final int column) {
+        switch (column) {
+            case DATE_COLUMN_INDEX:
+            case SIZE_COLUMN_INDEX:
+            case ID_COUNT_COLUMN_INDEX:
+                return null;                                   // use direct value comparison.
+            default : return String.CASE_INSENSITIVE_ORDER;    // everything else use case insensitive string comparison.
+        }
     }
 
     //TODO: add comparators for relevant columns (e.g. case insensitive string comparisons).
