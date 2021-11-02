@@ -114,25 +114,27 @@ public class TreeRenderer extends TreeTableCellRenderer {
      */
     @Override
     protected Icon getNodeIcon(final TreeNode node) {
-        ProfileResourceNode profileNode = getProfileInfo(node);
-        NodeMetaData metadata = profileNode.getMetaData();
-        ResourceType nodeType = metadata.getResourceType();
-        NodeStatus status = metadata.getNodeStatus();
         Icon icon = null;
-        switch (nodeType) {
-            case FOLDER: {
-                icon = getFolderIcon(profileNode, status);
-                break;
+        final ProfileResourceNode profileNode = getProfileInfo(node);
+        final NodeMetaData metadata = profileNode.getMetaData();
+        if (metadata != null) {
+            ResourceType nodeType = metadata.getResourceType();
+            NodeStatus status = metadata.getNodeStatus();
+            switch (nodeType) {
+                case FOLDER: {
+                    icon = getFolderIcon(profileNode, status);
+                    break;
+                }
+                case FILE: {
+                    icon = getFileIcon(profileNode, status);
+                    break;
+                }
+                case CONTAINER: {
+                    icon = getContainerIcon(profileNode, status);
+                    break;
+                }
+                default:
             }
-            case FILE: {
-                icon = getFileIcon(profileNode, status);
-                break;
-            }
-            case CONTAINER: {
-                icon = getContainerIcon(profileNode, status);
-                break;
-            }
-            default:
         }
         return icon;
     }
