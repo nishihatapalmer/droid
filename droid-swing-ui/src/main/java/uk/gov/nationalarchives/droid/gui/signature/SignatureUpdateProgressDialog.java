@@ -36,6 +36,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -46,8 +47,6 @@ import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-import org.openide.util.NbBundle;
 
 /**
  *
@@ -95,15 +94,16 @@ public class SignatureUpdateProgressDialog extends JDialog {
         jPanel2 = new JPanel();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(NbBundle.getMessage(SignatureUpdateProgressDialog.class, "SignatureUpdateProgressDialog.title")); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/signature/Bundle"); // NOI18N
+        setTitle(bundle.getString("SignatureUpdateProgressDialog.title")); // NOI18N
         setAlwaysOnTop(true);
         setModal(true);
 
+        note.setText(bundle.getString("SignatureUpdateProgressDialog.note.text")); // NOI18N
 
-        note.setText(NbBundle.getMessage(SignatureUpdateProgressDialog.class, "SignatureUpdateProgressDialog.note.text")); // NOI18N
         progressBar.setIndeterminate(true);
 
-        cancelButton.setText(NbBundle.getMessage(SignatureUpdateProgressDialog.class, "SignatureUpdateProgressDialog.cancelButton.text")); // NOI18N
+        cancelButton.setText(bundle.getString("SignatureUpdateProgressDialog.cancelButton.text")); // NOI18N
         cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
@@ -112,30 +112,25 @@ public class SignatureUpdateProgressDialog extends JDialog {
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
             .addGap(0, 98, Short.MAX_VALUE)
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
             .addGap(0, 34, Short.MAX_VALUE)
         );
 
         GroupLayout jPanel2Layout = new GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        jPanel2Layout.setHorizontalGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
             .addGap(0, 89, Short.MAX_VALUE)
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(Alignment.LEADING)
+        jPanel2Layout.setVerticalGroup(jPanel2Layout.createParallelGroup(Alignment.LEADING)
             .addGap(0, 34, Short.MAX_VALUE)
         );
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(Alignment.LEADING)
@@ -149,8 +144,7 @@ public class SignatureUpdateProgressDialog extends JDialog {
                         .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(note)
