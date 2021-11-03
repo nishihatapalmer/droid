@@ -62,6 +62,12 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.NumberFormatter;
 
+import org.jdesktop.beansbinding.AutoBinding;
+import org.jdesktop.beansbinding.BeanProperty;
+import org.jdesktop.beansbinding.Binding;
+import org.jdesktop.beansbinding.BindingGroup;
+import org.jdesktop.beansbinding.Bindings;
+import org.jdesktop.beansbinding.ELProperty;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableMap;
 
@@ -82,6 +88,7 @@ public class UpdateProxyConfigDialog extends JDialog {
     private ObservableMap<String, Object> proxyConfig;
     
     private int response;
+    private BindingGroup bindingGroup;
 
     /** 
      * Creates new form UpdateProxyConfigDialog.
@@ -94,6 +101,7 @@ public class UpdateProxyConfigDialog extends JDialog {
         super(parentFrame);
         proxyConfig = ObservableCollections.observableMap(new HashMap<String, Object>(properties));
         initComponents();
+        bindBeans();
         pack();
         
         setLocationRelativeTo(parentFrame);
@@ -235,6 +243,21 @@ public class UpdateProxyConfigDialog extends JDialog {
         layout.linkSize(SwingConstants.VERTICAL, new Component[] {cancelButton, okButton});
 
     }// </editor-fold>//GEN-END:initComponents
+
+    private void bindBeans() {
+        bindingGroup = new BindingGroup();
+
+        Binding binding = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, this, ELProperty.create("${properties[\"update.proxy.host\"]}"), proxyHostTextBox, BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
+        bindingGroup.addBinding(binding);
+
+        binding = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, this, ELProperty.create("${properties[\"update.proxy.port\"]}"), proxyPortTextBox, BeanProperty.create("value"));
+        bindingGroup.addBinding(binding);
+
+        binding = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, this, ELProperty.create("${properties[\"update.proxy\"]}"), useProxyCheckbox, BeanProperty.create("selected"));
+        bindingGroup.addBinding(binding);
+
+        bindingGroup.bind();
+    }
 
     private void useProxyCheckboxItemStateChanged(ItemEvent evt) {//GEN-FIRST:event_useProxyCheckboxItemStateChanged
         setPanelComponents(proxySettingsPanel, evt.getStateChange() == ItemEvent.SELECTED);
