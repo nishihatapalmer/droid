@@ -38,6 +38,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultComboBoxModel;
@@ -56,8 +57,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-
-import org.openide.util.NbBundle;
 
 import uk.gov.nationalarchives.droid.gui.DroidMainFrame;
 import uk.gov.nationalarchives.droid.gui.ProfileForm;
@@ -177,8 +176,6 @@ public class ReportDialog extends JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-
-
         cancelButton = new JButton();
         generateButton = new JButton();
         profileSelectLabel = new JLabel();
@@ -187,9 +184,10 @@ public class ReportDialog extends JDialog {
         reportSelectLabel = new JLabel();
         reportSelectCombo = new JComboBox();
 
-        setTitle(NbBundle.getMessage(ReportDialog.class, "ReportDialog.title_1")); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/report/Bundle"); // NOI18N
+        setTitle(bundle.getString("ReportDialog.title_1")); // NOI18N
 
-        cancelButton.setText(NbBundle.getMessage(ReportDialog.class, "ReportDialog.cancelButton.text")); // NOI18N
+        cancelButton.setText(bundle.getString("ReportDialog.cancelButton.text")); // NOI18N
         cancelButton.setVerticalAlignment(SwingConstants.BOTTOM);
         cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -197,14 +195,14 @@ public class ReportDialog extends JDialog {
             }
         });
 
-        generateButton.setText(NbBundle.getMessage(ReportDialog.class, "ReportDialog.generateButton.text")); // NOI18N
+        generateButton.setText(bundle.getString("ReportDialog.generateButton.text")); // NOI18N
         generateButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 generateButtonActionPerformed(evt);
             }
         });
 
-        profileSelectLabel.setText(NbBundle.getMessage(ReportDialog.class, "ReportDialog.profileSelectLabel.text_1")); // NOI18N
+        profileSelectLabel.setText(bundle.getString("ReportDialog.profileSelectLabel.text")); // NOI18N
 
         profileSelectTable.setModel(new DefaultTableModel(
             new Object [][] {
@@ -221,7 +219,7 @@ public class ReportDialog extends JDialog {
         profileSelectTable.setTableHeader(null);
         jScrollPane1.setViewportView(profileSelectTable);
 
-        reportSelectLabel.setText(NbBundle.getMessage(ReportDialog.class, "ReportDialog.reportSelectLabel.text")); // NOI18N
+        reportSelectLabel.setText(bundle.getString("ReportDialog.reportSelectLabel.text")); // NOI18N
 
         reportSelectCombo.setModel(new DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
