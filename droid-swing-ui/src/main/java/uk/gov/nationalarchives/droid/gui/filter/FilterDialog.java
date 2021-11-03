@@ -457,11 +457,12 @@ public class FilterDialog extends JDialog {
         filterTable = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.title")); // NOI18N
+        setTitle(null);
 
-        widenResultsRadioButton.setText(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.widenResultsRadioButton.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/filter/Bundle"); // NOI18N
+        widenResultsRadioButton.setText(bundle.getString("FilterDialog.widenResultsRadioButton.text")); // NOI18N
 
-        narrowResultRadioButton.setText(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.narrowResultRadioButton.text")); // NOI18N
+        narrowResultRadioButton.setText(bundle.getString("FilterDialog.narrowResultRadioButton.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -484,7 +485,7 @@ public class FilterDialog extends JDialog {
         );
 
         filterEnabledCheckbox.setSelected(true);
-        filterEnabledCheckbox.setText(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.filterEnabledCheckbox.text")); // NOI18N
+        filterEnabledCheckbox.setText(bundle.getString("FilterDialog.filterEnabledCheckbox.text")); // NOI18N
         filterEnabledCheckbox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filterEnabledCheckboxActionPerformed(evt);
@@ -526,30 +527,30 @@ public class FilterDialog extends JDialog {
                 .addContainerGap())
         );
 
-        jButtonCancle.setText(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.jButtonCancle.text")); // NOI18N
+        jButtonCancle.setText(null);
         jButtonCancle.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancleActionPerformed(evt);
             }
         });
 
-        jButtonApply.setText(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.jButtonApply.text")); // NOI18N
+        jButtonApply.setText(null);
         jButtonApply.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonApplyActionPerformed(evt);
             }
         });
 
-        LoadFilterButton.setText(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.LoadFilterButton.text")); // NOI18N
-        LoadFilterButton.setToolTipText(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.LoadFilterButton.toolTipText")); // NOI18N
+        LoadFilterButton.setText(bundle.getString("FilterDialog.LoadFilterButton.text")); // NOI18N
+        LoadFilterButton.setToolTipText(bundle.getString("FilterDialog.LoadFilterButton.toolTipText")); // NOI18N
         LoadFilterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 LoadFilterButtonActionPerformed(evt);
             }
         });
 
-        SaveFilterButton.setText(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.SaveFilterButton.text")); // NOI18N
-        SaveFilterButton.setToolTipText(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.SaveFilterButton.toolTipText")); // NOI18N
+        SaveFilterButton.setText(bundle.getString("FilterDialog.SaveFilterButton.text")); // NOI18N
+        SaveFilterButton.setToolTipText(bundle.getString("FilterDialog.SaveFilterButton.toolTipText")); // NOI18N
         SaveFilterButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SaveFilterButtonActionPerformed(evt);
@@ -599,23 +600,25 @@ public class FilterDialog extends JDialog {
             }
         ));
         jScrollPane1.setViewportView(filterTable);
-            filterTable.getColumnModel().getColumn(0).setHeaderValue(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.jTable1.columnModel.title0")); // NOI18N
-            filterTable.getColumnModel().getColumn(1).setHeaderValue(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.jTable1.columnModel.title1")); // NOI18N
-            filterTable.getColumnModel().getColumn(2).setHeaderValue(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.jTable1.columnModel.title2")); // NOI18N
-            filterTable.getColumnModel().getColumn(3).setHeaderValue(org.openide.util.NbBundle.getMessage(FilterDialog.class, "FilterDialog.jTable1.columnModel.title3")); // NOI18N
+        if (filterTable.getColumnModel().getColumnCount() > 0) {
+            filterTable.getColumnModel().getColumn(0).setHeaderValue(bundle.getString("FilterDialog.jTable1.columnModel.title0")); // NOI18N
+            filterTable.getColumnModel().getColumn(1).setHeaderValue(bundle.getString("FilterDialog.jTable1.columnModel.title1")); // NOI18N
+            filterTable.getColumnModel().getColumn(2).setHeaderValue(bundle.getString("FilterDialog.jTable1.columnModel.title2")); // NOI18N
+            filterTable.getColumnModel().getColumn(3).setHeaderValue(bundle.getString("FilterDialog.jTable1.columnModel.title3")); // NOI18N
+        }
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
             .addComponent(jPanel2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 656, Short.MAX_VALUE)
-                .addContainerGap())
+                        .addContainerGap())))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
