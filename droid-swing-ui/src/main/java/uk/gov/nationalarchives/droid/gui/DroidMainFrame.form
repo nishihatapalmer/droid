@@ -566,7 +566,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="0"/>
     <Property name="title" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-      <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="main.title" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+      <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="main.title" replaceFormat="java.util.ResourceBundle.getBundle({sourceFileName}.class, &quot;{key}&quot;)"/>
     </Property>
   </Properties>
   <SyntheticProperties>
