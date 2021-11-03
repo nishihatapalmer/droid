@@ -449,7 +449,8 @@ public class DroidMainFrame extends JFrame {
         helpMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle("DROID"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/Bundle"); // NOI18N
+        setTitle(bundle.getString("main.title")); // NOI18N
 
         jProfilesTabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jProfilesTabbedPane.setAutoscrolls(true);
@@ -471,7 +472,6 @@ public class DroidMainFrame extends JFrame {
         });
 
         jButtonNewProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/New.png"))); // NOI18N
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/Bundle"); // NOI18N
         jButtonNewProfile.setText(bundle.getString("DroidMainFrame.jButtonNewProfile.text")); // NOI18N
         jButtonNewProfile.setToolTipText(bundle.getString("DroidMainFrame.jButtonNewProfile.toolTipText")); // NOI18N
         jButtonNewProfile.setFocusable(false);
