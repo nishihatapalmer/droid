@@ -48,6 +48,7 @@ import java.nio.file.Path;
 import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
+import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.ImageIcon;
@@ -59,7 +60,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.xml.transform.TransformerException;
 
-import org.openide.util.NbBundle;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.xhtmlrenderer.simple.FSScrollPane;
@@ -168,22 +168,23 @@ public class ReportViewFrame extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-
         exportButton = new JButton();
         closeButton = new JButton();
         fSScrollPane1 = new FSScrollPane();
         xHTMLPanel1 = new XHTMLPanel();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(NbBundle.getMessage(ReportViewFrame.class, "ReportViewDialog.title")); // NOI18N
-        exportButton.setText(NbBundle.getMessage(ReportViewFrame.class, "ReportViewDialog.exportButton.text")); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/report/Bundle"); // NOI18N
+        setTitle(bundle.getString("ReportViewDialog.title")); // NOI18N
+
+        exportButton.setText(bundle.getString("ReportViewDialog.exportButton.text")); // NOI18N
         exportButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 exportButtonActionPerformed(evt);
             }
         });
 
-        closeButton.setText(NbBundle.getMessage(ReportViewFrame.class, "ReportViewDialog.closeButton.text")); // NOI18N
+        closeButton.setText(bundle.getString("ReportViewDialog.closeButton.text")); // NOI18N
         closeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 closeButtonActionPerformed(evt);
@@ -192,12 +193,10 @@ public class ReportViewFrame extends JFrame {
 
         GroupLayout xHTMLPanel1Layout = new GroupLayout(xHTMLPanel1);
         xHTMLPanel1.setLayout(xHTMLPanel1Layout);
-        xHTMLPanel1Layout.setHorizontalGroup(
-            xHTMLPanel1Layout.createParallelGroup(Alignment.LEADING)
+        xHTMLPanel1Layout.setHorizontalGroup(xHTMLPanel1Layout.createParallelGroup(Alignment.LEADING)
             .addGap(0, 627, Short.MAX_VALUE)
         );
-        xHTMLPanel1Layout.setVerticalGroup(
-            xHTMLPanel1Layout.createParallelGroup(Alignment.LEADING)
+        xHTMLPanel1Layout.setVerticalGroup(xHTMLPanel1Layout.createParallelGroup(Alignment.LEADING)
             .addGap(0, 505, Short.MAX_VALUE)
         );
 
@@ -205,8 +204,7 @@ public class ReportViewFrame extends JFrame {
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(Alignment.LEADING)
@@ -222,8 +220,7 @@ public class ReportViewFrame extends JFrame {
 
         layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {closeButton, exportButton});
 
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(fSScrollPane1, GroupLayout.DEFAULT_SIZE, 524, Short.MAX_VALUE)
