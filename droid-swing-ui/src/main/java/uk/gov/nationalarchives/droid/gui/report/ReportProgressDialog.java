@@ -33,6 +33,7 @@ package uk.gov.nationalarchives.droid.gui.report;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -43,8 +44,6 @@ import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-import org.openide.util.NbBundle;
 
 import uk.gov.nationalarchives.droid.gui.DroidMainFrame;
 import uk.gov.nationalarchives.droid.results.handlers.ProgressObserver;
@@ -92,7 +91,6 @@ public class ReportProgressDialog extends JDialog implements ProgressObserver {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-
         jPanel1 = new JPanel();
         jLabel1 = new JLabel();
         progressBar = new JProgressBar();
@@ -100,8 +98,10 @@ public class ReportProgressDialog extends JDialog implements ProgressObserver {
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
 
-        jLabel1.setText(NbBundle.getMessage(ReportProgressDialog.class, "ReportProgressDialog.jLabel1.text")); // NOI18N
-        cancelButton.setText(NbBundle.getMessage(ReportProgressDialog.class, "ReportProgressDialog.cancelButton.text")); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/report/Bundle"); // NOI18N
+        jLabel1.setText(bundle.getString("ReportProgressDialog.jLabel1.text")); // NOI18N
+
+        cancelButton.setText(bundle.getString("ReportProgressDialog.cancelButton.text")); // NOI18N
         cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
@@ -110,22 +110,23 @@ public class ReportProgressDialog extends JDialog implements ProgressObserver {
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1)
-                .addContainerGap(58, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(progressBar, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+                    .addComponent(progressBar, GroupLayout.DEFAULT_SIZE, 301, Short.MAX_VALUE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(0, 46, Short.MAX_VALUE))
+                            .addGroup(Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                                .addGap(0, 111, Short.MAX_VALUE)
+                                .addComponent(cancelButton)
+                                .addGap(0, 111, Short.MAX_VALUE)))))
                 .addContainerGap())
-            .addGroup(Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(123, Short.MAX_VALUE)
-                .addComponent(cancelButton)
-                .addContainerGap(123, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
@@ -137,15 +138,13 @@ public class ReportProgressDialog extends JDialog implements ProgressObserver {
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
