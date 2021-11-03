@@ -79,7 +79,7 @@ public class PlanetXMLProgressDialog extends javax.swing.JDialog {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed"
-    // desc="Generated Code">//GEN-BEGIN:initComponents
+    // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
         planetXMLFileName = new javax.swing.JLabel();
@@ -90,122 +90,67 @@ public class PlanetXMLProgressDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        // planetXMLFileName.setText(org.openide.util.NbBundle.getMessage(PlanetXMLProgressDialog.class,
-        // "PlanetXMLProgressDialog.planetXMLFileName.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/planets/gui/Bundle"); // NOI18N
+        planetXMLFileName.setText(bundle.getString("PlanetXMLProgressDialog.planetXMLFileName.text")); // NOI18N
 
-        // okButton.setText(org.openide.util.NbBundle.getMessage(PlanetXMLProgressDialog.class,
-        // "PlanetXMLProgressDialog.okButton.text")); // NOI18N
+        okButton.setText(bundle.getString("PlanetXMLProgressDialog.okButton.text")); // NOI18N
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
             }
         });
 
-        // cancelButton.setText(org.openide.util.NbBundle.getMessage(PlanetXMLProgressDialog.class,
-        // "PlanetXMLProgressDialog.cancelButton.text")); // NOI18N
+        cancelButton.setText(bundle.getString("PlanetXMLProgressDialog.cancelButton.text")); // NOI18N
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
-        planetXMLGenerationProgressBar
-                .addPropertyChangeListener(new java.beans.PropertyChangeListener() {
-                    public void propertyChange(
-                            java.beans.PropertyChangeEvent evt) {
-                        planetXMLGenerationProgressBarPropertyChange(evt);
-                    }
-                });
+        planetXMLGenerationProgressBar.addPropertyChangeListener(new java.beans.PropertyChangeListener() {
+            public void propertyChange(java.beans.PropertyChangeEvent evt) {
+                planetXMLGenerationProgressBarPropertyChange(evt);
+            }
+        });
 
-        // jLabel1.setText(org.openide.util.NbBundle.getMessage(PlanetXMLProgressDialog.class,
-        // "PlanetXMLProgressDialog.jLabel1.text")); // NOI18N
+        jLabel1.setText(bundle.getString("PlanetXMLProgressDialog.jLabel1.text")); // NOI18N
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(
-                getContentPane());
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout
-                .setHorizontalGroup(layout
-                        .createParallelGroup(
-                                javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(
-                                layout
-                                        .createSequentialGroup()
-                                        .addGroup(
-                                                layout
-                                                        .createParallelGroup(
-                                                                javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addGroup(
-                                                                layout
-                                                                        .createSequentialGroup()
-                                                                        .addContainerGap()
-                                                                        .addGroup(
-                                                                                layout
-                                                                                        .createParallelGroup(
-                                                                                                javax.swing.GroupLayout.Alignment.LEADING)
-                                                                                        .addGroup(
-                                                                                                layout
-                                                                                                        .createSequentialGroup()
-                                                                                                        .addComponent(
-                                                                                                                jLabel1)
-                                                                                                        .addPreferredGap(
-                                                                                                                javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                                                                                        .addComponent(
-                                                                                                                planetXMLFileName,
-                                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                                244,
-                                                                                                                Short.MAX_VALUE))
-                                                                                        .addComponent(
-                                                                                                planetXMLGenerationProgressBar,
-                                                                                                javax.swing.GroupLayout.Alignment.TRAILING,
-                                                                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                                                                486,
-                                                                                                Short.MAX_VALUE)))
-                                                        .addGroup(
-                                                                layout
-                                                                        .createSequentialGroup()
-                                                                        .addGap(
-                                                                                217,
-                                                                                217,
-                                                                                217)
-                                                                        .addComponent(
-                                                                                okButton)
-                                                                        .addPreferredGap(
-                                                                                javax.swing.LayoutStyle.ComponentPlacement.RELATED,
-                                                                                169,
-                                                                                Short.MAX_VALUE)
-                                                                        .addComponent(
-                                                                                cancelButton)))
-                                        .addContainerGap()));
-        layout
-                .setVerticalGroup(layout
-                        .createParallelGroup(
-                                javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(
-                                layout
-                                        .createSequentialGroup()
-                                        .addGap(15, 15, 15)
-                                        .addGroup(
-                                                layout
-                                                        .createParallelGroup(
-                                                                javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(jLabel1)
-                                                        .addComponent(
-                                                                planetXMLFileName))
-                                        .addGap(18, 18, 18)
-                                        .addComponent(
-                                                planetXMLGenerationProgressBar,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE,
-                                                javax.swing.GroupLayout.DEFAULT_SIZE,
-                                                javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addGap(18, 18, 18)
-                                        .addGroup(
-                                                layout
-                                                        .createParallelGroup(
-                                                                javax.swing.GroupLayout.Alignment.BASELINE)
-                                                        .addComponent(okButton)
-                                                        .addComponent(
-                                                                cancelButton))
-                                        .addContainerGap(41, Short.MAX_VALUE)));
+        layout.setHorizontalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(planetXMLFileName, javax.swing.GroupLayout.DEFAULT_SIZE, 244, Short.MAX_VALUE))
+                            .addComponent(planetXMLGenerationProgressBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 486, Short.MAX_VALUE)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(217, 217, 217)
+                        .addComponent(okButton)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 169, Short.MAX_VALUE)
+                        .addComponent(cancelButton)))
+                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(planetXMLFileName))
+                .addGap(18, 18, 18)
+                .addComponent(planetXMLGenerationProgressBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(okButton)
+                    .addComponent(cancelButton))
+                .addContainerGap(41, Short.MAX_VALUE))
+        );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
