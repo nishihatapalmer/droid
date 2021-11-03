@@ -253,7 +253,7 @@ public class ExportDialog extends JDialog {
             }
         });
 
-        exportButton.setText(ResourceBundle.getBundle(ExportDialog.class, "ExportDialog.generateButton.text")); // NOI18N
+        exportButton.setText(bundle.getString("ExportDialog.generateButton.text")); // NOI18N
         exportButton.setToolTipText(bundle.getString("ExportDialog.exportButton.toolTipText")); // NOI18N
         exportButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
