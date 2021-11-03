@@ -41,6 +41,7 @@ import java.awt.event.ItemListener;
 import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -61,15 +62,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.NumberFormatter;
 
-import org.jdesktop.beansbinding.BeanProperty;
-import org.jdesktop.beansbinding.Binding;
-import org.jdesktop.beansbinding.BindingGroup;
-import org.jdesktop.beansbinding.Bindings;
-import org.jdesktop.beansbinding.ELProperty;
-import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.observablecollections.ObservableCollections;
 import org.jdesktop.observablecollections.ObservableMap;
-import org.openide.util.NbBundle;
 
 /**
  *
@@ -136,7 +130,6 @@ public class UpdateProxyConfigDialog extends JDialog {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
-        bindingGroup = new BindingGroup();
 
         proxySettingsPanel = new JPanel();
         jLabel8 = new JLabel();
@@ -148,29 +141,22 @@ public class UpdateProxyConfigDialog extends JDialog {
         okButton = new JToggleButton();
 
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(NbBundle.getMessage(UpdateProxyConfigDialog.class, "UpdateProxyConfigDialog.title")); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/config/Bundle"); // NOI18N
+        setTitle(bundle.getString("UpdateProxyConfigDialog.title")); // NOI18N
         setModal(true);
 
-        proxySettingsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createTitledBorder(null, "", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Tahoma", 0, 11), UIManager.getDefaults().getColor("windowText")), NbBundle.getMessage(UpdateProxyConfigDialog.class, "UpdateProxyConfigDialog.proxySettingsPanel.border.title"), TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Tahoma", 0, 11), UIManager.getDefaults().getColor("textText"))); // NOI18N
+        proxySettingsPanel.setBorder(BorderFactory.createTitledBorder(BorderFactory.createTitledBorder(null, "", TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", 0, 12), UIManager.getDefaults().getColor("windowText")), bundle.getString("UpdateProxyConfigDialog.proxySettingsPanel.border.title"), TitledBorder.DEFAULT_JUSTIFICATION, TitledBorder.DEFAULT_POSITION, new Font("Dialog", 0, 12), UIManager.getDefaults().getColor("textText"))); // NOI18N
         proxySettingsPanel.setEnabled(false);
 
+        jLabel8.setText(bundle.getString("UpdateProxyConfigDialog.jLabel8.text")); // NOI18N
 
-        jLabel8.setText(NbBundle.getMessage(UpdateProxyConfigDialog.class, "UpdateProxyConfigDialog.jLabel8.text")); // NOI18N
-        Binding binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${properties[\"update.proxy.host\"]}"), proxyHostTextBox, BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
-        bindingGroup.addBinding(binding);
+        jLabel9.setText(bundle.getString("UpdateProxyConfigDialog.jLabel9.text")); // NOI18N
 
-
-        jLabel9.setText(NbBundle.getMessage(UpdateProxyConfigDialog.class, "UpdateProxyConfigDialog.jLabel9.text")); // NOI18N
         proxyPortTextBox.setFormatterFactory(new IntegerFormatterFactory());
-
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${properties[\"update.proxy.port\"]}"), proxyPortTextBox, BeanProperty.create("value"));
-        bindingGroup.addBinding(binding);
 
         GroupLayout proxySettingsPanelLayout = new GroupLayout(proxySettingsPanel);
         proxySettingsPanel.setLayout(proxySettingsPanelLayout);
-
-        proxySettingsPanelLayout.setHorizontalGroup(
-            proxySettingsPanelLayout.createParallelGroup(Alignment.LEADING)
+        proxySettingsPanelLayout.setHorizontalGroup(proxySettingsPanelLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(proxySettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(proxySettingsPanelLayout.createParallelGroup(Alignment.TRAILING)
@@ -182,8 +168,7 @@ public class UpdateProxyConfigDialog extends JDialog {
                     .addComponent(proxyHostTextBox, GroupLayout.PREFERRED_SIZE, 267, GroupLayout.PREFERRED_SIZE))
                 .addGap(32, 32, 32))
         );
-        proxySettingsPanelLayout.setVerticalGroup(
-            proxySettingsPanelLayout.createParallelGroup(Alignment.LEADING)
+        proxySettingsPanelLayout.setVerticalGroup(proxySettingsPanelLayout.createParallelGroup(Alignment.LEADING)
             .addGroup(proxySettingsPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(proxySettingsPanelLayout.createParallelGroup(Alignment.BASELINE)
@@ -196,24 +181,21 @@ public class UpdateProxyConfigDialog extends JDialog {
                 .addContainerGap(24, Short.MAX_VALUE))
         );
 
-        useProxyCheckbox.setText(NbBundle.getMessage(UpdateProxyConfigDialog.class, "UpdateProxyConfigDialog.useProxyCheckbox.text")); // NOI18N
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${properties[\"update.proxy\"]}"), useProxyCheckbox, BeanProperty.create("selected"));
-        bindingGroup.addBinding(binding);
-
+        useProxyCheckbox.setText(bundle.getString("UpdateProxyConfigDialog.useProxyCheckbox.text")); // NOI18N
         useProxyCheckbox.addItemListener(new ItemListener() {
             public void itemStateChanged(ItemEvent evt) {
                 useProxyCheckboxItemStateChanged(evt);
             }
         });
 
-        cancelButton.setText(NbBundle.getMessage(UpdateProxyConfigDialog.class, "UpdateProxyConfigDialog.cancelButton.text")); // NOI18N
+        cancelButton.setText(bundle.getString("UpdateProxyConfigDialog.cancelButton.text")); // NOI18N
         cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
-        okButton.setText(NbBundle.getMessage(UpdateProxyConfigDialog.class, "UpdateProxyConfigDialog.okButton.text")); // NOI18N
+        okButton.setText(bundle.getString("UpdateProxyConfigDialog.okButton.text")); // NOI18N
         okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 okButtonActionPerformed(evt);
@@ -222,13 +204,12 @@ public class UpdateProxyConfigDialog extends JDialog {
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(Alignment.LEADING)
                     .addComponent(useProxyCheckbox)
-                    .addComponent(proxySettingsPanel, GroupLayout.DEFAULT_SIZE, 443, Short.MAX_VALUE)
+                    .addComponent(proxySettingsPanel, GroupLayout.PREFERRED_SIZE, 443, Short.MAX_VALUE)
                     .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(okButton)
                         .addPreferredGap(ComponentPlacement.RELATED)
@@ -238,8 +219,7 @@ public class UpdateProxyConfigDialog extends JDialog {
 
         layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {cancelButton, okButton});
 
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(useProxyCheckbox)
@@ -254,7 +234,6 @@ public class UpdateProxyConfigDialog extends JDialog {
 
         layout.linkSize(SwingConstants.VERTICAL, new Component[] {cancelButton, okButton});
 
-        bindingGroup.bind();
     }// </editor-fold>//GEN-END:initComponents
 
     private void useProxyCheckboxItemStateChanged(ItemEvent evt) {//GEN-FIRST:event_useProxyCheckboxItemStateChanged
@@ -283,7 +262,6 @@ public class UpdateProxyConfigDialog extends JDialog {
     private JFormattedTextField proxyPortTextBox;
     private JPanel proxySettingsPanel;
     private JCheckBox useProxyCheckbox;
-    private BindingGroup bindingGroup;
     // End of variables declaration//GEN-END:variables
     
     private static class IntegerFormatterFactory extends AbstractFormatterFactory {
