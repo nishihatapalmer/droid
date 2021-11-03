@@ -450,6 +450,7 @@ public class DroidMainFrame extends JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
         java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/Bundle"); // NOI18N
+
         setTitle(bundle.getString("main.title")); // NOI18N
 
         jProfilesTabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
@@ -986,8 +987,8 @@ public class DroidMainFrame extends JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addComponent(droidToolBar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jProfilesTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 415, Short.MAX_VALUE))
+                .addGap(0, 0, 0)
+                .addComponent(jProfilesTabbedPane, javax.swing.GroupLayout.DEFAULT_SIZE, 421, Short.MAX_VALUE))
         );
 
         pack();
