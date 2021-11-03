@@ -131,8 +131,6 @@ public class ProfileTreeTableModel extends TreeTableModel {
         }
     }
 
-    //TODO: add comparators for relevant columns (e.g. case insensitive string comparisons).
-
     private String getNodeIdentificationDisplayText(ProfileResourceNode node) {
         return buildFormatInfo(node, Format::getName);
     }
