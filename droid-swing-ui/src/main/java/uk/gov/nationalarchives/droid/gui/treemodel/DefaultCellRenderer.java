@@ -131,7 +131,7 @@ public class DefaultCellRenderer implements TableCellRenderer {
         } else {
             String displayValue = getDisplayValue(table, value, isSelected, hasFocus, row, column);
             renderer.setText(displayValue);
-            renderer.setToolTipText(value == null? "" : value.toString());
+            renderer.setToolTipText(value == null ? "" : value.toString());
             renderer.setIcon(getIcon(table, value, isSelected, hasFocus, row, column));
         }
         return renderer;

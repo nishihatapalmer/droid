@@ -797,126 +797,186 @@ public class ConfigDialog extends JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    //CHECKSTYLE:OFF - too many statements.
     private void bindBeans() {
         bindingGroup = new BindingGroup();
 
-        Binding binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.defaultThrottle\"]}"), defaultThrottleTextBox1, BeanProperty.create("value"));
+        Binding binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.defaultThrottle\"]}"), defaultThrottleTextBox1,
+                BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
         ELProperty eLProperty = ELProperty.create("${allBinarySigFiles}");
-        JComboBoxBinding jComboBoxBinding = SwingBindings.createJComboBoxBinding(UpdateStrategy.READ, this, eLProperty, defaultSigFileComboBox1);
+        JComboBoxBinding jComboBoxBinding = SwingBindings.createJComboBoxBinding(UpdateStrategy.READ, this,
+                eLProperty, defaultSigFileComboBox1);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.defaultBinarySigFileVersion\"]}"), defaultSigFileComboBox1, BeanProperty.create("selectedItem"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.defaultBinarySigFileVersion\"]}"), defaultSigFileComboBox1,
+                BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.generateHash\"]}"), generateHashCheckBox, BeanProperty.create("selected"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.generateHash\"]}"), generateHashCheckBox,
+                BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
 
         eLProperty = ELProperty.create("${allContainerSigFiles}");
         jComboBoxBinding = SwingBindings.createJComboBoxBinding(UpdateStrategy.READ, this, eLProperty, containerSigCombo);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.defaultContainerSigFileVersion\"]}"), containerSigCombo, BeanProperty.create("selectedItem"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.defaultContainerSigFileVersion\"]}"), containerSigCombo,
+                BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.maxBytesToScan\"]}"), jTextField2, BeanProperty.create("text"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.maxBytesToScan\"]}"), jTextField2,
+                BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ, this, ELProperty.create("${!globalConfig[\"profile.matchAllExtensions\"]}"), rowPerFileButton2, BeanProperty.create("selected"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ, this,
+                ELProperty.create("${!globalConfig[\"profile.matchAllExtensions\"]}"), rowPerFileButton2,
+                BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.matchAllExtensions\"]}"), rowPerFormatButton2, BeanProperty.create("selected"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.matchAllExtensions\"]}"), rowPerFormatButton2,
+                BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
 
         eLProperty = ELProperty.create("${allHashAlgorithms}");
-        jComboBoxBinding = SwingBindings.createJComboBoxBinding(UpdateStrategy.READ, this, eLProperty, hashAlgorithmCombo);
+        jComboBoxBinding = SwingBindings.createJComboBoxBinding(UpdateStrategy.READ, this,
+                eLProperty, hashAlgorithmCombo);
         bindingGroup.addBinding(jComboBoxBinding);
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.hashAlgorithm\"]}"), hashAlgorithmCombo, BeanProperty.create("selectedItem"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.hashAlgorithm\"]}"), hashAlgorithmCombo,
+                BeanProperty.create("selectedItem"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.processZip\"]}"), processZipCheckBox, BeanProperty.create("selected"), "zipBinding");
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.processZip\"]}"), processZipCheckBox,
+                BeanProperty.create("selected"), "zipBinding");
         binding.setSourceNullValue(false);
         binding.setSourceUnreadableValue(false);
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.processTar\"]}"), processTarCheckBox, BeanProperty.create("selected"), "tarBinding");
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.processTar\"]}"), processTarCheckBox,
+                BeanProperty.create("selected"), "tarBinding");
         binding.setSourceNullValue(false);
         binding.setSourceUnreadableValue(false);
         bindingGroup.addBinding(binding);
 
-
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.processGzip\"]}"), processGzipCheckBox, BeanProperty.create("selected"), "gzipBinding");
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.processGzip\"]}"), processGzipCheckBox,
+                BeanProperty.create("selected"), "gzipBinding");
         binding.setSourceNullValue(false);
         binding.setSourceUnreadableValue(false);
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.processRar\"]}"), processRarCheckBox, BeanProperty.create("selected"), "rarBinding");
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.processRar\"]}"), processRarCheckBox,
+                BeanProperty.create("selected"), "rarBinding");
         binding.setSourceNullValue(false);
         binding.setSourceUnreadableValue(false);
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.process7zip\"]}"), process7zipCheckBox, BeanProperty.create("selected"), "7zipBinding");
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.process7zip\"]}"), process7zipCheckBox,
+                BeanProperty.create("selected"), "7zipBinding");
         binding.setSourceNullValue(false);
         binding.setSourceUnreadableValue(false);
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.processIso\"]}"), processIsoCheckBox, BeanProperty.create("selected"), "isoBinding");
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.processIso\"]}"), processIsoCheckBox,
+                BeanProperty.create("selected"), "isoBinding");
         binding.setSourceNullValue(false);
         binding.setSourceUnreadableValue(false);
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.processBzip2\"]}"), processBzip2CheckBox, BeanProperty.create("selected"), "bzip2Binding");
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.processBzip2\"]}"), processBzip2CheckBox,
+                BeanProperty.create("selected"), "bzip2Binding");
         binding.setSourceNullValue(false);
         binding.setSourceUnreadableValue(false);
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.processArc\"]}"), processArcCheckBox, BeanProperty.create("selected"), "arcBinding");
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.processArc\"]}"), processArcCheckBox,
+                BeanProperty.create("selected"), "arcBinding");
         binding.setSourceNullValue(false);
         binding.setSourceUnreadableValue(false);
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"profile.processWarc\"]}"), processWarcCheckBox, BeanProperty.create("selected"), "warcBinding");
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"profile.processWarc\"]}"), processWarcCheckBox,
+                BeanProperty.create("selected"), "warcBinding");
         binding.setSourceNullValue(false);
         binding.setSourceUnreadableValue(false);
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ, this, ELProperty.create("${!globalConfig[\"export.rowPerFormat\"]}"), rowPerFileButton1, BeanProperty.create("selected"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ, this,
+                ELProperty.create("${!globalConfig[\"export.rowPerFormat\"]}"), rowPerFileButton1,
+                BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"export.rowPerFormat\"]}"), rowPerFormatButton1, BeanProperty.create("selected"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"export.rowPerFormat\"]}"), rowPerFormatButton1,
+                BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"pronom.update.url\"]}"), updateUrlTextBox, BeanProperty.create("text"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"pronom.update.url\"]}"), updateUrlTextBox,
+                BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"update.frequency.days\"]}"), updateFrequencyTextBox, BeanProperty.create("value"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"update.frequency.days\"]}"), updateFrequencyTextBox,
+                BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ, updateScheduleRadioButton, ELProperty.create("${selected}"), updateFrequencyTextBox, BeanProperty.create("enabled"));
-        bindingGroup.addBinding(binding);
-
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"update.frequency.startup\"]}"), updateOnStartupRadioButton, BeanProperty.create("selected"));
-        bindingGroup.addBinding(binding);
-
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_ONCE, this, ELProperty.create("${!globalConfig[\"update.frequency.startup\"]}"), updateScheduleRadioButton, BeanProperty.create("selected"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ, updateScheduleRadioButton,
+                ELProperty.create("${selected}"), updateFrequencyTextBox,
+                BeanProperty.create("enabled"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"update.autoCheck\"]}"), autoUpdateCheckbox, BeanProperty.create("selected"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"update.frequency.startup\"]}"),
+                updateOnStartupRadioButton, BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"container.update.url\"]}"), containerSigUrl, BeanProperty.create("text"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_ONCE, this,
+                ELProperty.create("${!globalConfig[\"update.frequency.startup\"]}"), updateScheduleRadioButton,
+                BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"puid.urlPattern\"]}"), jTextField1, BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"update.autoCheck\"]}"), autoUpdateCheckbox,
+                BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"update.downloadPrompt\"]}"), askToDownloadCheckBox, BeanProperty.create("selected"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"container.update.url\"]}"), containerSigUrl,
+                BeanProperty.create("text"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this, ELProperty.create("${globalConfig[\"update.autoSetDefault\"]}"), autoSetDefaultSignatureFileCheckBox, BeanProperty.create("selected"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"puid.urlPattern\"]}"), jTextField1,
+                BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
+        bindingGroup.addBinding(binding);
+
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"update.downloadPrompt\"]}"), askToDownloadCheckBox,
+                BeanProperty.create("selected"));
+        bindingGroup.addBinding(binding);
+
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${globalConfig[\"update.autoSetDefault\"]}"), autoSetDefaultSignatureFileCheckBox,
+                BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
 
         bindingGroup.bind();
     }
+    //CHECKSTYLE:ON
 
     private void okButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_okButtonActionPerformed
         response = OK;

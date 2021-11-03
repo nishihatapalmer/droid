@@ -38,7 +38,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+
 import java.text.DecimalFormat;
+
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -62,7 +64,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.TitledBorder;
 import javax.swing.text.NumberFormatter;
 
-import org.jdesktop.beansbinding.AutoBinding;
+import org.jdesktop.beansbinding.AutoBinding.UpdateStrategy;
 import org.jdesktop.beansbinding.BeanProperty;
 import org.jdesktop.beansbinding.Binding;
 import org.jdesktop.beansbinding.BindingGroup;
@@ -90,7 +92,7 @@ public class UpdateProxyConfigDialog extends JDialog {
     private int response;
     private BindingGroup bindingGroup;
 
-    /** 
+    /**
      * Creates new form UpdateProxyConfigDialog.
      * @param parentFrame the parent frame
      * @param properties the properties that this dialog can update. 
@@ -247,13 +249,19 @@ public class UpdateProxyConfigDialog extends JDialog {
     private void bindBeans() {
         bindingGroup = new BindingGroup();
 
-        Binding binding = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, this, ELProperty.create("${properties[\"update.proxy.host\"]}"), proxyHostTextBox, BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
+        Binding binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${properties[\"update.proxy.host\"]}"), proxyHostTextBox,
+                BeanProperty.create("text_ON_ACTION_OR_FOCUS_LOST"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, this, ELProperty.create("${properties[\"update.proxy.port\"]}"), proxyPortTextBox, BeanProperty.create("value"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${properties[\"update.proxy.port\"]}"), proxyPortTextBox,
+                BeanProperty.create("value"));
         bindingGroup.addBinding(binding);
 
-        binding = Bindings.createAutoBinding(AutoBinding.UpdateStrategy.READ_WRITE, this, ELProperty.create("${properties[\"update.proxy\"]}"), useProxyCheckbox, BeanProperty.create("selected"));
+        binding = Bindings.createAutoBinding(UpdateStrategy.READ_WRITE, this,
+                ELProperty.create("${properties[\"update.proxy\"]}"), useProxyCheckbox,
+                BeanProperty.create("selected"));
         bindingGroup.addBinding(binding);
 
         bindingGroup.bind();

@@ -78,7 +78,7 @@ import uk.gov.nationalarchives.droid.util.FileUtil;
  * @author rflitcroft
  */
 public class ResourceSelectorDialog extends JDialog {
-    
+
     private static final int FILE_COLUMN_INDEX = 0;
     private static final int SIZE_COLUMN_INDEX = 1;
     private static final int DATE_COLUMN_INDEX = 2;
@@ -94,8 +94,10 @@ public class ResourceSelectorDialog extends JDialog {
         "Name", "Size", "Last modified", };
         
     private static final Class<?>[] TYPES = new Class [] {
-        File.class, Long.class, Date.class, };    
-    
+        File.class, Long.class, Date.class, };
+
+    private static final String DROID_GUI_FILECHOOSER_BUNDLE = "uk/gov/nationalarchives/droid/gui/filechooser/Bundle";
+
     private FileSystemView fsv = FileSystemView.getFileSystemView();
     
     private List<File> selectedFiles = new ArrayList<File>();
@@ -330,7 +332,7 @@ public class ResourceSelectorDialog extends JDialog {
         final TableColumn fileColumn = columnModel.getColumn(FILE_COLUMN_INDEX);
         
         fileColumn.setPreferredWidth(WIDE_COLUMN);
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/filechooser/Bundle");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle(DROID_GUI_FILECHOOSER_BUNDLE);
         fileColumn.setHeaderValue(bundle.getString("ResourceSelector.table.columnModel.title0"));
                
         columnModel.getColumn(SIZE_COLUMN_INDEX).setPreferredWidth(NARROW_COLUMN);
@@ -435,7 +437,7 @@ public class ResourceSelectorDialog extends JDialog {
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
-        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/filechooser/Bundle"); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle(DROID_GUI_FILECHOOSER_BUNDLE); // NOI18N
         setTitle(bundle.getString("ResourceSelectorDialog.title")); // NOI18N
 
         jSplitPane1.setDividerLocation(200);
