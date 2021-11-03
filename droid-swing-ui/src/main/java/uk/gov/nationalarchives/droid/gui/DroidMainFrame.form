@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.7" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <NonVisualComponents>
     <Menu class="javax.swing.JMenuBar" name="jMenuBar1">
       <Properties>
@@ -12,8 +12,12 @@
         <Menu class="javax.swing.JMenu" name="jMenuFile">
           <Properties>
             <Property name="mnemonic" type="int" value="70"/>
-            <Property name="text" type="java.lang.String" value="File"/>
-            <Property name="actionCommand" type="java.lang.String" value="file"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuFile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="actionCommand" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuFile.actionCommand" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuFileActionPerformed"/>
@@ -27,8 +31,12 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/New small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="New"/>
-                <Property name="toolTipText" type="java.lang.String" value="New profile"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemNew.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemNew.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemNewActionPerformed"/>
@@ -45,8 +53,12 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Open file small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Open"/>
-                <Property name="toolTipText" type="java.lang.String" value="Open a profile"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemOpen.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemOpen.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemOpenActionPerformed"/>
@@ -63,9 +75,15 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Save small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Save"/>
-                <Property name="toolTipText" type="java.lang.String" value="Save a profile"/>
-                <Property name="actionCommand" type="java.lang.String" value="save"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuSave.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuSave.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="actionCommand" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuSave.actionCommand" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
                 <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/icons/Save Blue 16 d g.gif"/>
                 </Property>
@@ -88,9 +106,15 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Save As small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Save As..."/>
-                <Property name="toolTipText" type="java.lang.String" value="Save a profile to a specified file"/>
-                <Property name="actionCommand" type="java.lang.String" value="save"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuSaveAs.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuSaveAs.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="actionCommand" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuSaveAs.actionCommand" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
                 <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Save As small disabled.png"/>
                 </Property>
@@ -113,9 +137,15 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Export small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Export all..."/>
-                <Property name="toolTipText" type="java.lang.String" value="Export profiles"/>
-                <Property name="actionCommand" type="java.lang.String" value="export"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemExport.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemExport.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="actionCommand" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemExport.actionCommand" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemExportActionPerformed"/>
@@ -132,7 +162,9 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Quit Small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Quit"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuQuit.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuQuitActionPerformed"/>
@@ -145,8 +177,12 @@
         <Menu class="javax.swing.JMenu" name="jMenuEdit">
           <Properties>
             <Property name="mnemonic" type="int" value="69"/>
-            <Property name="text" type="java.lang.String" value="Edit"/>
-            <Property name="actionCommand" type="java.lang.String" value="edit"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuEdit.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="actionCommand" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuEdit.actionCommand" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="menuSelected" listener="javax.swing.event.MenuListener" parameters="javax.swing.event.MenuEvent" handler="jMenuEditMenuSelected"/>
@@ -160,8 +196,12 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Add small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Add file/folders"/>
-                <Property name="toolTipText" type="java.lang.String" value="Add files or folders to a profile"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemAddFileOrFolders.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemAddFileOrFolders.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
                 <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Add small disabled.png"/>
                 </Property>
@@ -184,8 +224,12 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Remove small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Remove files/folders"/>
-                <Property name="toolTipText" type="java.lang.String" value="Remove files or folders from a profile"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemRemoveFolder.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemRemoveFolder.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
                 <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Remove small disabled.png"/>
                 </Property>
@@ -210,7 +254,9 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/icons/Icon_External_Link.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Open containing folder..."/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemOpenFolder.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="OpenContainingFolder"/>
@@ -224,7 +270,9 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Clipboard small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Copy to clipboard"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemCopyToClipboard.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCopyToClipboardActionPerformed"/>
@@ -234,7 +282,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExpandChildren">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Expand"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemExpandChildren.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemExpandChildrenActionPerformed"/>
@@ -242,7 +292,9 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemExpandNextThree">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Expand next three levels"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemExpandNextThree.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemExpandNextThreeActionPerformed"/>
@@ -253,8 +305,12 @@
         <Menu class="javax.swing.JMenu" name="jMenuRun">
           <Properties>
             <Property name="mnemonic" type="int" value="82"/>
-            <Property name="text" type="java.lang.String" value="Run"/>
-            <Property name="actionCommand" type="java.lang.String" value="run"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuRun.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="actionCommand" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuRun.actionCommand" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemStart">
@@ -265,8 +321,12 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Play small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Start identification"/>
-                <Property name="toolTipText" type="java.lang.String" value="Start identifying files in the profile"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemStart.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemStart.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
                 <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Play small disabled.png"/>
                 </Property>
@@ -289,8 +349,12 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Pause small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Pause identification"/>
-                <Property name="toolTipText" type="java.lang.String" value="Pause identification in the profile"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemStop.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemStop.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
                 <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Pause small disabled.png"/>
                 </Property>
@@ -310,7 +374,9 @@
         <Menu class="javax.swing.JMenu" name="jMenuFilter">
           <Properties>
             <Property name="mnemonic" type="int" value="108"/>
-            <Property name="text" type="java.lang.String" value="Filter"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="menuSelected" listener="javax.swing.event.MenuListener" parameters="javax.swing.event.MenuEvent" handler="jMenuFilterMenuSelected"/>
@@ -321,8 +387,12 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+F"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Filter on"/>
-                <Property name="toolTipText" type="java.lang.String" value="Toggles filtering on or off in the profile"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.filterEnabledMenuItem.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.filterEnabledMenuItem.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="filterEnabledMenuItemActionPerformed"/>
@@ -338,8 +408,12 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Filter small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Edit filter..."/>
-                <Property name="toolTipText" type="java.lang.String" value="Edit the filter for a profile"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuEditFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuEditFilter.toolTipText_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
                 <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Filter small disabled.png"/>
                 </Property>
@@ -350,8 +424,12 @@
             </MenuItem>
             <MenuItem class="javax.swing.JMenuItem" name="jMenuItemCopyFilterToAll">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Copy filter to all profiles..."/>
-                <Property name="toolTipText" type="java.lang.String" value="Copies the filter in the current profile to all open profiles"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemCopyFilterToAll.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuItemCopyFilterToAll.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuItemCopyFilterToAllActionPerformed"/>
@@ -362,8 +440,12 @@
         <Menu class="javax.swing.JMenu" name="jMenuReport">
           <Properties>
             <Property name="mnemonic" type="int" value="112"/>
-            <Property name="text" type="java.lang.String" value="Report"/>
-            <Property name="actionCommand" type="java.lang.String" value="report"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuReport.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="actionCommand" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuReport.actionCommand" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="generateReportMenuItem">
@@ -374,8 +456,12 @@
                 <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Report small.png"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Generate Report..."/>
-                <Property name="toolTipText" type="java.lang.String" value="Generates a report in DROID XML format"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.generateReportMenuItem.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.generateReportMenuItem.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
                 <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
                   <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Report small disabled.png"/>
                 </Property>
@@ -389,7 +475,9 @@
         <Menu class="javax.swing.JMenu" name="jMenuTools">
           <Properties>
             <Property name="mnemonic" type="int" value="84"/>
-            <Property name="text" type="java.lang.String" value="Tools"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jMenuTools.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jMenuToolsActionPerformed"/>
@@ -402,8 +490,12 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+U"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Check for signature updates..."/>
-                <Property name="toolTipText" type="java.lang.String" value="Checks to see if there are updated signatures"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.updateNowMenuItem.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.updateNowMenuItem.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateNowMenuItemActionPerformed"/>
@@ -414,8 +506,12 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Shift+Ctrl+U"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Install signature file..."/>
-                <Property name="toolTipText" type="java.lang.String" value="Installs a signature file from your local file system"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.signatureInstallMenuItem.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.signatureInstallMenuItem.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="signatureInstallMenuItemActionPerformed"/>
@@ -428,8 +524,12 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Shift+Ctrl+P"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Preferences..."/>
-                <Property name="toolTipText" type="java.lang.String" value="Set the DROID preferences"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.settingsMenuItem.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
+                <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.settingsMenuItem.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="settingsMenuItemActionPerformed"/>
@@ -440,8 +540,12 @@
         <Menu class="javax.swing.JMenu" name="jhelp">
           <Properties>
             <Property name="mnemonic" type="int" value="72"/>
-            <Property name="text" type="java.lang.String" value="Help"/>
-            <Property name="actionCommand" type="java.lang.String" value="help"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jhelp.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="actionCommand" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jhelp.actionCommand" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
           </Properties>
           <SubComponents>
             <MenuItem class="javax.swing.JMenuItem" name="helpMenuItem">
@@ -449,7 +553,9 @@
                 <Property name="accelerator" type="javax.swing.KeyStroke" editor="org.netbeans.modules.form.editors.KeyStrokeEditor">
                   <KeyStroke key="Ctrl+H"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="Help"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.helpMenuItem.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
               </Properties>
             </MenuItem>
           </SubComponents>
@@ -469,11 +575,11 @@
     <SyntheticProperty name="generateCenter" type="boolean" value="false"/>
   </SyntheticProperties>
   <AuxValues>
-    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="0"/>
+    <AuxValue name="FormSettings_autoResourcing" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_autoSetComponentName" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_generateFQN" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_generateMnemonicsCode" type="java.lang.Boolean" value="false"/>
-    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="false"/>
+    <AuxValue name="FormSettings_i18nAutoMode" type="java.lang.Boolean" value="true"/>
     <AuxValue name="FormSettings_layoutCodeTarget" type="java.lang.Integer" value="1"/>
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
@@ -534,8 +640,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/New.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="New"/>
-            <Property name="toolTipText" type="java.lang.String" value="Create new profile"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonNewProfile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonNewProfile.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -549,8 +659,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Open file.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Open"/>
-            <Property name="toolTipText" type="java.lang.String" value="Open existing profile"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonOpenProfile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonOpenProfile.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -567,8 +681,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Save.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Save"/>
-            <Property name="toolTipText" type="java.lang.String" value="Save profile"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonSaveProfile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonSaveProfile.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
             <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Save disabled.png"/>
             </Property>
@@ -591,8 +709,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Export.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Export"/>
-            <Property name="toolTipText" type="java.lang.String" value="Export results"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonExport.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonExport.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -613,8 +735,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Add.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Add"/>
-            <Property name="toolTipText" type="java.lang.String" value="Add files or folders to profile"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonAddFile.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonAddFile.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
             <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Add disabled.png"/>
             </Property>
@@ -637,8 +763,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Remove.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Remove"/>
-            <Property name="toolTipText" type="java.lang.String" value="Remove files/folders from profile"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonRemoveFilesAndFolder.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonRemoveFilesAndFolder.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
             <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Remove disabled.png"/>
             </Property>
@@ -668,8 +798,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Play.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Start"/>
-            <Property name="toolTipText" type="java.lang.String" value="Run identification"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonStart.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonStart.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
             <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Play disabled.png"/>
             </Property>
@@ -692,8 +826,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Pause.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Pause"/>
-            <Property name="toolTipText" type="java.lang.String" value="Pause identification"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonStop.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonStop.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
             <Property name="disabledIcon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Pause disabled.png"/>
             </Property>
@@ -720,8 +858,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/icons/Filter.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Filter"/>
-            <Property name="toolTipText" type="java.lang.String" value="Define and apply filter to results"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonFilter.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonFilter.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>
@@ -765,7 +907,9 @@
           <SubComponents>
             <Component class="javax.swing.JCheckBox" name="jFilterOnCheckBox">
               <Properties>
-                <Property name="text" type="java.lang.String" value="On"/>
+                <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jFilterOnCheckBox.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+                </Property>
                 <Property name="focusable" type="boolean" value="false"/>
                 <Property name="horizontalTextPosition" type="int" value="0"/>
                 <Property name="inheritsPopupMenu" type="boolean" value="true"/>
@@ -799,8 +943,12 @@
             <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Report.png"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Report"/>
-            <Property name="toolTipText" type="java.lang.String" value="Generate a statistical report over the open profiles"/>
+            <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonReport.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
+            <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="DroidMainFrame.jButtonReport.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
+            </Property>
             <Property name="focusable" type="boolean" value="false"/>
             <Property name="horizontalTextPosition" type="int" value="0"/>
             <Property name="verticalTextPosition" type="int" value="3"/>

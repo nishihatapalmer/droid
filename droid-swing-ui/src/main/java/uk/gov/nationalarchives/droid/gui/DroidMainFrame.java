@@ -65,9 +65,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 import org.apache.commons.configuration.ConfigurationException;
 import org.apache.commons.configuration.PropertiesConfiguration;
 
-
 import org.joda.time.DateTime;
-import org.openide.util.NbBundle;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -451,7 +449,7 @@ public class DroidMainFrame extends JFrame {
         helpMenuItem = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(org.openide.util.NbBundle.getMessage(DroidMainFrame.class, "main.title")); // NOI18N
+        setTitle("DROID"); // NOI18N
 
         jProfilesTabbedPane.setTabLayoutPolicy(javax.swing.JTabbedPane.SCROLL_TAB_LAYOUT);
         jProfilesTabbedPane.setAutoscrolls(true);
@@ -473,8 +471,9 @@ public class DroidMainFrame extends JFrame {
         });
 
         jButtonNewProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/New.png"))); // NOI18N
-        jButtonNewProfile.setText("New");
-        jButtonNewProfile.setToolTipText("Create new profile");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/Bundle"); // NOI18N
+        jButtonNewProfile.setText(bundle.getString("DroidMainFrame.jButtonNewProfile.text")); // NOI18N
+        jButtonNewProfile.setToolTipText(bundle.getString("DroidMainFrame.jButtonNewProfile.toolTipText")); // NOI18N
         jButtonNewProfile.setFocusable(false);
         jButtonNewProfile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonNewProfile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -486,8 +485,8 @@ public class DroidMainFrame extends JFrame {
         droidToolBar.add(jButtonNewProfile);
 
         jButtonOpenProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Open file.png"))); // NOI18N
-        jButtonOpenProfile.setText("Open");
-        jButtonOpenProfile.setToolTipText("Open existing profile");
+        jButtonOpenProfile.setText(bundle.getString("DroidMainFrame.jButtonOpenProfile.text")); // NOI18N
+        jButtonOpenProfile.setToolTipText(bundle.getString("DroidMainFrame.jButtonOpenProfile.toolTipText")); // NOI18N
         jButtonOpenProfile.setFocusable(false);
         jButtonOpenProfile.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonOpenProfile.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -499,8 +498,8 @@ public class DroidMainFrame extends JFrame {
         droidToolBar.add(jButtonOpenProfile);
 
         jButtonSaveProfile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Save.png"))); // NOI18N
-        jButtonSaveProfile.setText("Save");
-        jButtonSaveProfile.setToolTipText("Save profile");
+        jButtonSaveProfile.setText(bundle.getString("DroidMainFrame.jButtonSaveProfile.text")); // NOI18N
+        jButtonSaveProfile.setToolTipText(bundle.getString("DroidMainFrame.jButtonSaveProfile.toolTipText")); // NOI18N
         jButtonSaveProfile.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Save disabled.png"))); // NOI18N
         jButtonSaveProfile.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Save disabled.png"))); // NOI18N
         jButtonSaveProfile.setFocusable(false);
@@ -514,8 +513,8 @@ public class DroidMainFrame extends JFrame {
         droidToolBar.add(jButtonSaveProfile);
 
         jButtonExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Export.png"))); // NOI18N
-        jButtonExport.setText("Export");
-        jButtonExport.setToolTipText("Export results");
+        jButtonExport.setText(bundle.getString("DroidMainFrame.jButtonExport.text")); // NOI18N
+        jButtonExport.setToolTipText(bundle.getString("DroidMainFrame.jButtonExport.toolTipText")); // NOI18N
         jButtonExport.setFocusable(false);
         jButtonExport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonExport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -530,8 +529,8 @@ public class DroidMainFrame extends JFrame {
         droidToolBar.add(jSeparator13);
 
         jButtonAddFile.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Add.png"))); // NOI18N
-        jButtonAddFile.setText("Add");
-        jButtonAddFile.setToolTipText("Add files or folders to profile");
+        jButtonAddFile.setText(bundle.getString("DroidMainFrame.jButtonAddFile.text")); // NOI18N
+        jButtonAddFile.setToolTipText(bundle.getString("DroidMainFrame.jButtonAddFile.toolTipText")); // NOI18N
         jButtonAddFile.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Add disabled.png"))); // NOI18N
         jButtonAddFile.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Add disabled.png"))); // NOI18N
         jButtonAddFile.setFocusable(false);
@@ -545,8 +544,8 @@ public class DroidMainFrame extends JFrame {
         droidToolBar.add(jButtonAddFile);
 
         jButtonRemoveFilesAndFolder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Remove.png"))); // NOI18N
-        jButtonRemoveFilesAndFolder.setText("Remove");
-        jButtonRemoveFilesAndFolder.setToolTipText("Remove files/folders from profile");
+        jButtonRemoveFilesAndFolder.setText(bundle.getString("DroidMainFrame.jButtonRemoveFilesAndFolder.text")); // NOI18N
+        jButtonRemoveFilesAndFolder.setToolTipText(bundle.getString("DroidMainFrame.jButtonRemoveFilesAndFolder.toolTipText")); // NOI18N
         jButtonRemoveFilesAndFolder.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Remove disabled.png"))); // NOI18N
         jButtonRemoveFilesAndFolder.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Remove disabled.png"))); // NOI18N
         jButtonRemoveFilesAndFolder.setFocusable(false);
@@ -563,8 +562,8 @@ public class DroidMainFrame extends JFrame {
         droidToolBar.add(jSeparator12);
 
         jButtonStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Play.png"))); // NOI18N
-        jButtonStart.setText("Start");
-        jButtonStart.setToolTipText("Run identification");
+        jButtonStart.setText(bundle.getString("DroidMainFrame.jButtonStart.text")); // NOI18N
+        jButtonStart.setToolTipText(bundle.getString("DroidMainFrame.jButtonStart.toolTipText")); // NOI18N
         jButtonStart.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Play disabled.png"))); // NOI18N
         jButtonStart.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Play disabled.png"))); // NOI18N
         jButtonStart.setFocusable(false);
@@ -578,8 +577,8 @@ public class DroidMainFrame extends JFrame {
         droidToolBar.add(jButtonStart);
 
         jButtonStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Pause.png"))); // NOI18N
-        jButtonStop.setText("Pause");
-        jButtonStop.setToolTipText("Pause identification");
+        jButtonStop.setText(bundle.getString("DroidMainFrame.jButtonStop.text")); // NOI18N
+        jButtonStop.setToolTipText(bundle.getString("DroidMainFrame.jButtonStop.toolTipText")); // NOI18N
         jButtonStop.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Pause disabled.png"))); // NOI18N
         jButtonStop.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Pause disabled.png"))); // NOI18N
         jButtonStop.setFocusable(false);
@@ -596,8 +595,8 @@ public class DroidMainFrame extends JFrame {
         droidToolBar.add(jSeparator11);
 
         jButtonFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/icons/Filter.png"))); // NOI18N
-        jButtonFilter.setText("Filter");
-        jButtonFilter.setToolTipText("Define and apply filter to results");
+        jButtonFilter.setText(bundle.getString("DroidMainFrame.jButtonFilter.text")); // NOI18N
+        jButtonFilter.setToolTipText(bundle.getString("DroidMainFrame.jButtonFilter.toolTipText")); // NOI18N
         jButtonFilter.setFocusable(false);
         jButtonFilter.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonFilter.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -613,11 +612,11 @@ public class DroidMainFrame extends JFrame {
         jPanel1.setOpaque(false);
         jPanel1.setPreferredSize(new java.awt.Dimension(30, 60));
 
-        jFilterOnCheckBox.setText("On");
+        jFilterOnCheckBox.setText(bundle.getString("DroidMainFrame.jFilterOnCheckBox.text")); // NOI18N
         jFilterOnCheckBox.setFocusable(false);
         jFilterOnCheckBox.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jFilterOnCheckBox.setInheritsPopupMenu(true);
-        jFilterOnCheckBox.setMaximumSize(new java.awt.Dimension(30, 55));
+        jFilterOnCheckBox.setMaximumSize(new java.awt.Dimension(28, 55));
         jFilterOnCheckBox.setMinimumSize(new java.awt.Dimension(30, 55));
         jFilterOnCheckBox.setPreferredSize(new java.awt.Dimension(30, 55));
         jFilterOnCheckBox.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
@@ -649,8 +648,8 @@ public class DroidMainFrame extends JFrame {
         droidToolBar.add(jSeparator10);
 
         jButtonReport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Report.png"))); // NOI18N
-        jButtonReport.setText("Report");
-        jButtonReport.setToolTipText("Generate a statistical report over the open profiles");
+        jButtonReport.setText(bundle.getString("DroidMainFrame.jButtonReport.text")); // NOI18N
+        jButtonReport.setToolTipText(bundle.getString("DroidMainFrame.jButtonReport.toolTipText")); // NOI18N
         jButtonReport.setFocusable(false);
         jButtonReport.setHorizontalTextPosition(javax.swing.SwingConstants.CENTER);
         jButtonReport.setVerticalTextPosition(javax.swing.SwingConstants.BOTTOM);
@@ -664,18 +663,18 @@ public class DroidMainFrame extends JFrame {
         jMenuBar1.setPreferredSize(new java.awt.Dimension(100, 25));
 
         jMenuFile.setMnemonic('F');
-        jMenuFile.setText("File");
-        jMenuFile.setActionCommand("file");
+        jMenuFile.setText(bundle.getString("DroidMainFrame.jMenuFile.text")); // NOI18N
+        jMenuFile.setActionCommand(bundle.getString("DroidMainFrame.jMenuFile.actionCommand")); // NOI18N
         jMenuFile.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuFileActionPerformed(evt);
             }
         });
 
-        jMenuItemNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemNew.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_N, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItemNew.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/New small.png"))); // NOI18N
-        jMenuItemNew.setText("New");
-        jMenuItemNew.setToolTipText("New profile");
+        jMenuItemNew.setText(bundle.getString("DroidMainFrame.jMenuItemNew.text")); // NOI18N
+        jMenuItemNew.setToolTipText(bundle.getString("DroidMainFrame.jMenuItemNew.toolTipText")); // NOI18N
         jMenuItemNew.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemNewActionPerformed(evt);
@@ -683,10 +682,10 @@ public class DroidMainFrame extends JFrame {
         });
         jMenuFile.add(jMenuItemNew);
 
-        jMenuItemOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemOpen.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_O, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItemOpen.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Open file small.png"))); // NOI18N
-        jMenuItemOpen.setText("Open");
-        jMenuItemOpen.setToolTipText("Open a profile");
+        jMenuItemOpen.setText(bundle.getString("DroidMainFrame.jMenuItemOpen.text")); // NOI18N
+        jMenuItemOpen.setToolTipText(bundle.getString("DroidMainFrame.jMenuItemOpen.toolTipText")); // NOI18N
         jMenuItemOpen.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemOpenActionPerformed(evt);
@@ -694,11 +693,11 @@ public class DroidMainFrame extends JFrame {
         });
         jMenuFile.add(jMenuItemOpen);
 
-        jMenuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuSave.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuSave.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Save small.png"))); // NOI18N
-        jMenuSave.setText("Save");
-        jMenuSave.setToolTipText("Save a profile");
-        jMenuSave.setActionCommand("save");
+        jMenuSave.setText(bundle.getString("DroidMainFrame.jMenuSave.text")); // NOI18N
+        jMenuSave.setToolTipText(bundle.getString("DroidMainFrame.jMenuSave.toolTipText")); // NOI18N
+        jMenuSave.setActionCommand(bundle.getString("DroidMainFrame.jMenuSave.actionCommand")); // NOI18N
         jMenuSave.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/icons/Save Blue 16 d g.gif"))); // NOI18N
         jMenuSave.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/icons/Save Blue 16 d g.gif"))); // NOI18N
         jMenuSave.addActionListener(new java.awt.event.ActionListener() {
@@ -708,11 +707,11 @@ public class DroidMainFrame extends JFrame {
         });
         jMenuFile.add(jMenuSave);
 
-        jMenuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuSaveAs.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_S, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuSaveAs.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Save As small.png"))); // NOI18N
-        jMenuSaveAs.setText("Save As...");
-        jMenuSaveAs.setToolTipText("Save a profile to a specified file");
-        jMenuSaveAs.setActionCommand("save");
+        jMenuSaveAs.setText(bundle.getString("DroidMainFrame.jMenuSaveAs.text")); // NOI18N
+        jMenuSaveAs.setToolTipText(bundle.getString("DroidMainFrame.jMenuSaveAs.toolTipText")); // NOI18N
+        jMenuSaveAs.setActionCommand(bundle.getString("DroidMainFrame.jMenuSaveAs.actionCommand")); // NOI18N
         jMenuSaveAs.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Save As small disabled.png"))); // NOI18N
         jMenuSaveAs.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Save As small disabled.png"))); // NOI18N
         jMenuSaveAs.addActionListener(new java.awt.event.ActionListener() {
@@ -722,11 +721,11 @@ public class DroidMainFrame extends JFrame {
         });
         jMenuFile.add(jMenuSaveAs);
 
-        jMenuItemExport.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemExport.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_E, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItemExport.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Export small.png"))); // NOI18N
-        jMenuItemExport.setText("Export all...");
-        jMenuItemExport.setToolTipText("Export profiles");
-        jMenuItemExport.setActionCommand("export");
+        jMenuItemExport.setText(bundle.getString("DroidMainFrame.jMenuItemExport.text")); // NOI18N
+        jMenuItemExport.setToolTipText(bundle.getString("DroidMainFrame.jMenuItemExport.toolTipText")); // NOI18N
+        jMenuItemExport.setActionCommand(bundle.getString("DroidMainFrame.jMenuItemExport.actionCommand")); // NOI18N
         jMenuItemExport.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExportActionPerformed(evt);
@@ -734,9 +733,9 @@ public class DroidMainFrame extends JFrame {
         });
         jMenuFile.add(jMenuItemExport);
 
-        jMenuQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuQuit.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_Q, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuQuit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Quit Small.png"))); // NOI18N
-        jMenuQuit.setText("Quit");
+        jMenuQuit.setText(bundle.getString("DroidMainFrame.jMenuQuit.text")); // NOI18N
         jMenuQuit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuQuitActionPerformed(evt);
@@ -748,8 +747,8 @@ public class DroidMainFrame extends JFrame {
         jMenuBar1.add(jMenuFile);
 
         jMenuEdit.setMnemonic('E');
-        jMenuEdit.setText("Edit");
-        jMenuEdit.setActionCommand("edit");
+        jMenuEdit.setText(bundle.getString("DroidMainFrame.jMenuEdit.text")); // NOI18N
+        jMenuEdit.setActionCommand(bundle.getString("DroidMainFrame.jMenuEdit.actionCommand")); // NOI18N
         jMenuEdit.addMenuListener(new javax.swing.event.MenuListener() {
             public void menuCanceled(javax.swing.event.MenuEvent evt) {
             }
@@ -760,10 +759,10 @@ public class DroidMainFrame extends JFrame {
             }
         });
 
-        jMenuItemAddFileOrFolders.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ADD, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemAddFileOrFolders.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ADD, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItemAddFileOrFolders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Add small.png"))); // NOI18N
-        jMenuItemAddFileOrFolders.setText("Add file/folders");
-        jMenuItemAddFileOrFolders.setToolTipText("Add files or folders to a profile");
+        jMenuItemAddFileOrFolders.setText(bundle.getString("DroidMainFrame.jMenuItemAddFileOrFolders.text")); // NOI18N
+        jMenuItemAddFileOrFolders.setToolTipText(bundle.getString("DroidMainFrame.jMenuItemAddFileOrFolders.toolTipText")); // NOI18N
         jMenuItemAddFileOrFolders.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Add small disabled.png"))); // NOI18N
         jMenuItemAddFileOrFolders.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Add small disabled.png"))); // NOI18N
         jMenuItemAddFileOrFolders.addActionListener(new java.awt.event.ActionListener() {
@@ -773,10 +772,10 @@ public class DroidMainFrame extends JFrame {
         });
         jMenuEdit.add(jMenuItemAddFileOrFolders);
 
-        jMenuItemRemoveFolder.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_SUBTRACT, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemRemoveFolder.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_SUBTRACT, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItemRemoveFolder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Remove small.png"))); // NOI18N
-        jMenuItemRemoveFolder.setText("Remove files/folders");
-        jMenuItemRemoveFolder.setToolTipText("Remove files or folders from a profile");
+        jMenuItemRemoveFolder.setText(bundle.getString("DroidMainFrame.jMenuItemRemoveFolder.text")); // NOI18N
+        jMenuItemRemoveFolder.setToolTipText(bundle.getString("DroidMainFrame.jMenuItemRemoveFolder.toolTipText")); // NOI18N
         jMenuItemRemoveFolder.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Remove small disabled.png"))); // NOI18N
         jMenuItemRemoveFolder.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Remove small disabled.png"))); // NOI18N
         jMenuItemRemoveFolder.addActionListener(new java.awt.event.ActionListener() {
@@ -787,9 +786,9 @@ public class DroidMainFrame extends JFrame {
         jMenuEdit.add(jMenuItemRemoveFolder);
         jMenuEdit.add(jSeparator1);
 
-        jMenuItemOpenFolder.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemOpenFolder.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_ENTER, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItemOpenFolder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/icons/Icon_External_Link.png"))); // NOI18N
-        jMenuItemOpenFolder.setText("Open containing folder...");
+        jMenuItemOpenFolder.setText(bundle.getString("DroidMainFrame.jMenuItemOpenFolder.text")); // NOI18N
         jMenuItemOpenFolder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 OpenContainingFolder(evt);
@@ -797,9 +796,9 @@ public class DroidMainFrame extends JFrame {
         });
         jMenuEdit.add(jMenuItemOpenFolder);
 
-        jMenuItemCopyToClipboard.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemCopyToClipboard.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_C, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItemCopyToClipboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Clipboard small.png"))); // NOI18N
-        jMenuItemCopyToClipboard.setText("Copy to clipboard");
+        jMenuItemCopyToClipboard.setText(bundle.getString("DroidMainFrame.jMenuItemCopyToClipboard.text")); // NOI18N
         jMenuItemCopyToClipboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCopyToClipboardActionPerformed(evt);
@@ -808,7 +807,7 @@ public class DroidMainFrame extends JFrame {
         jMenuEdit.add(jMenuItemCopyToClipboard);
         jMenuEdit.add(jSeparator2);
 
-        jMenuItemExpandChildren.setText("Expand");
+        jMenuItemExpandChildren.setText(bundle.getString("DroidMainFrame.jMenuItemExpandChildren.text")); // NOI18N
         jMenuItemExpandChildren.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExpandChildrenActionPerformed(evt);
@@ -816,7 +815,7 @@ public class DroidMainFrame extends JFrame {
         });
         jMenuEdit.add(jMenuItemExpandChildren);
 
-        jMenuItemExpandNextThree.setText("Expand next three levels");
+        jMenuItemExpandNextThree.setText(bundle.getString("DroidMainFrame.jMenuItemExpandNextThree.text")); // NOI18N
         jMenuItemExpandNextThree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemExpandNextThreeActionPerformed(evt);
@@ -827,13 +826,13 @@ public class DroidMainFrame extends JFrame {
         jMenuBar1.add(jMenuEdit);
 
         jMenuRun.setMnemonic('R');
-        jMenuRun.setText("Run");
-        jMenuRun.setActionCommand("run");
+        jMenuRun.setText(bundle.getString("DroidMainFrame.jMenuRun.text")); // NOI18N
+        jMenuRun.setActionCommand(bundle.getString("DroidMainFrame.jMenuRun.actionCommand")); // NOI18N
 
-        jMenuItemStart.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemStart.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItemStart.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Play small.png"))); // NOI18N
-        jMenuItemStart.setText("Start identification");
-        jMenuItemStart.setToolTipText("Start identifying files in the profile");
+        jMenuItemStart.setText(bundle.getString("DroidMainFrame.jMenuItemStart.text")); // NOI18N
+        jMenuItemStart.setToolTipText(bundle.getString("DroidMainFrame.jMenuItemStart.toolTipText")); // NOI18N
         jMenuItemStart.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Play small disabled.png"))); // NOI18N
         jMenuItemStart.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Play small disabled.png"))); // NOI18N
         jMenuItemStart.addActionListener(new java.awt.event.ActionListener() {
@@ -843,10 +842,10 @@ public class DroidMainFrame extends JFrame {
         });
         jMenuRun.add(jMenuItemStart);
 
-        jMenuItemStop.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_MASK));
+        jMenuItemStop.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuItemStop.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Pause small.png"))); // NOI18N
-        jMenuItemStop.setText("Pause identification");
-        jMenuItemStop.setToolTipText("Pause identification in the profile");
+        jMenuItemStop.setText(bundle.getString("DroidMainFrame.jMenuItemStop.text")); // NOI18N
+        jMenuItemStop.setToolTipText(bundle.getString("DroidMainFrame.jMenuItemStop.toolTipText")); // NOI18N
         jMenuItemStop.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Pause small disabled.png"))); // NOI18N
         jMenuItemStop.setDisabledSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Pause small disabled.png"))); // NOI18N
         jMenuItemStop.addActionListener(new java.awt.event.ActionListener() {
@@ -859,7 +858,7 @@ public class DroidMainFrame extends JFrame {
         jMenuBar1.add(jMenuRun);
 
         jMenuFilter.setMnemonic('l');
-        jMenuFilter.setText("Filter");
+        jMenuFilter.setText(bundle.getString("DroidMainFrame.jMenuFilter.text")); // NOI18N
         jMenuFilter.addMenuListener(new javax.swing.event.MenuListener() {
             public void menuCanceled(javax.swing.event.MenuEvent evt) {
             }
@@ -870,9 +869,9 @@ public class DroidMainFrame extends JFrame {
             }
         });
 
-        filterEnabledMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
-        filterEnabledMenuItem.setText("Filter on");
-        filterEnabledMenuItem.setToolTipText("Toggles filtering on or off in the profile");
+        filterEnabledMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        filterEnabledMenuItem.setText(bundle.getString("DroidMainFrame.filterEnabledMenuItem.text")); // NOI18N
+        filterEnabledMenuItem.setToolTipText(bundle.getString("DroidMainFrame.filterEnabledMenuItem.toolTipText")); // NOI18N
         filterEnabledMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 filterEnabledMenuItemActionPerformed(evt);
@@ -881,10 +880,10 @@ public class DroidMainFrame extends JFrame {
         jMenuFilter.add(filterEnabledMenuItem);
         jMenuFilter.add(jSeparator8);
 
-        jMenuEditFilter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
+        jMenuEditFilter.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
         jMenuEditFilter.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Filter small.png"))); // NOI18N
-        jMenuEditFilter.setText("Edit filter...");
-        jMenuEditFilter.setToolTipText("Edit the filter for a profile");
+        jMenuEditFilter.setText(bundle.getString("DroidMainFrame.jMenuEditFilter.text")); // NOI18N
+        jMenuEditFilter.setToolTipText(bundle.getString("DroidMainFrame.jMenuEditFilter.toolTipText_1")); // NOI18N
         jMenuEditFilter.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Filter small disabled.png"))); // NOI18N
         jMenuEditFilter.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -893,8 +892,8 @@ public class DroidMainFrame extends JFrame {
         });
         jMenuFilter.add(jMenuEditFilter);
 
-        jMenuItemCopyFilterToAll.setText("Copy filter to all profiles...");
-        jMenuItemCopyFilterToAll.setToolTipText("Copies the filter in the current profile to all open profiles");
+        jMenuItemCopyFilterToAll.setText(bundle.getString("DroidMainFrame.jMenuItemCopyFilterToAll.text")); // NOI18N
+        jMenuItemCopyFilterToAll.setToolTipText(bundle.getString("DroidMainFrame.jMenuItemCopyFilterToAll.toolTipText")); // NOI18N
         jMenuItemCopyFilterToAll.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuItemCopyFilterToAllActionPerformed(evt);
@@ -905,13 +904,13 @@ public class DroidMainFrame extends JFrame {
         jMenuBar1.add(jMenuFilter);
 
         jMenuReport.setMnemonic('p');
-        jMenuReport.setText("Report");
-        jMenuReport.setActionCommand("report");
+        jMenuReport.setText(bundle.getString("DroidMainFrame.jMenuReport.text")); // NOI18N
+        jMenuReport.setActionCommand(bundle.getString("DroidMainFrame.jMenuReport.actionCommand")); // NOI18N
 
-        generateReportMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_MASK));
+        generateReportMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_R, java.awt.event.InputEvent.CTRL_DOWN_MASK));
         generateReportMenuItem.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Report small.png"))); // NOI18N
-        generateReportMenuItem.setText("Generate Report...");
-        generateReportMenuItem.setToolTipText("Generates a report in DROID XML format");
+        generateReportMenuItem.setText(bundle.getString("DroidMainFrame.generateReportMenuItem.text")); // NOI18N
+        generateReportMenuItem.setToolTipText(bundle.getString("DroidMainFrame.generateReportMenuItem.toolTipText")); // NOI18N
         generateReportMenuItem.setDisabledIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Report small disabled.png"))); // NOI18N
         generateReportMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -923,7 +922,7 @@ public class DroidMainFrame extends JFrame {
         jMenuBar1.add(jMenuReport);
 
         jMenuTools.setMnemonic('T');
-        jMenuTools.setText("Tools");
+        jMenuTools.setText(bundle.getString("DroidMainFrame.jMenuTools.text")); // NOI18N
         jMenuTools.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jMenuToolsActionPerformed(evt);
@@ -931,9 +930,9 @@ public class DroidMainFrame extends JFrame {
         });
         jMenuTools.add(jSeparator7);
 
-        updateNowMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_MASK));
-        updateNowMenuItem.setText("Check for signature updates...");
-        updateNowMenuItem.setToolTipText("Checks to see if there are updated signatures");
+        updateNowMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        updateNowMenuItem.setText(bundle.getString("DroidMainFrame.updateNowMenuItem.text")); // NOI18N
+        updateNowMenuItem.setToolTipText(bundle.getString("DroidMainFrame.updateNowMenuItem.toolTipText")); // NOI18N
         updateNowMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateNowMenuItemActionPerformed(evt);
@@ -941,9 +940,9 @@ public class DroidMainFrame extends JFrame {
         });
         jMenuTools.add(updateNowMenuItem);
 
-        signatureInstallMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        signatureInstallMenuItem.setText("Install signature file...");
-        signatureInstallMenuItem.setToolTipText("Installs a signature file from your local file system");
+        signatureInstallMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_U, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        signatureInstallMenuItem.setText(bundle.getString("DroidMainFrame.signatureInstallMenuItem.text")); // NOI18N
+        signatureInstallMenuItem.setToolTipText(bundle.getString("DroidMainFrame.signatureInstallMenuItem.toolTipText")); // NOI18N
         signatureInstallMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 signatureInstallMenuItemActionPerformed(evt);
@@ -952,9 +951,9 @@ public class DroidMainFrame extends JFrame {
         jMenuTools.add(signatureInstallMenuItem);
         jMenuTools.add(jSeparator6);
 
-        settingsMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_MASK | java.awt.event.InputEvent.CTRL_MASK));
-        settingsMenuItem.setText("Preferences...");
-        settingsMenuItem.setToolTipText("Set the DROID preferences");
+        settingsMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_P, java.awt.event.InputEvent.SHIFT_DOWN_MASK | java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        settingsMenuItem.setText(bundle.getString("DroidMainFrame.settingsMenuItem.text")); // NOI18N
+        settingsMenuItem.setToolTipText(bundle.getString("DroidMainFrame.settingsMenuItem.toolTipText")); // NOI18N
         settingsMenuItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 settingsMenuItemActionPerformed(evt);
@@ -965,11 +964,11 @@ public class DroidMainFrame extends JFrame {
         jMenuBar1.add(jMenuTools);
 
         jhelp.setMnemonic('H');
-        jhelp.setText("Help");
-        jhelp.setActionCommand("help");
+        jhelp.setText(bundle.getString("DroidMainFrame.jhelp.text")); // NOI18N
+        jhelp.setActionCommand(bundle.getString("DroidMainFrame.jhelp.actionCommand")); // NOI18N
 
-        helpMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_MASK));
-        helpMenuItem.setText("Help");
+        helpMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_H, java.awt.event.InputEvent.CTRL_DOWN_MASK));
+        helpMenuItem.setText(bundle.getString("DroidMainFrame.helpMenuItem.text")); // NOI18N
         jhelp.add(helpMenuItem);
 
         jMenuBar1.add(jhelp);
@@ -1263,10 +1262,9 @@ public class DroidMainFrame extends JFrame {
                 globalContext.getGlobalConfig().update(configDialog.getGlobalConfig());
             } catch (ConfigurationException e) {
                 log.error("Error updating properties: " + e.getMessage(), e);
-                JOptionPane.showMessageDialog(configDialog, NbBundle.getMessage(ConfigDialog.class,
-                        "ConfigDialog.error.text"),
-                        NbBundle.getMessage(ConfigDialog.class, "ConfigDialog.error.title"), JOptionPane.ERROR_MESSAGE);
-
+                java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/config/Bundle");
+                JOptionPane.showMessageDialog(configDialog, bundle.getString("ConfigDialog.error.text"),
+                        bundle.getString("ConfigDialog.error.title"), JOptionPane.ERROR_MESSAGE);
             }
         }
     }// GEN-LAST:event_settingsMenuItemActionPerformed

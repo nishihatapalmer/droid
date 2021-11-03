@@ -44,6 +44,7 @@ import java.awt.event.MouseEvent;
 import java.io.IOException;
 import java.net.URI;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -55,8 +56,6 @@ import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-
-import org.openide.util.NbBundle;
 
 import uk.gov.nationalarchives.droid.profile.ProfileResourceNode;
 import uk.gov.nationalarchives.droid.profile.referencedata.Format;
@@ -102,12 +101,13 @@ public class MultiIdentificationDialog extends JDialog {
         closeButton = new JButton();
         nodeName = new JLabel();
 
-        setTitle(NbBundle.getMessage(MultiIdentificationDialog.class, "MultiIdentificationDialog.title")); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/Bundle"); // NOI18N
+        setTitle(bundle.getString("MultiIdentificationDialog.title")); // NOI18N
         setAlwaysOnTop(true);
 
         headerLabel.setLabelFor(jTable1);
+        headerLabel.setText(bundle.getString("MultiIdentificationDialog.headerLabel.text")); // NOI18N
 
-        headerLabel.setText(NbBundle.getMessage(MultiIdentificationDialog.class, "MultiIdentificationDialog.headerLabel.text")); // NOI18N
         jTable1.setModel(new DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -121,20 +121,19 @@ public class MultiIdentificationDialog extends JDialog {
         ));
         jScrollPane1.setViewportView(jTable1);
 
-        closeButton.setText(NbBundle.getMessage(MultiIdentificationDialog.class, "MultiIdentificationDialog.closeButton.text")); // NOI18N
+        closeButton.setText(bundle.getString("MultiIdentificationDialog.closeButton.text")); // NOI18N
         closeButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 closeButtonActionPerformed(evt);
             }
         });
 
-        nodeName.setText(NbBundle.getMessage(MultiIdentificationDialog.class, "MultiIdentificationDialog.nodeName.text")); // NOI18N
+        nodeName.setText(bundle.getString("MultiIdentificationDialog.nodeName.text")); // NOI18N
         nodeName.setMinimumSize(new Dimension(14, 14));
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(Alignment.LEADING)
@@ -144,8 +143,7 @@ public class MultiIdentificationDialog extends JDialog {
                     .addComponent(nodeName, Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 375, Short.MAX_VALUE))
                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(headerLabel)
