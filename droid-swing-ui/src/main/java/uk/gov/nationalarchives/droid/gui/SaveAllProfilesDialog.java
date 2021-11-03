@@ -125,28 +125,29 @@ public class SaveAllProfilesDialog extends JDialog implements ProfileSelectionDi
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setModal(true);
 
-        cancelButton.setText(org.openide.util.NbBundle.getMessage(SaveAllProfilesDialog.class, "SaveAllProfilesDialog.cancelButton.text_1")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/Bundle"); // NOI18N
+        cancelButton.setText(bundle.getString("SaveAllProfilesDialog.cancelButton.text")); // NOI18N
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
-        saveButton.setText(org.openide.util.NbBundle.getMessage(SaveAllProfilesDialog.class, "SaveAllProfilesDialog.saveButton.text_1")); // NOI18N
+        saveButton.setText(bundle.getString("SaveAllProfilesDialog.saveButton.text")); // NOI18N
         saveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 saveButtonActionPerformed(evt);
             }
         });
 
-        instructionLabel.setText(org.openide.util.NbBundle.getMessage(SaveAllProfilesDialog.class, "SaveAllProfilesDialog.instructionLabel.text")); // NOI18N
+        instructionLabel.setText(bundle.getString("SaveAllProfilesDialog.instructionLabel.text")); // NOI18N
 
         jList1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         jList1.setModel(listModel);
         jList1.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane2.setViewportView(jList1);
 
-        dontsaveButton.setText(org.openide.util.NbBundle.getMessage(SaveAllProfilesDialog.class, "SaveAllProfilesDialog.dontsaveButton.text")); // NOI18N
+        dontsaveButton.setText(bundle.getString("SaveAllProfilesDialog.dontsaveButton.text")); // NOI18N
         dontsaveButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 dontsaveButtonActionPerformed(evt);
@@ -160,11 +161,11 @@ public class SaveAllProfilesDialog extends JDialog implements ProfileSelectionDi
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(instructionLabel, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
                         .addComponent(dontsaveButton)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(saveButton, javax.swing.GroupLayout.PREFERRED_SIZE, 65, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(cancelButton)))
