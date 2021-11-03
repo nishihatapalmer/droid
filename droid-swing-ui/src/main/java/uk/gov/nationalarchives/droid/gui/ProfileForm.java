@@ -285,7 +285,8 @@ public class ProfileForm extends JPanel {
         });
 
         PopupAddFilesAndFolders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Add small.png"))); // NOI18N
-        PopupAddFilesAndFolders.setText(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.PopupAddFilesAndFolders.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/Bundle"); // NOI18N
+        PopupAddFilesAndFolders.setText(bundle.getString("ProfileForm.PopupAddFilesAndFolders.text")); // NOI18N
         PopupAddFilesAndFolders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PopupAddFilesAndFoldersActionPerformed(evt);
@@ -294,7 +295,7 @@ public class ProfileForm extends JPanel {
         jPopupMenu1.add(PopupAddFilesAndFolders);
 
         PopupRemoveFilesOrFolders.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Remove small.png"))); // NOI18N
-        PopupRemoveFilesOrFolders.setText(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.PopupRemoveFilesOrFolders.text")); // NOI18N
+        PopupRemoveFilesOrFolders.setText(bundle.getString("ProfileForm.PopupRemoveFilesOrFolders.text")); // NOI18N
         PopupRemoveFilesOrFolders.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PopupRemoveFilesOrFoldersActionPerformed(evt);
@@ -304,7 +305,7 @@ public class ProfileForm extends JPanel {
         jPopupMenu1.add(PopupSeparator1);
 
         PopupOpenContainingFolder.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/icons/Icon_External_Link.png"))); // NOI18N
-        PopupOpenContainingFolder.setText(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.PopupOpenContainingFolder.text")); // NOI18N
+        PopupOpenContainingFolder.setText(bundle.getString("ProfileForm.PopupOpenContainingFolder.text")); // NOI18N
         PopupOpenContainingFolder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PopupOpenContainingFolderActionPerformed(evt);
@@ -313,7 +314,7 @@ public class ProfileForm extends JPanel {
         jPopupMenu1.add(PopupOpenContainingFolder);
 
         PopupMenuCopyToClipboard.setIcon(new javax.swing.ImageIcon(getClass().getResource("/uk/gov/nationalarchives/droid/OldIcons/Clipboard small.png"))); // NOI18N
-        PopupMenuCopyToClipboard.setText(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.PopupMenuCopyToClipboard.text")); // NOI18N
+        PopupMenuCopyToClipboard.setText(bundle.getString("ProfileForm.PopupMenuCopyToClipboard.text")); // NOI18N
         PopupMenuCopyToClipboard.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PopupMenuCopyToClipboardActionPerformed(evt);
@@ -322,7 +323,7 @@ public class ProfileForm extends JPanel {
         jPopupMenu1.add(PopupMenuCopyToClipboard);
         jPopupMenu1.add(jSeparator1);
 
-        PopupMenuExpandChildren.setText(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.PopupMenuExpandChildren.text")); // NOI18N
+        PopupMenuExpandChildren.setText(bundle.getString("ProfileForm.PopupMenuExpandChildren.text")); // NOI18N
         PopupMenuExpandChildren.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PopupMenuExpandChildrenActionPerformed(evt);
@@ -330,7 +331,7 @@ public class ProfileForm extends JPanel {
         });
         jPopupMenu1.add(PopupMenuExpandChildren);
 
-        PopupMenuExpandNextThree.setText(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.PopupMenuExpandNextThree.text")); // NOI18N
+        PopupMenuExpandNextThree.setText(bundle.getString("ProfileForm.PopupMenuExpandNextThree.text")); // NOI18N
         PopupMenuExpandNextThree.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PopupMenuExpandNextThreeActionPerformed(evt);
@@ -339,7 +340,7 @@ public class ProfileForm extends JPanel {
         jPopupMenu1.add(PopupMenuExpandNextThree);
 
         statusLabel.setLabelFor(statusProgressBar);
-        statusLabel.setText(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.statusLabel.text")); // NOI18N
+        statusLabel.setText(bundle.getString("ProfileForm.statusLabel.text")); // NOI18N
 
         javax.swing.GroupLayout statusProgressPanelLayout = new javax.swing.GroupLayout(statusProgressPanel);
         statusProgressPanel.setLayout(statusProgressPanelLayout);
@@ -369,14 +370,14 @@ public class ProfileForm extends JPanel {
         throttleSlider.setMinorTickSpacing(100);
         throttleSlider.setPaintLabels(true);
         throttleSlider.setPaintTicks(true);
-        throttleSlider.setToolTipText(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.throttleSlider.toolTipText")); // NOI18N
+        throttleSlider.setToolTipText(bundle.getString("ProfileForm.throttleSlider.toolTipText")); // NOI18N
         throttleSlider.addChangeListener(new javax.swing.event.ChangeListener() {
             public void stateChanged(javax.swing.event.ChangeEvent evt) {
                 throttleSliderStateChanged(evt);
             }
         });
 
-        throttleLabel.setText(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.throttleLabel.text")); // NOI18N
+        throttleLabel.setText(bundle.getString("ProfileForm.throttleLabel.text_1")); // NOI18N
 
         javax.swing.GroupLayout throttlePanelLayout = new javax.swing.GroupLayout(throttlePanel);
         throttlePanel.setLayout(throttlePanelLayout);
@@ -399,8 +400,8 @@ public class ProfileForm extends JPanel {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        profileProgressBar.setToolTipText(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.profileProgressBar.toolTipText")); // NOI18N
-        profileProgressBar.setString(org.openide.util.NbBundle.getMessage(ProfileForm.class, "ProfileForm.profileProgressBar.string")); // NOI18N
+        profileProgressBar.setToolTipText(bundle.getString("ProfileForm.profileProgressBar.toolTipText")); // NOI18N
+        profileProgressBar.setString(bundle.getString("ProfileForm.profileProgressBar.string")); // NOI18N
         profileProgressBar.setStringPainted(true);
 
         javax.swing.GroupLayout progressPanelLayout = new javax.swing.GroupLayout(progressPanel);

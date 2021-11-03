@@ -18,7 +18,7 @@
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Add small.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.PopupAddFilesAndFolders.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.PopupAddFilesAndFolders.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -31,7 +31,7 @@
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Remove small.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.PopupRemoveFilesOrFolders.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.PopupRemoveFilesOrFolders.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -46,7 +46,7 @@
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/icons/Icon_External_Link.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.PopupOpenContainingFolder.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.PopupOpenContainingFolder.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -59,7 +59,7 @@
               <Image iconType="3" name="/uk/gov/nationalarchives/droid/OldIcons/Clipboard small.png"/>
             </Property>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.PopupMenuCopyToClipboard.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.PopupMenuCopyToClipboard.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -71,7 +71,7 @@
         <MenuItem class="javax.swing.JMenuItem" name="PopupMenuExpandChildren">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.PopupMenuExpandChildren.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.PopupMenuExpandChildren.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -81,7 +81,7 @@
         <MenuItem class="javax.swing.JMenuItem" name="PopupMenuExpandNextThree">
           <Properties>
             <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.PopupMenuExpandNextThree.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+              <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.PopupMenuExpandNextThree.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
             </Property>
           </Properties>
           <Events>
@@ -183,7 +183,7 @@
                   <ComponentRef name="statusProgressBar"/>
                 </Property>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.statusLabel.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.statusLabel.text" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -233,7 +233,7 @@
                 <Property name="paintLabels" type="boolean" value="true"/>
                 <Property name="paintTicks" type="boolean" value="true"/>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.throttleSlider.toolTipText" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.throttleSlider.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
               <Events>
@@ -243,7 +243,7 @@
             <Component class="javax.swing.JLabel" name="throttleLabel">
               <Properties>
                 <Property name="text" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.throttleLabel.text" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.throttleLabel.text_1" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
               </Properties>
             </Component>
@@ -273,10 +273,10 @@
             <Component class="javax.swing.JProgressBar" name="profileProgressBar">
               <Properties>
                 <Property name="toolTipText" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.profileProgressBar.toolTipText" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.profileProgressBar.toolTipText" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="string" type="java.lang.String" editor="org.netbeans.modules.i18n.form.FormI18nStringEditor">
-                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.profileProgressBar.string" replaceFormat="org.openide.util.NbBundle.getMessage({sourceFileName}.class, &quot;{key}&quot;)"/>
+                  <ResourceString bundle="uk/gov/nationalarchives/droid/gui/Bundle.properties" key="ProfileForm.profileProgressBar.string" replaceFormat="java.util.ResourceBundle.getBundle(&quot;{bundleNameSlashes}&quot;).getString(&quot;{key}&quot;)"/>
                 </Property>
                 <Property name="stringPainted" type="boolean" value="true"/>
               </Properties>
