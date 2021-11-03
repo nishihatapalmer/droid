@@ -116,13 +116,12 @@ public class DatePicker extends javax.swing.JPanel {
 
         monthComboBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
-        yearTextBox.setText(org.openide.util.NbBundle.getMessage(DatePicker.class, "DatePicker.yearTextBox.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/filter/Bundle"); // NOI18N
+        jLabel1.setText(bundle.getString("DatePicker.jLabel1.text")); // NOI18N
 
-        jLabel1.setText(org.openide.util.NbBundle.getMessage(DatePicker.class, "DatePicker.jLabel1.text")); // NOI18N
+        jLabel2.setText(bundle.getString("DatePicker.jLabel2.text")); // NOI18N
 
-        jLabel2.setText(org.openide.util.NbBundle.getMessage(DatePicker.class, "DatePicker.jLabel2.text")); // NOI18N
-
-        jLabel3.setText(org.openide.util.NbBundle.getMessage(DatePicker.class, "DatePicker.jLabel3.text")); // NOI18N
+        jLabel3.setText(bundle.getString("DatePicker.jLabel3.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
