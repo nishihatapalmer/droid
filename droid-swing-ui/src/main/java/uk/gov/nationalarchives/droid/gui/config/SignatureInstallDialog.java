@@ -36,6 +36,7 @@ import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ResourceBundle;
 
 import javax.swing.BorderFactory;
 import javax.swing.GroupLayout;
@@ -50,8 +51,6 @@ import javax.swing.SwingConstants;
 import javax.swing.WindowConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-import org.openide.util.NbBundle;
 
 /**
  *
@@ -113,7 +112,6 @@ public class SignatureInstallDialog extends JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-
         fileChooser = new JFileChooser();
         jPanel1 = new JPanel();
         jLabel1 = new JLabel();
@@ -123,31 +121,30 @@ public class SignatureInstallDialog extends JDialog {
         cancelButton = new JButton();
         okButton = new JButton();
 
-        fileChooser.setApproveButtonText(NbBundle.getMessage(SignatureInstallDialog.class, "SignatureInstallDialog.fileChooser.approveButtonText")); // NOI18N
-        fileChooser.setDialogTitle(NbBundle.getMessage(SignatureInstallDialog.class, "SignatureInstallDialog.fileChooser.dialogTitle")); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/config/Bundle"); // NOI18N
+        fileChooser.setApproveButtonText(bundle.getString("SignatureInstallDialog.fileChooser.approveButtonText")); // NOI18N
+        fileChooser.setDialogTitle(bundle.getString("SignatureInstallDialog.fileChooser.dialogTitle")); // NOI18N
+
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle(NbBundle.getMessage(SignatureInstallDialog.class, "SignatureInstallDialog.title")); // NOI18N
+        setTitle(bundle.getString("SignatureInstallDialog.title")); // NOI18N
         setModal(true);
-
-
-
 
         jPanel1.setBorder(BorderFactory.createEtchedBorder());
 
-        jLabel1.setText(NbBundle.getMessage(SignatureInstallDialog.class, "SignatureInstallDialog.jLabel1.text")); // NOI18N
-        fileNameTextBox.setText(NbBundle.getMessage(SignatureInstallDialog.class, "SignatureInstallDialog.fileNameTextBox.text")); // NOI18N
-        browseButton.setText(NbBundle.getMessage(SignatureInstallDialog.class, "SignatureInstallDialog.browseButton.text")); // NOI18N
+        jLabel1.setText(bundle.getString("SignatureInstallDialog.jLabel1.text")); // NOI18N
+
+        browseButton.setText(bundle.getString("SignatureInstallDialog.browseButton.text")); // NOI18N
         browseButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 browseButtonActionPerformed(evt);
             }
         });
 
-        setDefaultCheckbox.setText(NbBundle.getMessage(SignatureInstallDialog.class, "SignatureInstallDialog.setDefaultCheckbox.text")); // NOI18N
+        setDefaultCheckbox.setText(bundle.getString("SignatureInstallDialog.setDefaultCheckbox.text")); // NOI18N
+
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        jPanel1Layout.setHorizontalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
                     .addComponent(browseButton, Alignment.TRAILING)
@@ -160,8 +157,7 @@ public class SignatureInstallDialog extends JDialog {
                             .addComponent(fileNameTextBox, GroupLayout.DEFAULT_SIZE, 460, Short.MAX_VALUE))))
                 .addContainerGap())
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(Alignment.LEADING)
+        jPanel1Layout.setVerticalGroup(jPanel1Layout.createParallelGroup(Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(Alignment.BASELINE)
@@ -174,14 +170,14 @@ public class SignatureInstallDialog extends JDialog {
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        cancelButton.setText(NbBundle.getMessage(SignatureInstallDialog.class, "SignatureInstallDialog.cancelButton.text")); // NOI18N
+        cancelButton.setText(bundle.getString("SignatureInstallDialog.cancelButton.text")); // NOI18N
         cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
-        okButton.setText(NbBundle.getMessage(SignatureInstallDialog.class, "SignatureInstallDialog.okButton.text")); // NOI18N
+        okButton.setText(bundle.getString("SignatureInstallDialog.okButton.text")); // NOI18N
         okButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 okButtonActionPerformed(evt);
@@ -190,8 +186,7 @@ public class SignatureInstallDialog extends JDialog {
 
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(Alignment.LEADING)
@@ -205,8 +200,7 @@ public class SignatureInstallDialog extends JDialog {
 
         layout.linkSize(SwingConstants.HORIZONTAL, new Component[] {cancelButton, okButton});
 
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jPanel1, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
