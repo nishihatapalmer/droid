@@ -33,9 +33,10 @@ package uk.gov.nationalarchives.droid.gui;
 
 
 import org.junit.Assert;
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.jupiter.api.condition.EnabledOnOs;
+import org.junit.jupiter.api.condition.OS;
 import org.junit.rules.TemporaryFolder;
 import org.mockito.Mockito;
 import sun.awt.shell.ShellFolder;
@@ -45,16 +46,11 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import static org.mockito.Mockito.when;
-import static org.openide.util.BaseUtilities.isWindows;
 
+@EnabledOnOs(OS.WINDOWS)
 public class FileSystemSelectionValidatorTest {
     @Rule
     public TemporaryFolder temporaryFolder = new TemporaryFolder();
-
-    @Before
-    public void windowsOnly() {
-        org.junit.Assume.assumeTrue(isWindows());
-    }
 
     @Test
     public void shouldReturnTrueForAFileFromFileSystemAndReturnEmptyErrorMessage() throws IOException {
