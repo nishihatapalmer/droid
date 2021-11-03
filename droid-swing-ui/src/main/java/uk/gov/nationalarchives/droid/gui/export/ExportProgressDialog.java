@@ -35,6 +35,7 @@ package uk.gov.nationalarchives.droid.gui.export;
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ResourceBundle;
 
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
@@ -44,8 +45,6 @@ import javax.swing.JProgressBar;
 import javax.swing.WindowConstants;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-
-import org.openide.util.NbBundle;
 
 /**
  *
@@ -85,11 +84,12 @@ public class ExportProgressDialog extends JDialog {
         jLabel1 = new JLabel();
 
         setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        setTitle(NbBundle.getMessage(ExportProgressDialog.class, "ExportDialog.title")); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/export/Bundle"); // NOI18N
+        setTitle(bundle.getString("ExportDialog.title")); // NOI18N
         setModal(true);
         setResizable(false);
 
-        cancelButton.setText(NbBundle.getMessage(ExportProgressDialog.class, "ExportDialog.cancelButton.text")); // NOI18N
+        cancelButton.setText(bundle.getString("ExportDialog.cancelButton.text")); // NOI18N
         cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
@@ -98,12 +98,11 @@ public class ExportProgressDialog extends JDialog {
 
         exportProgressBar.setIndeterminate(true);
 
+        jLabel1.setText(bundle.getString("ExportDialog.jLabel1.text")); // NOI18N
 
-        jLabel1.setText(NbBundle.getMessage(ExportProgressDialog.class, "ExportDialog.jLabel1.text")); // NOI18N
         GroupLayout layout = new GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setHorizontalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
@@ -117,8 +116,7 @@ public class ExportProgressDialog extends JDialog {
                         .addComponent(jLabel1)))
                 .addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(Alignment.LEADING)
+        layout.setVerticalGroup(layout.createParallelGroup(Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(26, 26, 26)
                 .addComponent(jLabel1)
