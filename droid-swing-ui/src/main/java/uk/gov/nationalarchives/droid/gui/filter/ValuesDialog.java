@@ -184,16 +184,17 @@ public class ValuesDialog extends JDialog {
         });
         jScrollPane2.setViewportView(jListSelectedValues);
 
-        jLabel1.setText(org.openide.util.NbBundle.getMessage(ValuesDialog.class, "ValuesDialog.jLabel1.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/filter/Bundle"); // NOI18N
+        jLabel1.setText(bundle.getString("ValuesDialog.jLabel1.text")); // NOI18N
 
-        jButtonCancel.setText(org.openide.util.NbBundle.getMessage(ValuesDialog.class, "ValuesDialog.jButtonCancel.text")); // NOI18N
+        jButtonCancel.setText(bundle.getString("ValuesDialog.jButtonCancel.text")); // NOI18N
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonCancelActionPerformed(evt);
             }
         });
 
-        jButtonOk.setText(org.openide.util.NbBundle.getMessage(ValuesDialog.class, "ValuesDialog.jButtonOk.text")); // NOI18N
+        jButtonOk.setText(bundle.getString("ValuesDialog.jButtonOk.text")); // NOI18N
         jButtonOk.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonOkActionPerformed(evt);
@@ -224,14 +225,14 @@ public class ValuesDialog extends JDialog {
 
         jPanel1Layout.linkSize(javax.swing.SwingConstants.VERTICAL, new java.awt.Component[] {jButtonCancel, jButtonOk});
 
-        jButtonSelect.setText(org.openide.util.NbBundle.getMessage(ValuesDialog.class, "ValuesDialog.jButtonSelect.text")); // NOI18N
+        jButtonSelect.setText(null);
         jButtonSelect.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonSelectActionPerformed(evt);
             }
         });
 
-        jButtonRemove.setText(org.openide.util.NbBundle.getMessage(ValuesDialog.class, "ValuesDialog.jButtonRemove.text")); // NOI18N
+        jButtonRemove.setText(bundle.getString("ValuesDialog.jButtonRemove.text")); // NOI18N
         jButtonRemove.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jButtonRemoveActionPerformed(evt);
@@ -270,7 +271,7 @@ public class ValuesDialog extends JDialog {
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 132, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -283,7 +284,7 @@ public class ValuesDialog extends JDialog {
         jPanel4.setLayout(jPanel4Layout);
         jPanel4Layout.setHorizontalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 132, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -302,8 +303,8 @@ public class ValuesDialog extends JDialog {
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 240, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
+                            .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, 136, Short.MAX_VALUE)
                             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE))
@@ -324,8 +325,7 @@ public class ValuesDialog extends JDialog {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
+                        .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, 119, Short.MAX_VALUE)))
                 .addGap(27, 27, 27)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
