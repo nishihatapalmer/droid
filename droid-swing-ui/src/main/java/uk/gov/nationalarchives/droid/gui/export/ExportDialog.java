@@ -39,6 +39,7 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.ResourceBundle;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ComboBoxModel;
@@ -59,8 +60,6 @@ import javax.swing.JComboBox;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableCellRenderer;
-
-import org.openide.util.NbBundle;
 
 import uk.gov.nationalarchives.droid.export.interfaces.ExportOptions;
 import uk.gov.nationalarchives.droid.gui.DroidMainFrame;
@@ -222,11 +221,12 @@ public class ExportDialog extends JDialog {
         cmdEncoding = new JComboBox();
         jLabel1 = new JLabel();
 
-        setTitle(NbBundle.getMessage(ExportDialog.class, "ExportDialog.title_1")); // NOI18N
+        ResourceBundle bundle = ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/export/Bundle"); // NOI18N
+        setTitle(bundle.getString("ExportDialog.title_1")); // NOI18N
         setAlwaysOnTop(true);
         setName("exportDialog"); // NOI18N
 
-        profileSelectLabel.setText(NbBundle.getMessage(ExportDialog.class, "ExportDialog.profileSelectLabel.text_1")); // NOI18N
+        profileSelectLabel.setText(bundle.getString("ExportDialog.profileSelectLabel.text")); // NOI18N
 
         jScrollPane1.setPreferredSize(new Dimension(300, 402));
 
@@ -245,7 +245,7 @@ public class ExportDialog extends JDialog {
         profileSelectTable.setTableHeader(null);
         jScrollPane1.setViewportView(profileSelectTable);
 
-        cancelButton.setText(NbBundle.getMessage(ExportDialog.class, "ExportDialog.cancelButton.text")); // NOI18N
+        cancelButton.setText(bundle.getString("ExportDialog.cancelButton.text")); // NOI18N
         cancelButton.setVerticalAlignment(SwingConstants.BOTTOM);
         cancelButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
@@ -253,7 +253,8 @@ public class ExportDialog extends JDialog {
             }
         });
 
-        exportButton.setText(NbBundle.getMessage(ExportDialog.class, "ExportDialog.generateButton.text")); // NOI18N
+        exportButton.setText(ResourceBundle.getBundle(ExportDialog.class, "ExportDialog.generateButton.text")); // NOI18N
+        exportButton.setToolTipText(bundle.getString("ExportDialog.exportButton.toolTipText")); // NOI18N
         exportButton.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 exportButtonActionPerformed(evt);
@@ -262,16 +263,17 @@ public class ExportDialog extends JDialog {
 
         buttonGroup1.add(RadioOneRowPerFile);
         RadioOneRowPerFile.setSelected(true);
-        RadioOneRowPerFile.setText(NbBundle.getMessage(ExportDialog.class, "ExportDialog.RadioOneRowPerFile.text")); // NOI18N
-        RadioOneRowPerFile.setToolTipText(NbBundle.getMessage(ExportDialog.class, "ExportDialog.RadioOneRowPerFile.toolTipText")); // NOI18N
+        RadioOneRowPerFile.setText(bundle.getString("ExportDialog.RadioOneRowPerFile.text")); // NOI18N
+        RadioOneRowPerFile.setToolTipText(bundle.getString("ExportDialog.RadioOneRowPerFile.toolTipText")); // NOI18N
 
         buttonGroup1.add(RadioOneRowPerIdentification);
-        RadioOneRowPerIdentification.setText(NbBundle.getMessage(ExportDialog.class, "ExportDialog.RadioOneRowPerIdentification.text")); // NOI18N
-        RadioOneRowPerIdentification.setToolTipText(NbBundle.getMessage(ExportDialog.class, "ExportDialog.RadioOneRowPerIdentification.toolTipText")); // NOI18N
+        RadioOneRowPerIdentification.setText(bundle.getString("ExportDialog.RadioOneRowPerIdentification.text")); // NOI18N
+        RadioOneRowPerIdentification.setToolTipText(bundle.getString("ExportDialog.RadioOneRowPerIdentification.toolTipText")); // NOI18N
 
         cmdEncoding.setModel(getOutputEncodings());
+        cmdEncoding.setEditor(null);
 
-        jLabel1.setText(NbBundle.getMessage(ExportDialog.class, "ExportDialog.jLabel1.text_1")); // NOI18N
+        jLabel1.setText(bundle.getString("ExportDialog.jLabel1.text_1")); // NOI18N
 
         GroupLayout jPanel1Layout = new GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
