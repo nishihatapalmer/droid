@@ -65,14 +65,15 @@ public class ResourceChooserButtonPanel extends javax.swing.JPanel {
         openButton = new javax.swing.JButton();
         subFolders = new javax.swing.JCheckBox();
 
-        cancelButton.setText(org.openide.util.NbBundle.getMessage(ResourceChooserButtonPanel.class, "ResourceChooserButtonPanel.cancelButton.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/filechooser/Bundle"); // NOI18N
+        cancelButton.setText(bundle.getString("ResourceChooserButtonPanel.cancelButton.text")); // NOI18N
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
             }
         });
 
-        openButton.setText(org.openide.util.NbBundle.getMessage(ResourceChooserButtonPanel.class, "ResourceChooserButtonPanel.openButton.text")); // NOI18N
+        openButton.setText(bundle.getString("ResourceChooserButtonPanel.openButton.text")); // NOI18N
         openButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 openButtonActionPerformed(evt);
@@ -80,7 +81,7 @@ public class ResourceChooserButtonPanel extends javax.swing.JPanel {
         });
 
         subFolders.setSelected(true);
-        subFolders.setText(org.openide.util.NbBundle.getMessage(ResourceChooserButtonPanel.class, "ResourceChooserButtonPanel.subFolders.text")); // NOI18N
+        subFolders.setText(bundle.getString("ResourceChooserButtonPanel.subFolders.text")); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
