@@ -93,11 +93,10 @@ public class TextBoxAndButton extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        jtextValues.setText(org.openide.util.NbBundle.getMessage(TextBoxAndButton.class, "TextBoxAndButton.jtextValues.text")); // NOI18N
         jtextValues.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-        jtextValues.setMargin(new java.awt.Insets(0, 0, 0, 0));
 
-        jButtonShowValues.setText(org.openide.util.NbBundle.getMessage(TextBoxAndButton.class, "TextBoxAndButton.jButtonShowValues.text")); // NOI18N
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/filter/Bundle"); // NOI18N
+        jButtonShowValues.setText(bundle.getString("TextBoxAndButton.jButtonShowValues.text")); // NOI18N
         jButtonShowValues.setIconTextGap(0);
         jButtonShowValues.setInheritsPopupMenu(true);
         jButtonShowValues.setPreferredSize(new java.awt.Dimension(259, 32));
