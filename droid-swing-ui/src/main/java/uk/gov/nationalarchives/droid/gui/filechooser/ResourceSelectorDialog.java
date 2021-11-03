@@ -32,15 +32,15 @@
 package uk.gov.nationalarchives.droid.gui.filechooser;
 
 import java.awt.Component;
-import java.awt.Dimension;
 import java.awt.Window;
 import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import java.io.File;
+
 import java.text.DateFormat;
 import java.util.ArrayList;
 import java.util.Comparator;
@@ -48,23 +48,11 @@ import java.util.Date;
 import java.util.Enumeration;
 import java.util.List;
 
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JFileChooser;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JSplitPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.JTree;
 import javax.swing.SwingConstants;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.BevelBorder;
-import javax.swing.border.SoftBevelBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.event.TreeSelectionEvent;
@@ -82,8 +70,6 @@ import javax.swing.tree.DefaultTreeModel;
 import javax.swing.tree.TreeNode;
 import javax.swing.tree.TreePath;
 import javax.swing.tree.TreeSelectionModel;
-
-import org.openide.util.NbBundle;
 
 import uk.gov.nationalarchives.droid.util.FileUtil;
 
@@ -344,19 +330,14 @@ public class ResourceSelectorDialog extends JDialog {
         final TableColumn fileColumn = columnModel.getColumn(FILE_COLUMN_INDEX);
         
         fileColumn.setPreferredWidth(WIDE_COLUMN);
-        fileColumn.setHeaderValue(
-                NbBundle.getMessage(
-                        ResourceSelectorDialog.class, "ResourceSelector.table.columnModel.title0")); // NOI18N
-        
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/filechooser/Bundle");
+        fileColumn.setHeaderValue(bundle.getString("ResourceSelector.table.columnModel.title0"));
+               
         columnModel.getColumn(SIZE_COLUMN_INDEX).setPreferredWidth(NARROW_COLUMN);
-        columnModel.getColumn(SIZE_COLUMN_INDEX).setHeaderValue(
-                NbBundle.getMessage(
-                        ResourceSelectorDialog.class, "ResourceSelector.table.columnModel.title1")); // NOI18N
+        columnModel.getColumn(SIZE_COLUMN_INDEX).setHeaderValue(bundle.getString("ResourceSelector.table.columnModel.title1"));
         
         columnModel.getColumn(DATE_COLUMN_INDEX).setPreferredWidth(WIDE_COLUMN);
-        columnModel.getColumn(DATE_COLUMN_INDEX).setHeaderValue(
-                NbBundle.getMessage(ResourceSelectorDialog.class, 
-                        "ResourceSelector.table.columnModel.title3")); // NOI18N
+        columnModel.getColumn(DATE_COLUMN_INDEX).setHeaderValue(bundle.getString("ResourceSelector.table.columnModel.title3"));
     }
     
     private class FileTreeCellRenderer extends DefaultTreeCellRenderer {
@@ -454,7 +435,8 @@ public class ResourceSelectorDialog extends JDialog {
         okButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
 
-        setTitle("Select resources");
+        java.util.ResourceBundle bundle = java.util.ResourceBundle.getBundle("uk/gov/nationalarchives/droid/gui/filechooser/Bundle"); // NOI18N
+        setTitle(bundle.getString("ResourceSelectorDialog.title")); // NOI18N
 
         jSplitPane1.setDividerLocation(200);
 
@@ -469,7 +451,7 @@ public class ResourceSelectorDialog extends JDialog {
 
         jPanel3.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
-        jLabel1.setText(org.openide.util.NbBundle.getMessage(ResourceSelectorDialog.class, "ResourceSelector.jLabel1.text")); // NOI18N
+        jLabel1.setText(bundle.getString("ResourceSelector.jLabel1.text")); // NOI18N
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -524,21 +506,21 @@ public class ResourceSelectorDialog extends JDialog {
         );
 
         selectedFilesTextBox.setEditable(false);
-        selectedFilesTextBox.setText(org.openide.util.NbBundle.getMessage(ResourceSelectorDialog.class, "ResourceSelector.jTextField1.text")); // NOI18N
+        selectedFilesTextBox.setText(bundle.getString("ResourceSelector.jTextField1.text")); // NOI18N
 
         subfoldersCheckBox.setSelected(true);
-        subfoldersCheckBox.setText(org.openide.util.NbBundle.getMessage(ResourceSelectorDialog.class, "ResourceSelector.jCheckBox1.text")); // NOI18N
+        subfoldersCheckBox.setText(bundle.getString("ResourceSelector.jCheckBox1.text")); // NOI18N
 
-        jLabel2.setText(org.openide.util.NbBundle.getMessage(ResourceSelectorDialog.class, "ResourceSelector.jLabel2.text")); // NOI18N
+        jLabel2.setText(bundle.getString("ResourceSelector.jLabel2.text")); // NOI18N
 
-        okButton.setText(org.openide.util.NbBundle.getMessage(ResourceSelectorDialog.class, "ResourceSelector.okButton.text")); // NOI18N
+        okButton.setText(bundle.getString("ResourceSelector.okButton.text")); // NOI18N
         okButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 okButtonActionPerformed(evt);
             }
         });
 
-        cancelButton.setText(org.openide.util.NbBundle.getMessage(ResourceSelectorDialog.class, "ResourceSelector.cancelButton.text")); // NOI18N
+        cancelButton.setText(bundle.getString("ResourceSelector.cancelButton.text")); // NOI18N
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cancelButtonActionPerformed(evt);
