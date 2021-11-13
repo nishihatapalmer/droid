@@ -41,7 +41,7 @@ import javax.swing.JTable;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.TreeNode;
 
-import net.byteseek.swing.treetable.TreeTableCellRenderer;
+import net.byteseek.swing.treetable.TreeCellRenderer;
 import net.byteseek.swing.treetable.TreeTableModel;
 import uk.gov.nationalarchives.droid.core.interfaces.NodeStatus;
 import uk.gov.nationalarchives.droid.core.interfaces.ResourceType;
@@ -60,7 +60,7 @@ import uk.gov.nationalarchives.droid.profile.ProfileResourceNode;
  * @author a-mpalmer
  *
  */
-public class TreeRenderer extends TreeTableCellRenderer {
+public class TreeRenderer extends TreeCellRenderer {
 
     private static final long serialVersionUID = -574370296768932560L;
 
